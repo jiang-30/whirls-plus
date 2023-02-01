@@ -1,0 +1,1601 @@
+{
+    "status": "1",
+    "info": "OK",
+    "infocode": "10000",
+    "count": "1",
+    "suggestion": {
+        "keywords": [],
+        "cities": []
+    },
+    "districts": [
+        {
+            "citycode": "0476",
+            "adcode": "150400",
+            "name": "赤峰市",
+            "center": "118.887613,42.256876",
+            "level": "city",
+            "districts": [
+                {
+                    "citycode": "0476",
+                    "adcode": "150421",
+                    "name": "阿鲁科尔沁旗",
+                    "center": "120.065533,43.872398",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "赛罕塔拉苏木",
+                            "center": "120.301435,44.495567",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "先锋乡",
+                            "center": "119.653882,44.045019",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "巴彦温都尔苏木",
+                            "center": "119.100409,44.926896",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "巴拉奇如德苏木",
+                            "center": "119.955094,43.753188",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "绍根镇",
+                            "center": "120.552963,43.879371",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "乌兰哈达乡",
+                            "center": "119.828580,44.070883",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "坤都镇",
+                            "center": "119.536237,44.366617",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "扎嘎斯台镇",
+                            "center": "120.136134,43.978990",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "罕苏木苏木",
+                            "center": "119.750583,44.550177",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "巴彦花镇",
+                            "center": "120.111228,44.104671",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "天山口镇",
+                            "center": "120.231770,43.940154",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "新能源产业园",
+                            "center": "120.039566,43.874242",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "绍根煤碳及煤化工产业园",
+                            "center": "120.238950,43.840121",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "天山街道",
+                            "center": "120.107694,43.884677",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "轻工食品产业园",
+                            "center": "120.241976,43.877077",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "双胜镇",
+                            "center": "119.748282,43.766724",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "新民乡",
+                            "center": "120.081997,44.120626",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150421",
+                            "name": "天山镇",
+                            "center": "120.063563,43.889542",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150423",
+                    "name": "巴林右旗",
+                    "center": "118.664235,43.534171",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150423",
+                            "name": "巴彦琥硕镇",
+                            "center": "118.676746,44.004933",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150423",
+                            "name": "大板煤电化基地",
+                            "center": "118.754182,43.619662",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150423",
+                            "name": "西拉沐沦苏木",
+                            "center": "120.020950,43.539083",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150423",
+                            "name": "宝日勿苏镇",
+                            "center": "119.407674,43.695354",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150423",
+                            "name": "查干诺尔镇",
+                            "center": "119.224986,43.696913",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150423",
+                            "name": "巴彦塔拉苏木",
+                            "center": "118.902251,43.744123",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150423",
+                            "name": "索博日嘎镇",
+                            "center": "118.792760,44.416380",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150423",
+                            "name": "查干沐沦苏木",
+                            "center": "118.286916,43.802413",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150423",
+                            "name": "幸福之路苏木",
+                            "center": "118.830105,43.733719",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150423",
+                            "name": "大板镇",
+                            "center": "118.543168,43.650235",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150424",
+                    "name": "林西县",
+                    "center": "118.05545,43.61812",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "林西镇",
+                            "center": "118.029928,43.604653",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "统部镇",
+                            "center": "117.799296,44.010742",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "内蒙古林西工业园区",
+                            "center": "118.097547,43.546127",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "城北街道筹备处",
+                            "center": "118.075111,43.662434",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "大营子乡",
+                            "center": "118.123486,43.740731",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "城南街道筹备处",
+                            "center": "118.046200,43.595925",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "五十家子镇",
+                            "center": "118.176806,44.206714",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "新林镇",
+                            "center": "117.892615,44.107952",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "大井镇",
+                            "center": "118.161534,43.728850",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "官地镇",
+                            "center": "118.008488,43.839526",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "新城子镇",
+                            "center": "118.198241,43.417094",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150424",
+                            "name": "十二吐乡",
+                            "center": "118.030013,43.542507",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150422",
+                    "name": "巴林左旗",
+                    "center": "119.362832,43.961547",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "富河镇",
+                            "center": "119.147608,44.731293",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "林东西城街道",
+                            "center": "119.369629,43.970305",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "林东东城街道",
+                            "center": "119.369455,43.990100",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "乌兰达坝苏木",
+                            "center": "119.244719,44.613991",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "碧流台镇",
+                            "center": "119.418283,44.302103",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "花加拉嘎乡",
+                            "center": "119.540684,44.308507",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "查干哈达苏木",
+                            "center": "119.261343,43.895940",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "隆昌镇",
+                            "center": "119.370873,43.815922",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "十三敖包镇",
+                            "center": "119.419417,44.305830",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "三山乡",
+                            "center": "119.357358,44.549975",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "林东镇",
+                            "center": "119.308683,44.041974",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "白音勿拉镇",
+                            "center": "118.852875,44.505254",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150422",
+                            "name": "哈拉哈达镇",
+                            "center": "119.094296,44.032435",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150430",
+                    "name": "敖汉旗",
+                    "center": "119.921413,42.290731",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "敖润苏莫苏木",
+                            "center": "120.234282,42.953524",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "林家地乡",
+                            "center": "120.057451,42.081574",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "敖汉旗新惠工业园区",
+                            "center": "119.910484,42.309274",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "牛古吐镇",
+                            "center": "120.349360,42.570602",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "丰收乡",
+                            "center": "120.206860,42.369873",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "玛尼罕乡",
+                            "center": "120.042241,42.577605",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "古鲁板蒿镇",
+                            "center": "119.704925,42.759805",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "木头营子乡",
+                            "center": "120.453593,42.597792",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "金厂沟梁镇",
+                            "center": "120.035690,42.018723",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "下洼镇",
+                            "center": "120.554363,42.596892",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "国营种羊场",
+                            "center": "120.230809,42.911960",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "萨力巴乡",
+                            "center": "119.601561,42.502122",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "长胜镇",
+                            "center": "120.236893,42.884965",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "新惠镇",
+                            "center": "120.066584,42.262122",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "四道湾子镇",
+                            "center": "119.677414,42.432313",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "四家子镇",
+                            "center": "120.083765,41.870612",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "贝子府镇",
+                            "center": "120.163679,42.116136",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "兴隆洼镇",
+                            "center": "120.473025,42.371860",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150430",
+                            "name": "黄羊洼镇",
+                            "center": "120.163348,42.775901",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150403",
+                    "name": "元宝山区",
+                    "center": "119.288475,42.039602",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "平庄城区街道",
+                            "center": "119.278745,42.043241",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "云杉路街道",
+                            "center": "119.328592,42.324867",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "赤峰市资源型经济转型开发试验区",
+                            "center": "119.256595,42.251100",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "五家镇",
+                            "center": "119.217958,41.947603",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "小五家乡",
+                            "center": "119.170643,42.101098",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "平庄西城街道",
+                            "center": "119.251560,42.036303",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "西露天街道",
+                            "center": "119.245417,42.019134",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "马林街道",
+                            "center": "119.175889,42.281879",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "平庄东城街道",
+                            "center": "119.314087,42.068522",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "美丽河镇",
+                            "center": "119.218800,42.213595",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "平庄镇",
+                            "center": "119.242176,42.015289",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "元宝山镇",
+                            "center": "119.256595,42.251100",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150403",
+                            "name": "风水沟镇",
+                            "center": "119.393673,42.423435",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150402",
+                    "name": "红山区",
+                    "center": "118.953989,42.296317",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "西屯街道",
+                            "center": "118.944446,42.273996",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "长青街道",
+                            "center": "118.964795,42.271131",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "红山区农畜产品加工产业园区",
+                            "center": "118.916511,42.201358",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "三中街街道",
+                            "center": "118.956259,42.282793",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "南新街街道",
+                            "center": "118.964795,42.271131",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "铁南街道",
+                            "center": "118.962803,42.258335",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "桥北街道",
+                            "center": "118.937632,42.311442",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "永巨街道",
+                            "center": "118.963051,42.282793",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "站前街道",
+                            "center": "118.923046,42.240240",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "红山工业园区",
+                            "center": "119.011162,42.283071",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "东城街道",
+                            "center": "118.995206,42.290437",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "哈达街道",
+                            "center": "118.942881,42.267810",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "红庙子镇",
+                            "center": "119.101879,42.314428",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "西城街道",
+                            "center": "118.948280,42.253213",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "红山物流园区",
+                            "center": "118.938757,42.326257",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150402",
+                            "name": "文钟镇",
+                            "center": "118.933861,42.238394",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150429",
+                    "name": "宁城县",
+                    "center": "119.320056,41.600193",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "黑里河镇",
+                            "center": "118.350750,41.395813",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "三座店镇",
+                            "center": "118.969005,41.681692",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "必斯营子镇",
+                            "center": "119.089423,41.434066",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "小城子镇",
+                            "center": "119.004448,41.882468",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "大双庙镇",
+                            "center": "118.938797,41.531562",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "天义镇",
+                            "center": "119.285986,41.624224",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "忙农镇",
+                            "center": "119.151115,41.543079",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "八里罕镇",
+                            "center": "118.487948,41.588974",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "一肯中乡",
+                            "center": "119.058687,41.687227",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "大城子镇",
+                            "center": "118.844833,41.752739",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "存金沟乡",
+                            "center": "118.718252,41.626494",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "汐子镇",
+                            "center": "119.073184,41.781865",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "大明镇",
+                            "center": "119.152210,41.705739",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "五化镇",
+                            "center": "119.123745,41.380996",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150429",
+                            "name": "右北平镇",
+                            "center": "118.828366,41.473789",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150428",
+                    "name": "喀喇沁旗",
+                    "center": "118.701934,41.927103",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "锦山镇",
+                            "center": "118.775358,42.077339",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "十家满族乡",
+                            "center": "119.072308,42.045241",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "西桥镇",
+                            "center": "119.192126,41.933944",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "马鞍山羊场",
+                            "center": "118.836836,41.858685",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "小牛群镇",
+                            "center": "118.523565,42.006415",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "乃林果树农场",
+                            "center": "119.272910,41.914017",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "牛家营子镇",
+                            "center": "118.869400,42.117450",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "锦山工业园区",
+                            "center": "118.774643,41.916903",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "美林镇",
+                            "center": "118.412736,41.771357",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "赤峰市和美工贸园区",
+                            "center": "118.887480,42.233685",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "南台子乡",
+                            "center": "118.539391,42.069457",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "乃林镇",
+                            "center": "119.329197,41.860701",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150428",
+                            "name": "王爷府镇",
+                            "center": "118.445942,41.749101",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150404",
+                    "name": "松山区",
+                    "center": "118.916156,42.299795",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "兴安街道",
+                            "center": "118.903235,42.272131",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "大庙镇",
+                            "center": "118.300800,42.458258",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "松州街道",
+                            "center": "118.922033,42.276508",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "王府镇",
+                            "center": "118.472997,42.279243",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "向阳街道",
+                            "center": "118.939203,42.292694",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "振兴街道",
+                            "center": "118.926080,42.292133",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "玉龙街道",
+                            "center": "118.861149,42.275847",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "哈拉道口镇",
+                            "center": "119.309551,42.664921",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "全宁街道",
+                            "center": "118.885721,42.240405",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "铁东街道",
+                            "center": "118.906888,42.290119",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "太平地镇",
+                            "center": "119.328720,42.517840",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "大夫营子乡",
+                            "center": "118.282805,42.522069",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "岗子乡",
+                            "center": "118.216319,42.657016",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "老府镇",
+                            "center": "118.127982,42.051182",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "初头朗镇",
+                            "center": "118.543356,42.477156",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "穆家营子镇",
+                            "center": "118.944280,42.283801",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "城子乡",
+                            "center": "118.731708,42.197530",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "安庆镇",
+                            "center": "119.213548,42.558413",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "夏家店乡",
+                            "center": "119.151933,42.485065",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "当铺地满族乡",
+                            "center": "118.853749,42.533548",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150404",
+                            "name": "上官地镇",
+                            "center": "118.504394,42.582342",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150426",
+                    "name": "翁牛特旗",
+                    "center": "119.006187,42.936529",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "亿合公镇",
+                            "center": "118.214663,42.838285",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "五分地镇",
+                            "center": "118.446990,43.136867",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "紫城街道筹备处",
+                            "center": "119.130612,42.938335",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "乌敦套海镇",
+                            "center": "119.823181,42.844654",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "新苏莫苏木",
+                            "center": "120.761917,43.405964",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "广德公镇",
+                            "center": "118.559489,42.929975",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "格日僧苏木",
+                            "center": "119.674376,43.274769",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "全宁街道筹备处",
+                            "center": "118.941386,42.870599",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "海拉苏镇",
+                            "center": "119.368445,43.265497",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "玉龙工业园区",
+                            "center": "119.075699,42.957730",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "阿什罕苏木",
+                            "center": "119.507832,43.021657",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "梧桐花镇",
+                            "center": "119.412644,42.831073",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "白音套海苏木",
+                            "center": "120.526629,43.216571",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "解放营子乡",
+                            "center": "119.044173,42.651695",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "毛山东乡",
+                            "center": "118.335653,43.199355",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "桥头镇",
+                            "center": "118.835941,42.779713",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150426",
+                            "name": "乌丹镇",
+                            "center": "118.842575,43.018673",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                },
+                {
+                    "citycode": "0476",
+                    "adcode": "150425",
+                    "name": "克什克腾旗",
+                    "center": "117.545413,43.265057",
+                    "level": "district",
+                    "districts": [
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "红山子乡",
+                            "center": "117.554641,43.110801",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "土城子镇",
+                            "center": "118.367467,43.132090",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "同兴镇",
+                            "center": "117.523005,43.912519",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "芝瑞镇",
+                            "center": "117.701302,43.174955",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "达日罕乌拉苏木",
+                            "center": "116.643850,43.414803",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "浩来呼热苏木",
+                            "center": "117.256313,43.030458",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "克什克腾旗渔场",
+                            "center": "116.658785,43.411062",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "新开地乡",
+                            "center": "118.151300,42.820802",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "克旗经棚街道筹备处",
+                            "center": "117.569895,43.265392",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "达来诺日镇",
+                            "center": "117.284648,43.594829",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "巴彦查干苏木",
+                            "center": "117.630208,43.990924",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "乌兰布统苏木",
+                            "center": "117.194231,42.467979",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "克什克腾旗煤电化基地",
+                            "center": "116.887947,43.030230",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "热水塘温泉疗养旅游开发区",
+                            "center": "117.719576,43.467286",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "经棚镇",
+                            "center": "117.665635,43.283651",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "宇宙地镇",
+                            "center": "117.647422,43.391416",
+                            "level": "street",
+                            "districts": []
+                        },
+                        {
+                            "citycode": "0476",
+                            "adcode": "150425",
+                            "name": "万合永镇",
+                            "center": "117.888729,43.431182",
+                            "level": "street",
+                            "districts": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

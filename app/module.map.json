@@ -1,0 +1,5 @@
+{
+  "lint": [".eslintrc", ".stylelintrc"],
+  "admin": ["src/views/admin/", "src/api/admin/"],
+  "case": ["src/views/case/"]
+}

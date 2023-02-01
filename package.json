@@ -1,0 +1,40 @@
+{
+  "name": "whirls-plus",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "main": "",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "dev": "vite",
+    "dev:docs": "vitepress dev docs",
+    "dev:app": "pnpm --filter @whirls/app dev",
+    "build:docs": "vitepress build docs",
+    "build:app": "node app.build.js & pnpm --filter @whirls/app build",
+    "build:cli": "pnpm --filter @whirls/cli build",
+    "build:components": "pnpm --filter @whirls/components build",
+    "build:utils": "pnpm --filter @whirls/utils build"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.0",
+    "@types/fs-extra": "^11.0.1",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "only-allow": "^1.1.1",
+    "prettier": "^2.7.1",
+    "typescript": "~4.9.4",
+    "vite": "^4.0.4",
+    "vite-plugin-dts": "^1.7.1",
+    "vitepress": "1.0.0-alpha.35"
+  },
+  "dependencies": {
+    "@whirls/components": "workspace:^0.0.1",
+    "@whirls/utils": "workspace:^0.0.1",
+    "element-plus": "^2.2.28",
+    "fs-extra": "^11.1.0",
+    "vue": "^3.2.45"
+  }
+}

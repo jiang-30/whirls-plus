@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="<%- lang %>">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="<%- description %>" />
+    <meta name="keyworks" content="<%- keyworks %>" />
+    <title><%- title %></title>
+    <style>
+      .app-placeholder-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #fff;
+      }
+
+      .app-placeholder-loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #0fd6ff;
+        font-size: 16px;
+        line-height: 3;
+      }
+
+      .app-placeholder-loading-title {
+        margin-top: 15px;
+      }
+
+      .app-placeholder-loading-description {
+        color: #ccc;
+      }
+
+      .app-placeholder-loading-spinner {
+        width: 48px;
+        height: 48px;
+        display: inline-block;
+        box-sizing: border-box;
+        position: relative;
+        animation: app-placeholder-loading-spinner-animate 1s linear infinite;
+      }
+
+      .app-placeholder-loading-spinner {
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        box-sizing: border-box;
+        border-radius: 50%;
+        background: #409eff;
+        margin: 12px;
+        animation: app-placeholder-loading-spinner-animate 1s ease-out infinite;
+      }
+
+      .app-placeholder-loading-spinner:before {
+        border-radius: 50%;
+        content: " ";
+        width: 48px;
+        height: 48px;
+        display: inline-block;
+        box-sizing: border-box;
+        border-top: solid 2px transparent;
+        border-right: solid 2px #409eff;
+        border-bottom: solid 2px transparent;
+        border-left: solid 2px transparent;
+        position: absolute;
+        top: -18px;
+        left: -18px;
+      }
+
+      .app-placeholder-loading-spinner:after {
+        border-radius: 50%;
+        content: " ";
+        width: 48px;
+        height: 48px;
+        display: inline-block;
+        box-sizing: border-box;
+        border-top: solid 2px transparent;
+        border-right: solid 2px transparent;
+        border-bottom: solid 2px transparent;
+        border-left: solid 2px #409eff;
+        position: absolute;
+        top: -18px;
+        right: -18px;
+      }
+
+      @keyframes app-placeholder-loading-spinner-animate {
+        0% {
+          transform: rotate(0);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .app-placeholder-hint {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 14px;
+        line-height: 30px;
+        color: #ccc;
+      }
+
+      .app-placeholder-hint-browser {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        color: #aaa;
+      }
+
+      .app-placeholder-hint-browser-title {
+        margin-right: 15px;
+      }
+
+      .app-placeholder-hint-browser-item {
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+      }
+
+      .app-placeholder-hint-browser-item__icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+      }
+
+      .app-placeholder-hint-browser-item__name {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="app-placeholder-wrapper">
+        <div class="app-placeholder-loading">
+          <div class="app-placeholder-loading-spinner"></div>
+        </div>
+        <div class="app-placeholder-hint">
+          <div class="app-placeholder-hint-browser">
+            <div>为了您的体验，推荐使用以下浏览器</div>
+            <a
+              class="app-placeholder-hint-browser-item"
+              href="https://www.microsoft.com/edge"
+              target="_blank"
+            >
+              <img
+                class="app-placeholder-hint-browser-item__icon"
+                src="/static/images/icons/edge.png"
+              />
+              <div class="app-placeholder-hint-browser-item__name">
+                Mircosoft Edge
+              </div>
+            </a>
+            <a
+              class="app-placeholder-hint-browser-item"
+              href="https://www.google.cn/chrome/"
+              target="_blank"
+            >
+              <img
+                class="app-placeholder-hint-browser-item__icon"
+                src="/static/images/icons/chrome.png"
+              />
+              <div class="app-placeholder-hint-browser-item__name">
+                Google Chrome
+              </div>
+            </a>
+          </div>
+          <!-- <div class="app-about">
+              Copyright © 2019 plug. All rights reserved
+            </div> -->
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

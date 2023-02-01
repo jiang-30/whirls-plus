@@ -1,0 +1,23 @@
+### Project
+node_modules/
+cache/
+dist/
+dist.*
+es/
+lib/
+packages/cli/template
+
+### System
+.DS_Store
+
+
+### Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

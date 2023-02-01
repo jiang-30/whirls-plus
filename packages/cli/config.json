@@ -1,0 +1,7 @@
+{
+    "name":"project name",
+    "mirror":"https://github.com/chalk/chalk/archive/refs/tags/v5.2.0.zip",
+    "currentName": "chalk-5.2.0",
+    "tag": "https://api.github.com/repos/chalk/chalk/releases/latest",
+    "tagName": "https://api.github.com/repos/chalk/chalk/releases/latest"
+}

@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 如果您正在编写大量 CSS 并将其组织到多个文件中，
+请确保在使用 Tailwind 处理它们之前将这些文件组合成一个样式表，
+否则您会看到在@layer没有相应@tailwind指令的情况下使用时出现错误。
+最简单的方法是使用postcss-import插件 */
+
+/* 基础样式 */
+@layer base {
+  /* 扩展字体 */
+
+  /* @font-face {
+    font-family: Proxima Nova;
+    font-weight: 400;
+    src: url(/fonts/proxima-nova/400-regular.woff) format("woff");
+  } */
+}
+
+/* 样式组件 */
+@layer components {
+  .btn-blue {
+    @apply py-2 px-4 bg-blue-500 text-white hover:bg-blue-700 
+    focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+  }
+
+  .custom {
+    /* @apply bg-; */
+  }
+
+  /* @variants responsive, hover {
+    .btn-blue {
+      @apply py-2 px-4 bg-blue-500 ...;
+    }
+  } */
+}
+
+/* 功能样式 */
+@layer utilities {
+  .bg-block {
+    background-color: var(--el-bg-color);
+  }
+
+  .bg-page {
+    background-color: var(--el-bg-color-page);
+  }
+
+  .bg-darker {
+    background-color: var(--el-fill-color-darker);
+  }
+
+  .bg-dark {
+    background-color: var(--el-fill-color-dark);
+  }
+
+  .bg-base {
+    background-color: var(--el-fill-color);
+  }
+
+  .bg-light {
+    background-color: var(--el-fill-color-light);
+  }
+
+  .bg-lighter {
+    background-color: var(--el-fill-color-lighter);
+  }
+
+  .bg-extra-light {
+    background-color: var(--el-fill-color-extra-light);
+  }
+
+  .bg-blank {
+    background-color: var(--el-fill-color-blank);
+  }
+
+  .text-dark {
+    color: var(--el-text-color-primary);
+  }
+
+  .text-base {
+    color: var(--el-text-color-regular);
+  }
+
+  .text-light {
+    color: var(--el-text-color-secondary);
+  }
+
+  .text-lighter {
+    color: var(--el-text-color-placeholder);
+  }
+
+  .text-extra-light {
+    color: var(--el-text-color-disabled);
+  }
+
+  .border-darker {
+    border-color: var(--el-border-color-darker);
+  }
+
+  .border-dark {
+    border-color: var(--el-border-color-dark);
+  }
+
+  .border-base {
+    border-color: var(--el-border-color);
+  }
+
+  .border-light {
+    border-color: var(--el-border-color-light);
+  }
+
+  .border-lighter {
+    border-color: var(--el-border-color-lighter);
+  }
+
+  .border-extra-light {
+    border-color: var(--el-border-color-extra-light);
+  }
+
+  .shadow-dark {
+    box-shadow: var(--el-box-shadow-dark);
+  }
+
+  .shadow-base {
+    box-shadow: var(--el-box-shadow);
+  }
+
+  .shadow-light {
+    box-shadow: var(--el-box-shadow-light);
+  }
+
+  .shadow-lighter {
+    box-shadow: var(--el-box-shadow-lighter);
+  }
+}
+
+/* 灰色模式 */
+.gray-model {
+  filter: grayscale(100%);
+}

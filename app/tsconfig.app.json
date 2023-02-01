@@ -1,0 +1,26 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": [
+    "src/env.d.ts",
+    "auto-components.d.ts",
+    "auto-import.d.ts",
+    "src/**/*.vue",
+    "src/**/*.ts"
+  ],
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "module": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": [
+      "string-template",
+      "nprogress",
+      "crypto-js",
+      "pinia-plugin-persist"
+    ]
+  }
+}
