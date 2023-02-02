@@ -8,6 +8,10 @@
   "author": "",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=7"
+  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "vite",
