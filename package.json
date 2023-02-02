@@ -21,7 +21,8 @@
     "build:app": "node app.build.js & pnpm --filter @whirls/app build",
     "build:cli": "pnpm --filter @whirls/cli build",
     "build:components": "pnpm --filter @whirls/components build",
-    "build:utils": "pnpm --filter @whirls/utils build"
+    "build:utils": "pnpm --filter @whirls/utils build",
+    "release": "changeset"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",

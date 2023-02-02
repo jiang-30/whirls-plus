@@ -1,18 +1,29 @@
 {
-  "name": "@whirls/cli",
-  "version": "0.0.1",
+  "name": "@jiang-30/cli",
+  "version": "0.0.2-alpha.0",
   "description": "",
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "jiang-30",
+  "license": "MIT",
   "type": "module",
   "bin": {
     "whirls": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "config.json",
+    "CHANGELOG.md",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js"
   },
   "dependencies": {
+    "axios": "^1.2.6",
     "chalk": "4.1.2",
     "commander": "^9.5.0",
     "download": "^8.0.0",
