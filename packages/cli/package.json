@@ -1,13 +1,16 @@
 {
   "name": "@jiang-30/cli",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.2",
   "description": "",
   "keywords": [],
-  "author": "jiang-30",
-  "license": "MIT",
   "type": "module",
   "bin": {
     "whirls": "./dist/index.js"
+  },
+  "author": "jiang-30 <514770300@qq.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
   },
   "files": [
     "dist",
@@ -16,9 +19,12 @@
     "README.md",
     "package.json"
   ],
-  "publishConfig": {
-    "access": "public"
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jiang-30/whirls-plus.git"
   },
+  "bugs": "https://github.com/jiang-30/whirls-plus/issues",
+  "homepage": "https://whirls.jiangbo.fun/cli/",
   "scripts": {
     "build": "rollup -c rollup.config.js"
   },

@@ -1,68 +1,12 @@
 import { computed, useAttrs } from "vue";
-import type { TableProps, TableFields } from "./table";
-
-interface ITableAttrs {
-  height?: string | number;
-  maxHeight?: string | number;
-  stripe?: boolean;
-  border?: boolean;
-  size?: "large" | "default" | "small";
-  fit?: boolean;
-  showHeader?: boolean;
-  highlightCurrentRow?: boolean;
-  // current-row-key?: string | number
-  // row-class-name?: function({ row, rowIndex }) / string
-  // row-style?: function({ row, rowIndex }) / object
-  // cell-class-name?: function({ row, column, rowIndex, columnIndex }) / string
-  // cell-style?: function({ row, column, rowIndex, columnIndex }) / object
-  // header-row-class-name?: function({ row, rowIndex }) / string
-  // header-row-style?: function({ row, rowIndex }) / object
-  // header-cell-class-name?: function({ row, column, rowIndex, columnIndex }) / string
-  // header-cell-style?: function({ row, column, rowIndex, columnIndex }) / object
-  rowKey?: string; //function(row) / string
-  emptyText?: string;
-  defaultExpandAll?: boolean;
-  // expand-row-keys: array
-  // default-sort: object
-  tooltipEffect?: "dark" | "light";
-  showSummary?: boolean;
-  sumText?: string;
-  // summaryMethod?: function({ columns, data })
-  // span-method
-  selectOnIndeterminate?: boolean;
-  indent?: number;
-  lazy?: boolean;
-  // load?: function(row, treeNode, resolve)
-  // tree-props
-  tableLayout?: "fixed" | "auto";
-  scrollbarAlwaysOn?: boolean;
-}
-
-interface ITableColumnAttrs {
-  type?: "selection" | "index" | "expand";
-  index?: number | ((index: number) => number);
-  columnKey?: string;
-  width?: string | number;
-  minWidth?: string | number;
-  fixed?: string | boolean;
-  // renderHeader?: () function({ column, $index })
-  sortable?: boolean | string;
-  // sortMethod?: function(a, b)
-  // sortBy?: function(row, index) / string / array
-  // sort-orders?: array
-  resizable?: boolean;
-  // formatter?: function(row, column, cellValue, index)
-  showOverflowTooltip?: boolean;
-  align?: string;
-  headerAlign?: string;
-  className?: string;
-  labelClassName?: string;
-  // filters?: array[{ text, value }]
-  // filter-placement
-  // filter-multiple
-  // filter-method
-  // filtered-value
-}
+import type {
+  ITableAttrs,
+  ITableColumnAttrs,
+  TableData,
+  TableProps,
+  TableFields,
+} from "./type";
+import type { TableProps as ElTableProps } from "element-plus";
 
 const tableAttrsKey: (keyof ITableAttrs)[] = [
   "height",
@@ -233,7 +177,9 @@ const pageKeys = [
   "hideOnSinglePage",
 ];
 
-export const useTableOption = (option: TableProps["option"]) => {
+export const useTableOption = (
+  option: Exclude<TableProps["option"], undefined>
+) => {
   const attrs = useAttrs();
   const _pageAttrs = computed(() => {
     return {
@@ -243,14 +189,40 @@ export const useTableOption = (option: TableProps["option"]) => {
     };
   });
 
-  const _tableAttrs = computed(() => {
-    return {
-      onRowClick: attrs.onRowClick,
-    };
+  // table props 和 event
+  const _tableAttrs = computed<Omit<ElTableProps<any>, "data">>(() => {
+    const attrs: any = {};
+    tableAttrsKey.forEach((key) => {
+      if (key in option) {
+        attrs[key] = option[key];
+      }
+    });
+    return attrs;
   });
 
+  // table column
   const _tableFields = computed(() => {
-    return option?.fields;
+    const tableFields: any[] = [];
+
+    option?.fields.forEach((item: any) => {
+      if (item.isTable !== false) {
+        const tableColumnAttrs: any = {};
+
+        tableColumnAttrsKey.forEach((key) => {
+          if (key in item) {
+            tableColumnAttrs[key] = item[key];
+          }
+        });
+
+        tableFields.push({
+          ...item,
+          __tableColumnAttrs: tableColumnAttrs,
+          // __dictData: handlerDict(item)
+        });
+      }
+    });
+
+    return tableFields;
   });
 
   const _tableColumnActionAttrs = computed(() => {

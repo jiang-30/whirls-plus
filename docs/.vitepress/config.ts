@@ -22,7 +22,7 @@ export default defineConfig({
       { text: "指南", link: "/guide/quickstart" },
       {
         text: "组件",
-        link: "/component/crud"
+        link: "/component/crud",
       },
       { text: "脚手架", link: "/cli/" },
       { text: "配置", link: "/config/" },
@@ -65,7 +65,8 @@ export default defineConfig({
           text: "进阶",
           items: [
             { text: "概览", link: "/advance/overview" },
-            { text: "路由及菜单", link: "/advance/router" },
+            { text: "页面及路由", link: "/advance/router" },
+            { text: "菜单", link: "/advance/menu" },
             { text: "状态管理", link: "/advance/store" },
             { text: "网络请求", link: "/advance/request" },
             { text: "权限", link: "/advance/authority" },
@@ -77,7 +78,7 @@ export default defineConfig({
         {
           text: "工程化",
           items: [
-            { text: "代码风格", link: "/advance/lint" },
+            { text: "规范", link: "/advance/lint" },
             { text: "部署", link: "/advance/deploy" },
             { text: "性能", link: "/advance/performance" },
             { text: "监控", link: "/advance/monitoring" },

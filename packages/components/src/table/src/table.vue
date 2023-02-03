@@ -32,7 +32,9 @@
       <el-table-column
         v-for="column in _tableFields"
         :key="column.prop"
-        v-bind="column"
+        :prop="column.prop"
+        :label="column.prop"
+        v-bind="column.__tableColumnAttrs"
       >
       </el-table-column>
 
@@ -61,7 +63,7 @@
 
 <script lang="ts" setup>
 import { useAttrs } from "vue";
-import { tableProps, tableEmits, type TableEmits } from "./table";
+import { tableProps, tableEmits } from "./table";
 import { useTableOption } from "./utils";
 
 // const attrs = useAttrs();
@@ -76,7 +78,7 @@ const emits = defineEmits(tableEmits);
 
 // 格式化数据
 const { _tableFields, _tableColumnActionAttrs, _tableAttrs, _pageAttrs } =
-  useTableOption(props.option);
+  useTableOption(props.option!);
 
 // 分页事件
 const onPageCurrentChange = (current: number) => {
