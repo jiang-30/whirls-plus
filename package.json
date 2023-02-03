@@ -19,7 +19,7 @@
     "dev:app": "pnpm --filter @whirls/app dev",
     "build:docs": "vitepress build docs",
     "build:app": "node app.build.js & pnpm --filter @whirls/app build",
-    "build:cli": "pnpm --filter @whirls/cli build",
+    "build:cli": "pnpm --filter @jiang-30/cli build",
     "build:components": "pnpm --filter @whirls/components build",
     "build:utils": "pnpm --filter @whirls/utils build",
     "release": "changeset"

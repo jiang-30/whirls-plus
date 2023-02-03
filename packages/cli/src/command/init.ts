@@ -14,13 +14,13 @@ export interface IOption {
 }
 
 export interface IConfig {
-  mirror: string;
-  currentName: string;
+  name: string
+  tagUrl: string
+  mirrorUrl: string
+  currentTag: string
 }
 
 export async function initHandler(projectPath: string, option: IOption) {
-  console.log("projectPath", projectPath);
-  console.log("option", option);
   try {
     // 1. 判断路径是否已存在
     const isExist = await pathExists(projectPath);
@@ -37,24 +37,26 @@ export async function initHandler(projectPath: string, option: IOption) {
     // 4. 加载动画
     const spinner = ora("loading...").start();
 
-    // 5. 配置文件
-    const config: IConfig = await readJson(option.configPath);
 
-    // 6. 下载最新模板, 获取模版名称
-    const templateName = await downloadTemplate(config, option.templatePath);
+    // 5. 下载最新模板, 获取模版名称
+    spinner.text = '下载最新模版'
+    const templateName = await downloadTemplate(option);
 
-    // 7. 拷贝
+    // 6. 拷贝
+    spinner.text = '拷贝项目模版'
     await copyTemplate(
       resolve(option.templatePath, templateName),
       projectPath,
       []
     );
 
-    // 8. 初始化git仓库
-    await initGit(projectPath);
+    // // 8. 初始化git仓库
+    // spinner.text = '初始化git仓库'
+    // await initGit(projectPath);
 
-    // 9. 安装依赖
-    await installPackage(projectPath);
+    // // 9. 安装依赖
+    // spinner.text = '安装项目依赖'
+    // await installPackage(projectPath);
 
     // 10. 完成
     spinner.succeed("successfully");

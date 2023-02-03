@@ -15,6 +15,8 @@ node-archiver 用来执行打包存档 zip
 fs-extra 删除非空文件夹
 minimist
 npm-run-all
+archiver 和 jszip
+compressing
 
 ## commander 定义命令和参数
 

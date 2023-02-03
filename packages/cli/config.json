@@ -1,6 +1,1 @@
-{
-    "name": "project name",
-    "mirror": "https://codeload.github.com/jiang-30/whirls-plus/archive/refs/0.0.1/dist.zip",
-    "currentName": "",
-    "tag": "https://api.github.com/repos/jiang-30/whirls-plus/releases/latest"
-}
+{"name":"dist","mirrorUrl":"https://github.com/jiang-30/whirls-plus/releases/download","currentTag":"0.0.1","tagUrl":"https://api.github.com/repos/jiang-30/whirls-plus/releases/latest"}

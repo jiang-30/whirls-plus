@@ -46,3 +46,5 @@ copy(resolve(__dirname, "app"), dist, {
     return !item;
   },
 });
+
+// 打包压缩

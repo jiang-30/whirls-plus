@@ -10,14 +10,14 @@ export function exitHandler(messsage: string) {
 
 // 初始化git仓库 git init shell.exec(`cd ${shell.pwd()}/${name} && git init`)
 export async function initGit(projectName: string) {
-  if(shell.which('git')) {
+  if (shell.which('git')) {
     await shell.exec(`cd ${projectName} && git init`)
   }
 }
 
 // 安装依赖 shell.exec(`cd ${shell.pwd()}/${name} && npm config set registry ${registry} && npm install -d`).code !== 0
 export async function installPackage(projectName: string) {
-  if(shell.which('pnpm')) {
+  if (shell.which('pnpm')) {
     await shell.exec(`cd ${projectName} && pnpm install`)
   }
 }
