@@ -1,10 +1,10 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   title: 用户注册
   icon: ic:round-login
-  requireAuth: false
+  isAuth: false
 </route>
 
 <template>
@@ -15,7 +15,14 @@ meta:
       </template>
       <el-form ref="formRef" :model="formData" :rules="formRules">
         <el-form-item prop="username">
-          <el-input v-model="formData.username" type="primary" link :prefix-icon="'User'" placeholder="请输入用户名" clearable></el-input>
+          <el-input
+            v-model="formData.username"
+            type="primary"
+            link
+            :prefix-icon="'User'"
+            placeholder="请输入用户名"
+            clearable
+          ></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input
@@ -38,11 +45,17 @@ meta:
           ></el-input>
         </el-form-item>
         <div class="mb-2">
-          <el-button block type="primary" @click="onSubmit(formRef)">注册</el-button>
+          <el-button block type="primary" @click="onSubmit(formRef)"
+            >注册</el-button
+          >
         </div>
         <div class="flex justify-end">
           <el-space>
-            <RouterLink class="text-xs hover:text-blue-500" :to="{ name: 'Login' }">登录</RouterLink>
+            <RouterLink
+              class="text-xs hover:text-blue-500"
+              :to="{ name: 'Login' }"
+              >登录</RouterLink
+            >
           </el-space>
         </div>
       </el-form>
@@ -51,46 +64,46 @@ meta:
 </template>
 
 <script lang="ts" setup>
-import { RouterLink } from 'vue-router'
-import type { ElForm } from 'element-plus'
-type FormInstance = InstanceType<typeof ElForm>
-const formRef = ref<FormInstance>()
+import { RouterLink } from "vue-router";
+import type { ElForm } from "element-plus";
+type FormInstance = InstanceType<typeof ElForm>;
+const formRef = ref<FormInstance>();
 const formData = reactive({
-  username: 'user',
-  password: '123456',
-})
+  username: "user",
+  password: "123456",
+});
 const formRules = {
   username: [
     {
       required: true,
-      message: '请输入登录名',
-      trigger: 'blur',
+      message: "请输入登录名",
+      trigger: "blur",
     },
   ],
   password: [
     {
       required: true,
-      message: '请输入登录密码',
-      trigger: 'blur',
+      message: "请输入登录密码",
+      trigger: "blur",
     },
   ],
-}
+};
 
 const onSubmit = (form: FormInstance | undefined) => {
-  if (!form) return
-  form.validate(valid => {
+  if (!form) return;
+  form.validate((valid) => {
     if (valid) {
       // fetchLogin(formData).then(res => {
       //   console.log(res)
       // })
-      console.log('submit!')
+      console.log("submit!");
       // login(formData)
     } else {
-      console.log('error submit!')
-      return false
+      console.log("error submit!");
+      return false;
     }
-  })
-}
+  });
+};
 </script>
 <style scoped>
 .register-page {

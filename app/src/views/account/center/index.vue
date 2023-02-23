@@ -1,11 +1,11 @@
 <route lang="yaml">
-  meta:
-    enabled: true,
-    constant: true,
-    title: 个人中心
-    icon: ic:round-person
-    name: UserCenter
-    layout: admin
+meta:
+  isEnabled: true
+  isStatic: true
+  title: 个人中心
+  icon: ic:round-person
+  name: UserCenter
+  layout: admin
 </route>
 
 <template>
@@ -14,7 +14,9 @@
       <PageContainer>
         <div class="flex flex-col items-center py-10">
           <el-avatar :size="100" :src="userInfo.avatar" />
-          <div class="mt-10 text-lg font-bold text-gray-500">{{ userInfo.username }}</div>
+          <div class="mt-10 text-lg font-bold text-gray-500">
+            {{ userInfo.username }}
+          </div>
         </div>
       </PageContainer>
     </ElAside>
@@ -25,8 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/stores'
+import { useUserStore } from "@/stores";
 
-const userInfo = useUserStore().userInfo
-
+const userInfo = useUserStore().userInfo;
 </script>

@@ -1,11 +1,11 @@
-import { defineStore } from 'pinia'
-import router, { generateRoutes } from '@/router/index'
-import config from '@/app.config'
-import type { RouteLocationNormalized } from 'vue-router'
-import { isMatch } from 'matcher'
-import type { IMenu, ITab } from '@/typings'
+import { defineStore } from "pinia";
+import router, { generateRoutes } from "@/router/index";
+import config from "@/app.config";
+import type { RouteLocationNormalized } from "vue-router";
+import { isMatch } from "matcher";
+import type { IMenu, ITab } from "@/typings";
 
-const storeKey = 'route-store'
+const storeKey = "route-store";
 
 export const useRouteStore = defineStore({
   id: storeKey,
@@ -19,23 +19,24 @@ export const useRouteStore = defineStore({
       /**
        * 登录页面路径
        */
-      loginPageName: config.router?.loginPageName ?? 'Login',
+      loginPageName: config.router?.loginPageName ?? "Login",
 
       /**
        * 首页路径
        */
-      indexPageName: config.router?.indexPageName ?? 'Home',
+      indexPageName: config.router?.indexPageName ?? "Home",
 
       /**
        * 首页路径
        */
-      notFoundPageName: config.router?.notFoundPageName ?? 'NotFound',
+      notFoundPageName: config.router?.notFoundPageName ?? "NotFound",
 
       // 未授权页面
-      notAuthorizedPageName: config.router?.notAuthorizedPageName ?? 'NotAuthorized',
+      notAuthorizedPageName:
+        config.router?.notAuthorizedPageName ?? "NotAuthorized",
 
       // 错误页面
-      errorPageName: config.router?.errorPageName ?? 'Error',
+      errorPageName: config.router?.errorPageName ?? "Error",
 
       /**
        * 顶菜单切换是否跳转到首页
@@ -61,75 +62,81 @@ export const useRouteStore = defineStore({
        * keepAlive 页面的name列表
        */
       keepAliveList: <string[]>[],
-    }
+    };
   },
   getters: {
     // 当前页面是否忽略权限校验
     isIgnore(state) {
       return (to: RouteLocationNormalized) => {
         if (isMatch(to.path, state.ingorePagePathList)) {
-          return true
-        } else if (to.meta.requireAuth === false) {
-          return true
+          return true;
+        } else if (to.meta.isAuth === false) {
+          return true;
         }
-        return false
-      }
+        return false;
+      };
     },
   },
   actions: {
     // 跳转默认页面
     navigateOrDefault(tab?: ITab) {
       if (tab) {
-        router.push({ path: tab.fullPath })
+        router.push({ path: tab.fullPath });
       } else {
-        router.push({ name: this.indexPageName })
+        router.push({ name: this.indexPageName });
       }
     },
 
     // 通过 menuStore 中 menus 数据渲染动态路由
     setRoutes(menus: IMenu[]) {
-      const routes = menus.filter(item => item.type === 'page' && item.constant === false)
-      this.routes = routes
-      generateRoutes(this.routes)
+      const routes = menus.filter(
+        (item) => item.type === "page" && item.isStatic === false
+      );
+      this.routes = routes;
+      generateRoutes(this.routes);
     },
 
     // 设置 keepAlive 页面name
     setKeepAliveList(list: string[]) {
-      this.keepAliveList = list
+      this.keepAliveList = list;
     },
 
     // 添加 keepAlive 页面
     addKeepAlive(name: string | string[]) {
-      if (typeof name === 'string') {
-        !this.keepAliveList.includes(name) && this.keepAliveList.push(name)
+      if (typeof name === "string") {
+        !this.keepAliveList.includes(name) && this.keepAliveList.push(name);
       } else {
-        name.forEach(v => {
-          v && !this.keepAliveList.includes(v) && this.keepAliveList.push(v)
-        })
+        name.forEach((v) => {
+          v && !this.keepAliveList.includes(v) && this.keepAliveList.push(v);
+        });
       }
     },
 
     // 移除 keepAlive 页面
     removeKeepAlive(name: string | string[]) {
-      if (typeof name === 'string') {
-        this.keepAliveList = this.keepAliveList.filter(v => {
-          return v !== name
-        })
+      if (typeof name === "string") {
+        this.keepAliveList = this.keepAliveList.filter((v) => {
+          return v !== name;
+        });
       } else {
-        this.keepAliveList = this.keepAliveList.filter(v => {
-          return !name.includes(v)
-        })
+        this.keepAliveList = this.keepAliveList.filter((v) => {
+          return !name.includes(v);
+        });
       }
     },
 
     generateKeepAlive(to: RouteLocationNormalized) {
       //  // 判断当前页面是否开启缓存，如果开启，则将当前页面的 name 信息存入 keep-alive 全局状态
       if (to.meta.isAlive) {
-        const componentName = to.matched.at(-1)?.components?.default.name
+        const componentName = to.matched.at(-1)?.components?.default.name;
         if (componentName) {
-          this.addKeepAlive(componentName)
+          this.addKeepAlive(componentName);
         } else {
-          console.warn('该页面开启了缓存但组件未设置组件名，会导致缓存失效，请检查;', to.meta.title, to.path)
+          console.warn(
+            "该页面开启了缓存但组件未设置组件名，会导致缓存失效，请检查;",
+            to.meta.title,
+            to.path
+          );
         }
       }
 
@@ -164,4 +171,4 @@ export const useRouteStore = defineStore({
       //  }
     },
   },
-})
+});

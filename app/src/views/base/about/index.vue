@@ -1,12 +1,12 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   name: 关于我们
   title: About
   icon: mdi:account-box-multiple-outline
   layout: default
-  requireAuth: false
+  isAuth: false
 </route>
 
 <template>

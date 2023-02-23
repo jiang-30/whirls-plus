@@ -1,64 +1,70 @@
-import { request } from "@/utils/request"
+import { request } from "@/plugin/request";
 
 // 分页用户列表 - 单表查询
-export function fetchQuerySimplePage(params: { current: number, size: number, [key: string]: any}){
+export function fetchQuerySimplePage(params: {
+  current: number;
+  size: number;
+  [key: string]: any;
+}) {
   return request({
-      method: 'get',
-      url: '/admin/user/simple/page',
-      params: params
-  })
+    method: "get",
+    url: "/admin/user/simple/page",
+    params: params,
+  });
 }
 
 // 分页用户列表
-export function fetchQueryPage(params: { current: number, size: number, [key: string]: any}){
-    return request({
-        method: 'get',
-        url: '/admin/user/page',
-        params: params
-    })
+export function fetchQueryPage(params: {
+  current: number;
+  size: number;
+  [key: string]: any;
+}) {
+  return request({
+    method: "get",
+    url: "/admin/user/page",
+    params: params,
+  });
 }
 
 // 新建用户
-export function fetchCreate(params: any){
+export function fetchCreate(params: any) {
   return request({
-      method: 'post',
-      url: '/admin/user',
-      data: params
-  })
+    method: "post",
+    url: "/admin/user",
+    data: params,
+  });
 }
 
 // 重置密码
-export function fetchUpdatePassword(id: string){
+export function fetchUpdatePassword(id: string) {
   return request({
-      method: 'put',
-      url: `/admin/user/password/${id}`,
-  })
+    method: "put",
+    url: `/admin/user/password/${id}`,
+  });
 }
 
 // 修改用户状态
-export function fetchUpdateEnabled(args: any){
+export function fetchUpdateEnabled(args: any) {
   return request({
-      method: 'put',
-      url: `/admin/user/enabled`,
-      data: args
-  })
+    method: "put",
+    url: `/admin/user/enabled`,
+    data: args,
+  });
 }
 
 // 修改用户信息
-export function fetchUpdate(params: any){
+export function fetchUpdate(params: any) {
   return request({
-      method: 'put',
-      url: '/admin/user',
-      data: params
-  })
+    method: "put",
+    url: "/admin/user",
+    data: params,
+  });
 }
 
 // 删除用户
-export function fetchDelete(id: string){
+export function fetchDelete(id: string) {
   return request({
-      method: 'delete',
-      url: `/admin/user/${id}`,
-  })
+    method: "delete",
+    url: `/admin/user/${id}`,
+  });
 }
-
-

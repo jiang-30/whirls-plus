@@ -1,13 +1,13 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   title: 图标
   icon: ic:baseline-font-download
   layout: admin
-  tabBar: true
-  showMenu: true
-  parentMenuName: Case
+  isTab: true
+  isShow: true
+  parentName: Case
   sort: 1
 </route>
 
@@ -28,15 +28,15 @@ meta:
 </template>
 
 <script lang="ts" setup>
-import { listIcons } from '@iconify/vue'
-import { useClipboard } from '@vueuse/core'
+import { listIcons } from "@iconify/vue";
+import { useClipboard } from "@vueuse/core";
 
-const icons = listIcons(undefined, 'w')
-const { copy } = useClipboard()
+const icons = listIcons(undefined, "w");
+const { copy } = useClipboard();
 
 function onClick(iconName: string) {
   copy(iconName).then(() => {
-    ElMessage.success(`已拷贝  ${iconName}`)
-  })
+    ElMessage.success(`已拷贝  ${iconName}`);
+  });
 }
 </script>

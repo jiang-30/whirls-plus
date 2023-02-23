@@ -24,3 +24,15 @@ whilrs generate
 
 - [ ] 功能选择
 - [ ] generate
+
+## Module
+
+✔ Project name（项目名）: toolsdog
+✔ Add TypeScript（添加 TS）? : No
+✔ Add JSX Support（添加 JSX 支持）? : No
+✔ Add Vue Router for Single Page Application development（添加 Vue-router）? : Yes
+✔ Add Pinia for state management（添加状态管理 Pinia）? : Yes
+✔ Add Vitest for Unit testing（为单元测试添加 Vitest）? : No
+✔ Add Cypress for both Unit and End-to-End testing（为单元测试与端到端测试添加 Cypress）? : No
+✔ Add ESLint for code quality（为代码质量添加 ESLint）? : Yes
+✔ Add Prettier for code formatting（为代码格式添加 Prettier）? : Yes

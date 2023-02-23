@@ -1,19 +1,16 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   name: Debug
   title: debug
   icon: mdi:bug-stop-outline
   layout: default
-  requireAuth: false
+  isAuth: false
 </route>
 
 <template>
   <section>degub</section>
 </template>
 
-<script setup lang="ts">
-
-
-</script>
+<script setup lang="ts"></script>

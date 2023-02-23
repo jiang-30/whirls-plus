@@ -1,9 +1,9 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   title: item2
 </route>
 <template>
-  <div> item2 </div>
+  <div>item2</div>
 </template>

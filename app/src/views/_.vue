@@ -1,16 +1,16 @@
 <route lang="yaml">
-  meta:
-    enabled: true
-    constant: true
-    name: NotFound
-    requireAuth: false
+meta:
+  isEnabled: true
+  isStatic: true
+  name: NotFound
+  isAuth: false
 </route>
 
 <template>
   <div class="b-notfound">
-    <el-result  sub-title="您访问的资源未找到">
+    <el-result sub-title="您访问的资源未找到">
       <template #icon>
-        <img class="b-notfound-img" src="/static/images/404.png" alt="">
+        <img class="b-notfound-img" src="/static/images/404.png" alt="" />
       </template>
 
       <template #extra>
@@ -21,17 +21,16 @@
 </template>
 
 <script setup lang="ts" name="NotFound">
-import { useRouter, useRoute} from 'vue-router'
+import { useRouter, useRoute } from "vue-router";
 
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 
 // console.log(route.params.pathMatch, route)
 
 const onBack = () => {
-  router.back()
-}
-
+  router.back();
+};
 </script>
 
 <style scoped>

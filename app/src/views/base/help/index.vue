@@ -1,16 +1,16 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   name: Help
   title: 帮助文档
   icon: mdi:account-box-multiple-outline
   layout: default
-  requireAuth: false
+  isAuth: false
 </route>
 
 <template>
-  <div> help </div>
+  <div>help</div>
 </template>
 
 <script setup lang="ts"></script>

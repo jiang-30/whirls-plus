@@ -1,14 +1,21 @@
 {
   "extends": "@vue/tsconfig/tsconfig.node.json",
+  "compilerOptions": {
+    "composite": true,
+    "module": "esnext",
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
   "include": [
     "src/app.config.ts",
-    "vite/*.ts",
+    "src/constant/default/menu.ts",
+    "src/router/handler.ts",
+    "build/*.ts",
     "vite.config.*",
     "vitest.config.*",
     "cypress.config.*"
-  ],
-  "compilerOptions": {
-    "composite": true,
-    "types": ["node"]
-  }
+  ]
 }

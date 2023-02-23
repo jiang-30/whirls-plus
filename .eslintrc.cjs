@@ -9,12 +9,13 @@ module.exports = {
       extends: ["plugin:cypress/recommended"],
     },
   ],
+  // 后面的会覆盖前面的
   extends: [
+    "./.eslintrc-auto-import.json",
     "plugin:vue/vue3-essential",
     "eslint:recommended",
     "@vue/eslint-config-typescript/recommended",
     "@vue/eslint-config-prettier",
-    "./.eslintrc-auto-import.json",
   ],
   parserOptions: {
     ecmaVersion: "latest",

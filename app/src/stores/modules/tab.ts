@@ -1,10 +1,10 @@
-import { defineStore } from 'pinia'
-import router from '@/router/index'
-import { useRouteStore } from '@/stores'
-import type { RouteLocationNormalized, RouteRecordName } from 'vue-router'
-import type { ITab } from '@/typings'
+import { defineStore } from "pinia";
+import router from "@/router/index";
+import { useRouteStore } from "@/stores";
+import type { RouteLocationNormalized, RouteRecordName } from "vue-router";
+import type { ITab } from "@/typings";
 
-const storeKey = 'tab-store'
+const storeKey = "TAB_STORE";
 
 // tag标签
 export const useTabStore = defineStore({
@@ -29,34 +29,34 @@ export const useTabStore = defineStore({
       if (store.tabs.length) {
         return store.tabs.reduce((tab, current) => {
           if (tab && current.index > tab.index) {
-            return current
+            return current;
           }
-          return tab
-        })
+          return tab;
+        });
       }
     },
   },
   actions: {
     /**
-     * 对开启 tabBar 的页面添加到tabs中
+     * 页面解析后添加标题到tabbar
      */
     addTab(to: RouteLocationNormalized, from: RouteLocationNormalized) {
-      this.tabIndex++
+      this.tabIndex++;
 
       // 如果页面已在tabs中,更新 index
-      const tab = this.tabs.find(tab => tab.name === to.name)
+      const tab = this.tabs.find((tab) => tab.name === to.name);
 
       // 更新数据
       if (tab) {
-        tab.fullPath = to.fullPath
-        tab.index = this.tabIndex
-        return
+        tab.fullPath = to.fullPath;
+        tab.index = this.tabIndex;
+        return;
       }
 
       // 获取添加位置
-      let index = this.tabs.findIndex(tab => tab.name === from.name)
+      let index = this.tabs.findIndex((tab) => tab.name === from.name);
       if (index === -1) {
-        index = this.tabs.length
+        index = this.tabs.length;
       }
 
       // 添加tab
@@ -65,30 +65,27 @@ export const useTabStore = defineStore({
         name: <string>to.name,
         title: to.meta.title,
         icon: to.meta.icon,
+        isTab: to.meta.isTab,
         fullPath: to.fullPath,
-      })
+      });
     },
 
-    // 不是tab的页面移除
-    removeTab(from: RouteLocationNormalized) {
-      if (!from.meta.tabBar) {
-        const index = this.tabs.findIndex(tab => tab.name === from.name)
-        if (index > -1) {
-          this.tabs.splice(index, 1)
-        }
-      }
+    // 页面跳转前 清除不是tab的页面
+    removeTab() {
+      const tabs = this.tabs.filter((item) => item.isTab === true);
+      this.tabs = tabs;
     },
 
     /**
-     * 关闭标签页
+     * 关闭指定标签页
      */
     closeTab(routeName: RouteRecordName) {
-      const index = this.tabs.findIndex(tab => tab.name === routeName)
+      const index = this.tabs.findIndex((tab) => tab.name === routeName);
       if (index > -1) {
-        this.tabs.splice(index, 1)
+        this.tabs.splice(index, 1);
         // 如果关闭的是当前页面
         if (routeName === router.currentRoute.value.name) {
-          useRouteStore().navigateOrDefault(this.nearestTab)
+          useRouteStore().navigateOrDefault(this.nearestTab);
         }
       }
     },
@@ -97,31 +94,35 @@ export const useTabStore = defineStore({
      * 操作tab 关闭全部、关闭其他、关闭到右侧
      */
     operationTab(type: string) {
-      const currentRouteName = router.currentRoute.value.name
+      const currentRouteName = router.currentRoute.value.name;
       // 当前路由在他不中的位置
-      const currentIndex = this.tabs.findIndex(tab => tab.name === currentRouteName)
-      const hasCurrent = currentIndex > -1
+      const currentIndex = this.tabs.findIndex(
+        (tab) => tab.name === currentRouteName
+      );
+      const hasCurrent = currentIndex > -1;
 
       switch (type) {
-        case 'other': // 关闭当前和不能关闭以外的
+        case "other": // 关闭当前和不能关闭以外的
           if (hasCurrent) {
-            this.tabs = this.tabs.filter(item => item.name === currentRouteName)
+            this.tabs = this.tabs.filter(
+              (item) => item.name === currentRouteName
+            );
           }
-          break
-        case 'all': // 关闭不能关闭以外的
-          this.tabs = []
+          break;
+        case "all": // 关闭不能关闭以外的
+          this.tabs = [];
 
           // 包含当前页面需要跳转页面
           if (hasCurrent) {
-            useRouteStore().navigateOrDefault(this.nearestTab)
+            useRouteStore().navigateOrDefault(this.nearestTab);
           }
-          break
-        case 'right':
+          break;
+        case "right":
           if (hasCurrent) {
-            this.tabs.splice(currentIndex + 1, this.tabs.length - currentIndex)
+            this.tabs.splice(currentIndex + 1, this.tabs.length - currentIndex);
           }
-          break
+          break;
       }
     },
   },
-})
+});

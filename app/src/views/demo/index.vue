@@ -1,11 +1,11 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   title: DEMO
   icon: mdi:desktop-tower-monitor
   layout: default
-  requireAuth: false
+  isAuth: false
   sort: 0
 </route>
 
@@ -24,5 +24,4 @@ meta:
   </PageContainer>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>

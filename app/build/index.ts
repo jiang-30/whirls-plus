@@ -1,10 +1,10 @@
-
-import vue from '@vitejs/plugin-vue'
-import createHtml from './html'
-import createOptions from './options'
-import createPages from './pages'
-import createAuto from './auto'
-import createLint from './lint'
+import vue from "@vitejs/plugin-vue";
+import createHtml from "./html";
+import createOptions from "./options";
+import createPages from "./pages";
+import createAuto from "./auto";
+import createLint from "./lint";
+import createFavicon from "./favicon";
 
 // import vue from '@vitejs/plugin-vue'
 // import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -31,10 +31,11 @@ import createLint from './lint'
 export function createVitePlugins() {
   return [
     vue(),
-    createHtml(), 
-    ...createLint(), 
-    ...createOptions(), 
-    ...createAuto(), 
-    ...createPages()
-  ]
+    createHtml(),
+    ...createFavicon(),
+    ...createLint(),
+    ...createOptions(),
+    ...createAuto(),
+    ...createPages(),
+  ];
 }

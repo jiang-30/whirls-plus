@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useUserStore } from "@/stores";
 import { errorHandler } from "./error";
+import { useOnline } from "@vueuse/core";
 
 // 记录正在请求的实例
 // const requestList = []
@@ -52,19 +53,25 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   function (response) {
     const { data } = response;
+    let requestError = null;
 
-    if (data.code != 1) {
+    if (!useOnline().value) {
+      // 没有网络
+      requestError = errorHandler("网络异常，请检查当前网络", -1);
+    } else if (data.code != 1) {
       // 用户未登录或者异常后退出
       if (data.code === 42001 || data.code == 42000) {
         useUserStore().logoutHandler();
       }
 
-      const requestError = errorHandler(data.message, data.code);
-
-      return Promise.reject(requestError);
+      requestError = errorHandler(data.message, data.code);
     }
 
-    return data.data;
+    if (requestError) {
+      return Promise.reject(requestError);
+    } else {
+      return data.data;
+    }
   },
   // 请求异常
   function (error) {
@@ -73,14 +80,18 @@ instance.interceptors.response.use(
     let status = -1;
 
     if (axios.isCancel(error)) {
-      message = `取消网络请求`;
+      message = `取消请求`;
     } else if (error.response) {
       status = error.response.status;
       message = error.response.data.message;
+    } else if (!useOnline().value) {
+      message = "网络异常，请检查当前网络";
     } else if (error.request) {
       message = `request 请求异常`;
+    } else if (error.message.startsWith("timeout of")) {
+      message = `网络请求超时`;
     } else {
-      message = `网络异常`;
+      message = `请求异常`;
     }
 
     const requestError = errorHandler(message, code, status);

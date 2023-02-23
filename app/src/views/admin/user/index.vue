@@ -1,11 +1,20 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: false
+  isEnabled: true
+  isStatic: true
+  title: 用户管理
+  icon: ic:round-person
+  layout: admin
+  isTab: true
+  parentName: System
+  isShow: true
+  sort: 1
+  permissions:
+    - ROLE:ADMIN
 </route>
 
 <template>
-  <div>user</div>
+  <div>用户管理</div>
 </template>
 
 <script setup lang="ts"></script>

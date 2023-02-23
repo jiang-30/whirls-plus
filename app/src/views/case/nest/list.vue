@@ -1,19 +1,19 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   title: 嵌套路由
   icon: mdi:view-list-outline
   layout: admin
-  parentMenuName: Case
-  showMenu: true
-  tabBar: true
+  parentName: Case
+  isShow: true
+  isTab: true
   sort: 10
 </route>
 
 <template>
   <PageContainer>
-    <div class="text-primary"> list view </div>
+    <div class="text-primary">list view</div>
 
     <ElButton>
       <router-link to="/case/nest/list/item1">item1</router-link>

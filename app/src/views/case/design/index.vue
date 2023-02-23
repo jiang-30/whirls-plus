@@ -1,13 +1,13 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   title: 配色
   icon: ic:round-color-lens
   layout: admin
-  tabBar: true
-  showMenu: true
-  parentMenuName: Case
+  isTab: true
+  isShow: true
+  parentName: Case
   sort: 3
 </route>
 
@@ -28,7 +28,7 @@ meta:
 </template>
 
 <script setup lang="ts">
-import { useData } from './index'
+import { useData } from "./index";
 
-const { list } = useData()
+const { list } = useData();
 </script>

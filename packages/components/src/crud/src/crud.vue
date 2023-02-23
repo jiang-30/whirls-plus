@@ -1,503 +1,361 @@
 <template>
-  <div class="b-crud">
-    <!-- 搜索 -->
+  <section>
+    <!-- 搜索区域 -->
     <el-collapse-transition>
-      <BSearch
+      <WFormSearch
         v-show="searchVisible"
-        :option="props.option"
-        :model="searchModel"
-        :loading="loading"
-        @search="onSearch"
-      ></BSearch>
+        :option="option!"
+        :form-model="searchModel"
+        :loading="tableLoading"
+        @show="searchShow = $event"
+        @search="_onSearch"
+        @reset="_onSearchReset"
+      ></WFormSearch>
     </el-collapse-transition>
 
-    <!-- 表格操作区域 create import export -->
-    <div class="flex mb-3">
-      <el-space>
-        <el-button v-if="option.createBtn" type="primary" @click="openCreate">
-          <el-icon>
-            <icon-ic-round-add />
-          </el-icon>
-          <span>新增</span>
+    <section v-loading="tableLoading">
+      <!-- 操作区域 -->
+      <section class="w-crud-action">
+        <el-button type="primary" :icon="CirclePlus" @click="_onCreateOpen">
+          新增
         </el-button>
-        <!-- <el-button type="primary" @click="onCreateAction">
-          <el-icon><icon-ic-outline-print /></el-icon>
-          <span>打印</span>
-        </el-button>
-        <el-button type="primary" @click="onCreateAction">
-          <el-icon><icon-ic-sharp-upload /></el-icon>
-          <span>导入</span>
-        </el-button>
-        <el-button type="primary" @click="onCreateAction">
-          <el-icon><icon-ic-sharp-file-download /></el-icon>
-          <span>导出</span>
-        </el-button>
-        <el-button type="primary" @click="onCreateAction">
-          <el-icon><icon-ic-outline-file-download /></el-icon>
-          <span>模板下载</span>
-        </el-button> -->
-      </el-space>
-      <el-space class="ml-auto">
-        <!-- <el-button circle @click="searchVisible = !searchVisible">
-          <el-icon><icon-ic-round-search /></el-icon>
-        </el-button> -->
-        <el-button circle @click="onRefreshHandler">
-          <el-icon><icon-ic-round-refresh /></el-icon>
-        </el-button>
-        <!-- <el-button circle @click="onRefreshAction">
-          <el-icon><icon-ic-sharp-menu /></el-icon>
-        </el-button> -->
-      </el-space>
-    </div>
-
-    <!--
-    - 表格 tag\image\Avatar\Link
-    - type列：selection / index / expand  - loading
-    - 总结下来，就是当数据条数会发生改变的时候，都会重置pageIndex为1。当用户操作不会影响数据总条数的时候，pageSize还维持当前不变。
-    -->
-    <el-table v-loading="loading" :data="__tableData" v-bind="tableAttrs">
-      <!-- selection / index / expand  -->
-      <!-- <el-table-column type="expand" /> -->
-      <!-- <el-table-column type="selection" />
-        <el-table-column type="index" label="序号" width="60" align="center" /> -->
-      <el-table-column
-        v-if="option.index"
-        type="index"
-        label="序号"
-        width="60"
-        align="center"
-      />
-
-      <!-- 动态列 slot 插槽、格式化值 -->
-      <el-table-column
-        v-for="(item, index) in tableColumnsFields"
-        :label="item.label"
-        :prop="item.prop"
-        v-bind="item.__tableColumnAttrs"
-      >
-        <template v-if="item.tableHeaderSlot" #header="{ column, $index }">
-          <slot
-            :name="item.prop + 'TableHeader'"
-            :column="column"
-            :$index="$index"
-          ></slot>
-        </template>
-        <template #default="{ row, column, $index }">
-          <template v-if="item.tableSlot">
-            <slot
-              :name="item.prop + 'Table'"
-              :row="row"
-              :column="column"
-              :$index="$index"
-            ></slot>
+        <span class="w-crud-action-split"></span>
+        <el-button circle :icon="Refresh" @click="_onRefresh"></el-button>
+        <el-popover
+          placement="bottom-end"
+          title="表格数据项"
+          :width="600"
+          trigger="click"
+          :hide-after="0"
+        >
+          <template #default>
+            <section>
+              <el-checkbox :indeterminate="true"> 全选 </el-checkbox>
+              <el-checkbox-group
+                v-model="checkedFields"
+                @change="onCheckedFieldsChange"
+              >
+                <el-checkbox
+                  v-for="item in _tableFields"
+                  :key="item.prop"
+                  :label="item.prop"
+                >
+                  {{ item.label }}
+                </el-checkbox>
+              </el-checkbox-group>
+            </section>
           </template>
-          <template v-else>
-            {{ handlerFormatterValue(row, item) }}
+          <template #reference>
+            <el-button circle :icon="Operation"></el-button>
           </template>
-        </template>
-      </el-table-column>
+        </el-popover>
+        <el-button
+          v-if="searchShow"
+          circle
+          :icon="Search"
+          @click="searchVisible = !searchVisible"
+        ></el-button>
+      </section>
 
-      <el-table-column
-        v-if="option.rowMenu"
-        label="操作"
-        :width="option.rowMenuWidth"
-        :align="option.rowMenuAlign"
-      >
-        <template #default="{ row, $index }">
-          <div class="b-crud-table-menu">
+      <!-- 表格区域 -->
+      <el-table :data="tableData" v-bind="_tableAttrs">
+        <!--       
+        selection / index / expand
+      -->
+        <!-- <el-table-column type="expand" /> -->
+        <!-- <el-table-column type="selection" /> -->
+
+        <!-- :index="pageModel!.size * (pageModel!.current -1) + 1" -->
+        <el-table-column type="index" label="序号" width="60" align="center" />
+
+        <!-- 动态列 -->
+        <el-table-column
+          v-for="column in _tableFields"
+          :key="column.prop"
+          :prop="column.prop"
+          :label="column.label"
+          v-bind="column.__tableColumnAttrs"
+        >
+        </el-table-column>
+
+        <el-table-column v-bind="_tableColumnActionAttrs" width="180">
+          <template #default="{ row }">
+            <!-- <el-button text type="info" size="small" @click="_onInfoOpen(row)">
+            详情
+          </el-button> -->
             <el-button
-              v-if="handlerGetResult(option.infoBtn, row)"
+              text
               type="primary"
-              link
-              @click="openInfo(row)"
+              size="small"
+              :icon="Edit"
+              @click="_onUpdateOpen(row)"
             >
-              <el-icon><View /></el-icon>
-              <span>查看</span>
+              修改
             </el-button>
             <el-button
-              v-if="handlerGetResult(option.updateBtn, row)"
-              :disabled="
-                handlerGetRowMenuDisabled(option.updateBtnDisabled, row)
-              "
-              type="primary"
-              link
-              @click="openUpdate(row)"
+              text
+              type="danger"
+              size="small"
+              :icon="Delete"
+              @click="_onDelete(row)"
             >
-              <el-icon><Edit /></el-icon>
-              <span>编辑</span>
+              删除
             </el-button>
-            <el-button
-              v-if="handlerGetResult(option.deleteBtn, row)"
-              :disabled="
-                handlerGetRowMenuDisabled(option.deleteBtnDisabled, row)
-              "
-              type="primary"
-              link
-              @click="openDelete(row)"
-            >
-              <el-icon><Delete /></el-icon>
-              <span>删除</span>
-            </el-button>
-            <slot name="row-menu" :row="row" :$index="$index"></slot>
-          </div>
-        </template>
-      </el-table-column>
-    </el-table>
+          </template>
+        </el-table-column>
+      </el-table>
 
-    <!-- 分页 -->
-    <template v-if="props.pageModel">
-      <BPagination
-        :page-model="props.pageModel"
-        @change="handlerFetch"
-      ></BPagination>
-    </template>
-  </div>
+      <!-- 分页区域 -->
+      <section class="w-crud-pagination">
+        <el-pagination
+          v-if="pageModel"
+          v-model:current-page="pageModel.current"
+          v-model:page-size="pageModel.size"
+          :total="pageModel.total"
+          v-bind="_pageAttrs"
+          @current-change="_onPageCurrentChange"
+          @size-change="_onPageSizeChange"
+        >
+        </el-pagination>
+      </section>
+    </section>
 
-  <!-- 弹窗（新增、更新、详情） -->
-  <el-dialog
-    v-model="dialogVisible"
-    custom-class="b-crud-dialog"
-    v-bind="dialogAttrs"
-    destroyOnClose
-    :beforeClose="handlerDialogBeforeClose"
-  >
-    <!-- 表单(新增、更新） -->
-    <BForm
-      v-if="dialogType == 'create' || dialogType == 'update'"
-      :option="props.option"
-      :model="props.model"
-      :type="dialogType"
-      @confirm="onFormConfirm"
-      @cancel="dialogVisible = false"
+    <!-- 新增 弹窗区域 -->
+    <el-dialog
+      v-if="type === 'create'"
+      v-model="dialogVisible"
+      title="新增"
+      width="900px"
     >
-      <template v-for="item in formSlots" #[item]="scoped">
-        <slot :name="item" v-bind="scoped"></slot>
-      </template>
-    </BForm>
+      <WForm
+        :option="option"
+        :form-model="_rowModel"
+        @confirm="_onCreateSave"
+        @success="_onSaveSuccess"
+      ></WForm>
+    </el-dialog>
 
-    <!-- 详情 -->
-    <BInfo
-      v-if="dialogType == 'info'"
-      :option="props.option"
-      :model="props.model"
-    ></BInfo>
-  </el-dialog>
+    <!-- 修改 弹窗区域 -->
+    <el-dialog
+      v-if="type === 'update'"
+      v-model="dialogVisible"
+      title="修改"
+      width="900px"
+    >
+      <WForm
+        :option="option"
+        :form-model="_rowModel"
+        @confirm="_onUpdateSave"
+        @success="_onSaveSuccess"
+      ></WForm>
+    </el-dialog>
+
+    <!-- 详情 弹窗区域 -->
+    <el-dialog
+      v-if="type === 'info'"
+      v-model="dialogVisible"
+      title="详情"
+      width="900px"
+    >
+      详情
+    </el-dialog>
+  </section>
 </template>
 
-<script lang="ts" setup>
-import { ref, watch, computed, nextTick } from "vue";
-import { View, Edit, Delete } from "@element-plus/icons-vue";
+<script setup lang="ts">
+import { ref, computed } from "vue";
 import {
-  useTableAttrsFormatter,
-  useTableFieldsFormatter,
-  useTableRowMenuAttrsFormatter,
-} from "../../formatter/table";
-import { useDialogAttrsFormatter } from "../../formatter/dialog";
-import { useFormSlotsFormatter } from "../../formatter/form";
+  CirclePlus,
+  Search,
+  Refresh,
+  Edit,
+  Operation,
+  Delete,
+} from "@element-plus/icons-vue";
+import { WFormSearch, WForm } from "../../index";
+import { crudProps, crudEmits } from "./crud";
+import { useTableOption } from "./utils";
+import { tools } from "../../index";
 
-/**
- * props
- */
-const props = withDefaults(
-  defineProps<{
-    option: any;
-    pageModel?: any;
-    searchModel?: any;
-    model: Record<string, any>;
-    loading: boolean;
-    tableData: Record<string, any>[];
-  }>(),
-  {
-    searchModel: ref({}),
-  }
-);
+const props = defineProps(crudProps);
+const emits = defineEmits(crudEmits);
 
-/**
- * emit
- */
-const emit = defineEmits<{
-  (e: "fetch"): void;
-  (e: "row-info", data: any): void;
-  (e: "row-create", data: any, loading: () => void, close: () => void): void;
-  (e: "row-update", data: any, loading: () => void, close: () => void): void;
-  (e: "row-delete", data: any): void;
-}>();
-
-/**
- * expose
- */
-defineExpose({
-  openCreate,
-  openInfo,
-  openUpdate,
-  openDelete,
-});
-
-watch(
-  props.option,
-  (val) => {
-    console.warn("watch option!!!!!", val);
-  },
-  { immediate: true, deep: true }
-);
-
-const __tableData = computed(() => {
-  // console.log('tableData', props.tableData)
-  return props.tableData;
-});
-
-/**
- * dialog 弹窗属性
- */
-const dialogVisible = ref(false);
-const dialogType = ref("");
-const dialogAttrs = computed(() => {
-  return useDialogAttrsFormatter(dialogType.value, props.option);
-});
-
-/**
- * 表格属性
- */
-const tableAttrs = computed(() => {
-  return useTableAttrsFormatter(props.option);
-});
-
-/**
- * 表格列
- */
-const tableFields = computed(() => {
-  const defaultConfig = {
-    // headerAlign: 'center',
-  };
-  return useTableFieldsFormatter(props.option.fields, defaultConfig);
-});
-
-/**
- * 操作按钮
- */
-const tableAction = computed(() => {
-  return useTableFieldsFormatter(props.option.fields);
-});
-
-/**
- * 行操作按钮
- */
-const tableRowMenuAttrs = computed(() => {
-  return useTableRowMenuAttrsFormatter(props.option);
-});
-
-/**
- * selection 列
- */
-const tableColumnSelection = {};
-
-/**
- * index 列
- */
-const tableColumnIndex = {};
-
-/**
- * expand 列
- */
-const tableColumnExpand = {};
-
-/**
- * 显示的表格列
- * tableFields 和 showFieldKeys
- */
-const tableColumnsFields = computed(() => {
-  return tableFields.value.filter((item) => item.isShow !== false);
-});
-
-/**
- * 表单中的slot插槽
- */
-const formSlots = computed(() => {
-  return useFormSlotsFormatter("", props.option);
-});
-
-/**
- * 基础数据
- */
+// console.log(props, tools);
+const searchShow = ref(true);
 const searchVisible = ref(true);
+const loading = ref(false);
+const type = ref("create");
+const dialogVisible = ref(false);
+const _formModel = ref({});
+const checkedFields = ref([]);
 
-/**
- * 搜索加载数据
- */
-function onSearch() {
-  if (props.pageModel) {
-    props.pageModel.current = 1;
-  }
-  handlerFetch();
-}
+// 格式化配置数据
+const { _tableFields, _tableColumnActionAttrs, _tableAttrs, _pageAttrs } =
+  useTableOption(props.option!);
 
-/**
- * 刷新
- */
-function onRefreshHandler() {
-  // emit('refresh')
-  handlerFetch();
-}
+// 数据
+const _rowModel = computed({
+  get: () => {
+    return props.formModel ?? _formModel.value;
+  },
+  set: (val) => {
+    emits("update:formModel", val);
+    _formModel.value = val;
+    console.log(3333);
+  },
+});
 
-/**
- * 数据 - 请求列表数据
- */
-function handlerFetch() {
-  emit("fetch");
-}
+// 动态显示列表项
+const onCheckedFieldsChange = (val: any) => {
+  console.log(val);
+};
 
-/**
- * 新增
- */
-function openCreate() {
-  dialogType.value = "create";
-  handlerClearModel();
-  handlerOpenDialog();
-  // emit('before-create')
-}
+// 打开弹窗
+const openHandler = () => {
+  dialogVisible.value = true;
+};
 
-/**
- * 查看 行
- */
-function openInfo(row: Record<string, any>) {
-  dialogType.value = "info";
-  handlerClearModel();
-  for (let key in row) {
-    props.model[key] = row[key];
-  }
-  handlerOpenDialog();
-  // emit('before-info')
-}
+const _onSaveSuccess = () => {
+  // 1. 设置状态
+  type.value = "table";
 
-/**
- * 更新 行
- */
-function openUpdate(row: Record<string, any>) {
-  dialogType.value = "update";
-  handlerClearModel();
-  for (let key in row) {
-    props.model[key] = row[key];
-  }
-  // emit('before-update')
-  handlerOpenDialog();
-}
+  // 2. 数据拷贝
+  const _row = {};
 
-/**
- * 删除 行
- */
-function openDelete(row: any) {
-  handlerClearModel();
-  for (let key in row) {
-    props.model[key] = row[key];
-  }
-  ElMessageBox.confirm("确定要执行删除操作吗", "提示", { type: "warning" })
-    .then(() => {
-      emit("row-delete", props.model);
-    })
-    .catch(() => {});
-}
+  // 3. 设置值 双向绑定
+  _rowModel.value = _row;
 
-// 清除 model 数据
-function handlerClearModel() {
-  for (let key in props.model) {
-    delete props.model[key];
-  }
-}
+  // 4. 关闭弹窗
+  dialogVisible.value = false;
+};
 
-/**
- * 打开弹窗
- */
-function handlerOpenDialog() {
-  nextTick(() => {
-    dialogVisible.value = true;
-  });
-}
+// ========== 搜索 ==========
+const searchHandler = () => {
+  emits("query");
+};
+const _onRefresh = () => {
+  searchHandler();
+};
 
-/**
- * 弹窗关闭前
- */
-function handlerDialogBeforeClose(done: () => void) {
-  for (let key in props.model) {
-    delete props.model[key];
-  }
-  done();
-}
+const _onSearch = (model: any) => {
+  searchHandler();
+};
 
-/**
- * 表单确认
- * 1. 有处理函数使用处理函数，
- * 2. 配置api调用api（也可以提供一个钩子）
- */
-function onFormConfirm(model: any, loading: () => void) {
-  console.log(dialogType, model);
+const _onSearchReset = (model: any) => {
+  searchHandler();
+};
 
-  function close() {
-    loading();
-    dialogVisible.value = false;
-  }
+const _onPageCurrentChange = (current: number) => {
+  const _page = { current: current, size: props.pageModel?.size };
+  // emits("pageSizeChange", _page);
+  // emits("pageChange", _page);
+  searchHandler();
+};
 
-  if (dialogType.value == "create") {
-    emit("row-create", model, loading, close);
-  } else if (dialogType.value == "update") {
-    emit("row-update", model, loading, close);
-  }
-}
+const _onPageSizeChange = (size: number) => {
+  const _page = { current: props.pageModel?.current, size: size };
+  // emits("pageSizeChange", _page);
+  // emits("pageChange", _page);
+  searchHandler();
+};
 
-function handlerFormatterValue(row: any, field: any) {
-  // console.log(row, field)
-  if (field.formatter) {
-    return field.formatter(row);
-  }
-  if (field.__dictData) {
-    const value = row[field.prop];
-    const dictItem = field.__dictData.find((item: any) => item.value == value);
-    return dictItem?.label;
-  }
-  return row[field.prop];
-}
+// ========== 新增 ==========
+const _onCreateOpen = () => {
+  // 1. 设置状态
+  type.value = "create";
 
-function handlerGetResult(btnVisible: any, row: any) {
-  if (typeof btnVisible == "boolean") {
-    return btnVisible;
-  } else if (typeof btnVisible === "function") {
-    return btnVisible(row);
+  // 2. 数据拷贝
+  const _row = {};
+
+  // 3. 设置值 双向绑定
+  _rowModel.value = _row;
+
+  // 4. 打开弹窗
+  if (props.onCreateOpen) {
+    props.onCreateOpen(_rowModel.value, openHandler);
   } else {
-    return true;
+    openHandler();
   }
-}
+};
 
-function handlerGetRowMenuDisabled(btnDisabled: any, row: any) {
-  if (typeof btnDisabled == "boolean") {
-    return btnDisabled;
-  } else if (typeof btnDisabled === "function") {
-    return btnDisabled(row);
-  } else {
-    return false;
+const _onCreateSave = (record: any, done: any) => {
+  if (props.onCreateSave) {
+    props.onCreateSave(record, done);
   }
-}
+};
+
+// ========== 修改 ==========
+const _onUpdateOpen = (row: any) => {
+  // 1. 设置状态
+  type.value = "update";
+
+  // 2. 数据拷贝
+  const _row = { ...row };
+
+  // 3. 设置值 双向绑定
+  _rowModel.value = _row;
+
+  // 打开弹窗
+  if (props.onUpdateOpen) {
+    props.onUpdateOpen(_rowModel.value, openHandler);
+  } else {
+    openHandler();
+  }
+};
+
+const _onUpdateSave = (record: any, done: any) => {
+  if (props.onUpdateSave) {
+    props.onUpdateSave(record, done);
+  }
+};
+
+// ========== 详情 ==========
+const _onInfoOpen = (row: any) => {
+  // 1. 设置状态
+  type.value = "info";
+
+  // 2. 数据拷贝
+  const _row = { ...row };
+
+  // 3. 设置值 双向绑定
+  _rowModel.value = _row;
+
+  // 打开弹窗
+  if (props.onInfoOpen) {
+    props.onInfoOpen(_rowModel.value, openHandler);
+  } else {
+    openHandler();
+  }
+};
+
+// ========== 删除 ==========
+const _onDelete = (row: any) => {
+  // 1. 设置状态
+  type.value = "delete";
+
+  // 2. 数据拷贝
+  const _row = { ...row };
+
+  // 3. 设置值 双向绑定
+  _rowModel.value = _row;
+
+  // 删除操作
+  if (props.onDeleteSave) {
+    props.onDeleteSave(_rowModel.value);
+  }
+};
 </script>
 
-<style>
-.b-crud {
-}
-
-.b-crud .el-table th {
-  color: rgba(0, 0, 0, 0.85);
-  background-color: #f9f9f9;
-}
-
-.b-crud-table-menu {
+<style scoped>
+.w-crud-action {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: v-bind(option.rowMenuAlign);
-  gap: 10px;
+  margin-bottom: 15px;
+}
+.w-crud-action-split {
+  margin-left: auto;
 }
 
-.b-crud-table-menu .el-button + .el-button {
-  margin-left: 0;
-}
-
-.b-crud-dialog .el-select {
-  width: 100%;
+.w-crud-pagination {
+  margin-top: 15px;
 }
 </style>

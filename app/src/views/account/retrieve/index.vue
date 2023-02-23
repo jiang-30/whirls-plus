@@ -1,10 +1,10 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   title: 找回密码
   icon: ic:round-login
-  requireAuth: false
+  isAuth: false
 </route>
 
 <template>

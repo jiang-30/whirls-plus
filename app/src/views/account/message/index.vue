@@ -1,7 +1,7 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   title: 消息通知
   icon: mdi:message
   name: UserMessage

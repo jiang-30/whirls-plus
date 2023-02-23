@@ -1,13 +1,13 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true
+  isEnabled: true
+  isStatic: true
   title: 地图
   icon: mdi:map-marker-check
   layout: admin
-  tabBar: true
-  showMenu: true
-  parentMenuName: Case
+  isTab: true
+  isShow: true
+  parentName: Case
   sort: 5
 </route>
 
@@ -17,8 +17,17 @@ meta:
       <div class="map-container" id="amap-container"></div>
       <div class="fixed-box" v-if="initialized">
         <el-space>
-          <el-select v-model="currentCityCode" style="width: 100px" placeholder="城市">
-            <el-option v-for="item in cityList" :key="item.name" :label="item.name" :value="item.code" />
+          <el-select
+            v-model="currentCityCode"
+            style="width: 100px"
+            placeholder="城市"
+          >
+            <el-option
+              v-for="item in cityList"
+              :key="item.name"
+              :label="item.name"
+              :value="item.code"
+            />
           </el-select>
           <ElAutocomplete
             v-model="keyword"
@@ -39,54 +48,60 @@ meta:
 
     <template #footer>
       <div style="display: flex; align-items: center">
-        <span style="color: #aaa; font-size: 12" v-if="address.address">{{ address.address }}({{ address.lng }}, {{ address.lat }})</span>
-        <el-button style="margin-left: auto" type="primary" @click="onConfirm">确定</el-button>
+        <span style="color: #aaa; font-size: 12" v-if="address.address"
+          >{{ address.address }}({{ address.lng }}, {{ address.lat }})</span
+        >
+        <el-button style="margin-left: auto" type="primary" @click="onConfirm"
+          >确定</el-button
+        >
       </div>
     </template>
   </PageContainer>
 </template>
 
 <script lang="ts" setup>
-import AMapLoader from '@amap/amap-jsapi-loader'
-import { ref } from 'vue'
+import AMapLoader from "@amap/amap-jsapi-loader";
+import { ref } from "vue";
 
-let map: any = null
-let amap: any
-let marker: any
+let map: any = null;
+let amap: any;
+let marker: any;
 
-const visible = ref(false)
-const initialized = ref(false)
-const cityList = [{ name: '赤峰市', code: '150400', center: '118.887613,42.256876' }]
-const currentCityCode = ref('150400')
+const visible = ref(false);
+const initialized = ref(false);
+const cityList = [
+  { name: "赤峰市", code: "150400", center: "118.887613,42.256876" },
+];
+const currentCityCode = ref("150400");
 const currentCity = {
-  name: '赤峰市',
-  code: '150400',
+  name: "赤峰市",
+  code: "150400",
   lng: 118.887613,
   lat: 42.256876,
-}
-const keyword = ref('')
-const address = ref<any>({})
+};
+const keyword = ref("");
+const address = ref<any>({});
 
-let resolveHandler: ((value: any) => void) | null
+let resolveHandler: ((value: any) => void) | null;
 
 defineExpose({
   open,
-})
+});
 
 onBeforeUnmount(() => {
-  resolveHandler = null
-})
+  resolveHandler = null;
+});
 
 function onConfirm() {
   if (address.value.lng && resolveHandler) {
-    resolveHandler(address.value)
+    resolveHandler(address.value);
   }
-  visible.value = false
+  visible.value = false;
 }
 
 onMounted(() => {
-  initMap(currentCity)
-})
+  initMap(currentCity);
+});
 
 /**
  * 输入提示列表
@@ -94,22 +109,22 @@ onMounted(() => {
 function querySearch(queryString: string, cb: any) {
   const autoComplete = new amap.AutoComplete({
     city: currentCity.name,
-  })
+  });
 
   autoComplete.search(queryString, function (status: any, result: any) {
     // console.log(status, result);
-    if (status == 'complete') {
-      cb(result.tips.filter((item: any) => item.location))
+    if (status == "complete") {
+      cb(result.tips.filter((item: any) => item.location));
     } else {
-      cb([])
+      cb([]);
     }
-  })
+  });
 }
 
 function handleSelect(event: any) {
   // console.log(event)
-  map.setCenter(event.location)
-  generateMarker(event.location)
+  map.setCenter(event.location);
+  generateMarker(event.location);
 }
 // 设置 Map 的限制区域，设定区域限制后，传入参数为限制的 Bounds。地图仅在区域内可拖
 // setLimitBounds
@@ -120,14 +135,14 @@ function handleSelect(event: any) {
 window._AMapSecurityConfig = {
   // serviceHost:'您的代理服务器域名或地址/_AMapService',
   // 例如 ：serviceHost:'http://1.1.1.1:80/_AMapService',
-  securityJsCode: 'ad9414e3c95c17a5efaa7fbee019c635',
-}
+  securityJsCode: "ad9414e3c95c17a5efaa7fbee019c635",
+};
 
 interface IInfo {
-  lng: number
-  lat: number
-  name: string
-  code: string
+  lng: number;
+  lat: number;
+  name: string;
+  code: string;
 }
 
 /**
@@ -135,55 +150,55 @@ interface IInfo {
  */
 function initMap(info: IInfo) {
   AMapLoader.load({
-    key: 'e995f1881ab9593b915b8adaa192a852',
-    version: '2.0',
-    plugins: ['AMap.PlaceSearch', 'AMap.AutoComplete', 'AMap.DistrictSearch'],
+    key: "e995f1881ab9593b915b8adaa192a852",
+    version: "2.0",
+    plugins: ["AMap.PlaceSearch", "AMap.AutoComplete", "AMap.DistrictSearch"],
   })
-    .then(AMap => {
-      amap = AMap
+    .then((AMap) => {
+      amap = AMap;
 
-      map = new AMap.Map('amap-container', {
+      map = new AMap.Map("amap-container", {
         zoom: 11,
         zooms: [0, 18],
         center: [info.lng, info.lat], // 中心点坐标不设置自动定位到当前城市
-      })
+      });
 
       // 添加遮罩层
-      generateMask(info)
+      generateMask(info);
 
       // 地图初始化完成
-      map.on('complete', () => {
-        initialized.value = true
-      })
+      map.on("complete", () => {
+        initialized.value = true;
+      });
 
       // 点击地图获取位置
-      map.on('click', (event: any) => {
-        generateMarker(event.lnglat)
-      })
+      map.on("click", (event: any) => {
+        generateMarker(event.lnglat);
+      });
     })
-    .catch(e => {
-      console.log(e)
-    })
+    .catch((e) => {
+      console.log(e);
+    });
 }
 
 /**
  * 生成点标记
  */
 function generateMarker(lnglat: any) {
-  address.value = {}
+  address.value = {};
   if (!marker) {
     marker = new amap.Marker({
       position: lnglat,
-      anchor: 'bottom-center',
+      anchor: "bottom-center",
       draggable: true,
-    })
-    map.add(marker)
-    marker.on('dragend', (event: any) => {
-      getAddress(event.lnglat)
-    })
+    });
+    map.add(marker);
+    marker.on("dragend", (event: any) => {
+      getAddress(event.lnglat);
+    });
   }
-  marker.setPosition(lnglat)
-  getAddress(lnglat)
+  marker.setPosition(lnglat);
+  getAddress(lnglat);
 }
 
 /**
@@ -191,7 +206,7 @@ function generateMarker(lnglat: any) {
  */
 function generateMask(info: IInfo) {
   new amap.DistrictSearch({
-    extensions: 'all',
+    extensions: "all",
     subdistrict: 0,
   }).search(info.name, function (status: any, result: any) {
     // console.log('DistrictSearch', result)
@@ -201,34 +216,34 @@ function generateMask(info: IInfo) {
       new amap.LngLat(-360, -90, true),
       new amap.LngLat(360, -90, true),
       new amap.LngLat(360, 90, true),
-    ]
-    const holes = result.districtList[0].boundaries
-    const pathArray = [outer]
+    ];
+    const holes = result.districtList[0].boundaries;
+    const pathArray = [outer];
 
-    pathArray.push(...holes)
+    pathArray.push(...holes);
     const polygon = new amap.Polygon({
       pathL: pathArray,
-      strokeColor: '#04082b',
+      strokeColor: "#04082b",
       strokeWeight: 1,
-      fillColor: '#155292',
+      fillColor: "#155292",
       fillOpacity: 0.5,
-    })
-    polygon.setPath(pathArray)
-    map.add(polygon)
-  })
+    });
+    polygon.setPath(pathArray);
+    map.add(polygon);
+  });
 }
 
 /**
  * 地理编码
  */
 function getAddress(lnglat: any) {
-  amap.plugin('AMap.Geocoder', function () {
+  amap.plugin("AMap.Geocoder", function () {
     const geocoder = new amap.Geocoder({
-      city: '全国',
-    })
+      city: "全国",
+    });
     geocoder.getAddress(lnglat, function (status: string, result: any) {
       // console.log('address', lnglat, result)
-      if (status === 'complete' && result.info === 'OK') {
+      if (status === "complete" && result.info === "OK") {
         address.value = {
           lng: lnglat.getLng(),
           lat: lnglat.getLat(),
@@ -239,11 +254,11 @@ function getAddress(lnglat: any) {
           district: result.regeocode.addressComponent.district,
           street: result.regeocode.addressComponent.street,
           address: result.regeocode.formattedAddress,
-        }
+        };
         //  console.log(address.value)
       }
-    })
-  })
+    });
+  });
 }
 </script>
 

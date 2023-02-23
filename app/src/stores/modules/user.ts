@@ -28,7 +28,7 @@ export const useUserStore = defineStore({
     refreshToken: "",
     expires: 0,
     userInfo: <IUserInfo>{},
-    permissions: <string[]>[], // setAuthorities
+    permissions: <string[]>["ROLE:ADMIN"], // setAuthorities ["ROLE:ADMIN"]
   }),
   getters: {
     isLogin: (state) => {
@@ -36,6 +36,15 @@ export const useUserStore = defineStore({
     },
   },
   actions: {
+    isAuth(permissions: string[]) {
+      if (permissions && permissions.length) {
+        return !!permissions.find((permission) => {
+          return !!this.permissions.find((item) => item == permission);
+        });
+      } else {
+        return true;
+      }
+    },
     // 获取用户信息
     fetchUserInfo() {
       return fetchProfile().then((res) => {
@@ -59,7 +68,10 @@ export const useUserStore = defineStore({
     async initHandler() {
       try {
         if (this.isLogin) {
-          return Promise.all([useDictStore().initHandler()]);
+          return Promise.all([
+            useDictStore().initHandler(),
+            useMenuStore().initHandler(),
+          ]);
         }
         return true;
       } catch (err) {

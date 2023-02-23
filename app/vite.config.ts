@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig, loadEnv, type ConfigEnv } from "vite";
-import { createVitePlugins } from "./vite/index";
+import { createVitePlugins } from "./build/index";
 import tailwindcss from "tailwindcss";
 import { visualizer } from "rollup-plugin-visualizer";
 import { viteMockServe } from "vite-plugin-mock";

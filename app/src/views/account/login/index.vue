@@ -1,20 +1,23 @@
 <route lang="yaml">
-  meta:
-    enabled: true
-    constant: true
-    name: Login
-    requireAuth: false
+meta:
+  isEnabled: true
+  isStatic: true
+  name: Login
+  isAuth: false
 </route>
 
 <template>
   <div class="login-page">
     <section class="login-page-wrapper">
-      <aside class="login-page-aside"> </aside>
+      <aside class="login-page-aside"></aside>
 
       <main class="login-page-main">
-        <header class="login-page-header"> 欢迎，请登录！ </header>
+        <header class="login-page-header">欢迎，请登录！</header>
         <main class="login-page-body">
-          <UsernamePassword v-if="current === 'usernamePassword'" @success="successHandler" />
+          <UsernamePassword
+            v-if="current === 'usernamePassword'"
+            @success="successHandler"
+          />
         </main>
         <footer class="login-page-footer">
           <!-- <div class="text-right mt-2">
@@ -29,31 +32,30 @@
   </div>
 </template>
 <script setup lang="ts" name="Login">
-import UsernamePassword from './components/UsernamePassword.vue'
-import { useRouteStore, useUserStore } from '@/stores'
-import type { ILoginInfo } from './index';
+import UsernamePassword from "./components/UsernamePassword.vue";
+import { useRouteStore, useUserStore } from "@/stores";
+import type { ILoginInfo } from "./index";
 
-const userStore = useUserStore()
-const route = useRoute()
-const router = useRouter()
-const current = ref('usernamePassword')
-
+const userStore = useUserStore();
+const route = useRoute();
+const router = useRouter();
+const current = ref("usernamePassword");
 
 // 登录成功
 function successHandler(data: ILoginInfo) {
-  userStore.accessToken = data.accessToken
-  userStore.expires = data.expires
-  if(data.refreshToken) {
-    userStore.refreshToken = data.refreshToken
+  userStore.accessToken = data.accessToken;
+  userStore.expires = data.expires;
+  if (data.refreshToken) {
+    userStore.refreshToken = data.refreshToken;
   }
-  if(data.userInfo) {
-    userStore.userInfo = data.userInfo
+  if (data.userInfo) {
+    userStore.userInfo = data.userInfo;
   }
 
   if (route.query.redirect) {
-    router.replace({ path: route.query.redirect as string })
+    router.replace({ path: route.query.redirect as string });
   } else {
-    router.replace({ name: useRouteStore().indexPageName })
+    router.replace({ name: useRouteStore().indexPageName });
   }
 }
 </script>
@@ -65,7 +67,7 @@ function successHandler(data: ILoginInfo) {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fff url('/static/images/bg/bg-10.jpg') center / cover no-repeat;
+  background: #fff url("/static/images/bg/bg-10.jpg") center / cover no-repeat;
   backdrop-filter: grayscale(30%);
 }
 
@@ -81,7 +83,7 @@ function successHandler(data: ILoginInfo) {
 
 .login-page-aside {
   width: 200px;
-  background: url('/static/images/bg.png') 100% / cover no-repeat;
+  background: url("/static/images/bg.png") 100% / cover no-repeat;
 }
 
 .login-page-main {

@@ -1,7 +1,7 @@
 <route lang="yaml">
 meta:
-  enabled: true
-  constant: true,
+  isEnabled: true
+  isStatic: true,
   title: 账户设置
   icon: ic:round-settings-suggest
   name: UserSetting
@@ -28,14 +28,14 @@ meta:
 </template>
 
 <script lang="ts" setup>
-import UserInfoView from './components/UserInfoTab.vue'
-import PasswordView from './components/PasswordTab.vue'
+import UserInfoView from "./components/UserInfoTab.vue";
+import PasswordView from "./components/PasswordTab.vue";
 
-const activeKey = ref('userInfo')
+const activeKey = ref("userInfo");
 
 const onSelect = (index: string) => {
-  activeKey.value = index
-}
+  activeKey.value = index;
+};
 </script>
 
 <style scoped>

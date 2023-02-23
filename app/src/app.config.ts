@@ -1,20 +1,21 @@
-import type { IConfig } from './typings'
+import type { IConfig } from "./typings";
+const ENV = import.meta.env;
 
 export default <IConfig>{
-  title: '管理系统',
+  title: "管理系统",
 
-  description: 'vue3 + TypeScript 后台管理系统',
+  description: "vue3 + TypeScript 后台管理系统",
 
-  clientCode: 'ADMIN',
+  clientCode: "ADMIN",
 
-  clientSecret: '',
+  clientSecret: "",
 
   amap: {
-    key: '8590441b668b5ec58a8921edaab94a0a',
+    key: "8590441b668b5ec58a8921edaab94a0a",
   },
 
   theme: {
-    themeMode: 'light',
+    themeMode: "light",
     fullscreenEnabled: true,
     themeEnabled: true,
     settingEnabled: true,
@@ -23,7 +24,7 @@ export default <IConfig>{
   },
 
   request: {
-    baseUrl: '/api',
+    baseUrl: "/api",
 
     timeout: 30000,
   },
@@ -31,5 +32,4 @@ export default <IConfig>{
   router: {
     ignorePagePath: [],
   },
-}
-
+};

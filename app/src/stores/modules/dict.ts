@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia'
-import { fetchDict } from '@/api/common'
-import localDicts from '@/assets/dict/index'
+import { defineStore } from "pinia";
+import { fetchDict } from "@/api/common";
+import localDicts from "@/constant/dict/index";
 
-const storeKey = 'dict-store'
+const storeKey = "dict-store";
 
 export const useDictStore = defineStore({
   id: storeKey,
@@ -19,32 +19,36 @@ export const useDictStore = defineStore({
     return {
       dictList: localDicts,
       isInit: false,
-    }
+    };
   },
   getters: {
     findByKey() {
-      return {}
+      return {};
     },
     items() {
       return (key: string) => {
-        return this.dictList.find(item => item.key == key)?.items ?? []
-      }
+        return this.dictList.find((item) => item.key == key)?.items ?? [];
+      };
     },
     filter() {
       return (value: string, key: string) => {
-        return this.dictList.find(item => item.key == key)?.items.find(item => item.value == value)?.label ?? value
-      }
+        return (
+          this.dictList
+            .find((item) => item.key == key)
+            ?.items.find((item) => item.value == value)?.label ?? value
+        );
+      };
     },
   },
   actions: {
     // 获取字典数据
     initHandler() {
       if (this.isInit === false) {
-        this.isInit = true
-        return fetchDict().then(res => {
-          this.dictList = res
-        })
+        this.isInit = true;
+        return fetchDict().then((res) => {
+          this.dictList = res;
+        });
       }
     },
   },
-})
+});

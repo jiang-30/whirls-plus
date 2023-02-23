@@ -1,31 +1,16 @@
 <template>
   <section>
-    <!-- 
-    表格操作区域
-    create import export
-   -->
-    <section class="w-table-action">
-      <div class="w-table-action-left">
-        <el-button type="primary" @click="onCreate">
-          <span>新增</span>
-        </el-button>
-      </div>
-      <div class="w-table-action-right">
-        <el-button circle @click="onCreate">刷</el-button>
-      </div>
-    </section>
-
     <!--
-    表格
-    type列：selection / index / expand
-    loading
-   -->
+      表格
+      type列：selection / index / expand
+      loading
+    -->
     <el-table :data="tableData" v-bind="_tableAttrs">
       <!--       
-      selection / index / expand
-     -->
-      <!-- <el-table-column type="expand" />
-    <el-table-column type="selection" /> -->
+        selection / index / expand
+      -->
+      <!-- <el-table-column type="expand" /> -->
+      <!-- <el-table-column type="selection" /> -->
       <el-table-column type="index" label="序号" width="60" align="center" />
 
       <!-- 动态列 -->

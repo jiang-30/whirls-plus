@@ -1,13 +1,13 @@
-import { defineStore } from 'pinia'
-import router from '@/router/index'
-import { useRouteStore } from './route'
-import { listToTree, treeFindPath, treeFind } from '@/utils/tree-utils'
-import { fetchPermission } from '@/api/account'
-import { localMenuList } from '@/utils/menu'
-import type { IMenu } from '@/typings'
-import type { RouteRecordName } from 'vue-router'
+import { defineStore } from "pinia";
+import router from "@/router/index";
+import { useRouteStore, useUserStore } from "@/stores";
+import { listToTree, treeFindPath, treeFind } from "@/utils/tree-utils";
+import { fetchPermission } from "@/api/account";
+import { staticMenuList } from "@/utils/menu";
+import type { IMenu } from "@/typings";
+import type { RouteRecordName } from "vue-router";
 
-const storeKey = 'menu-store'
+const storeKey = "menu-store";
 
 export const useMenuStore = defineStore({
   id: storeKey,
@@ -20,20 +20,25 @@ export const useMenuStore = defineStore({
     ],
   },
   state: () => ({
-    menus: <IMenu[]>localMenuList,
+    menus: <IMenu[]>staticMenuList,
   }),
   getters: {
     /**
-     * 启用的菜单列表
+     * 启用的菜单列表 启用、授权
      * @todo 对constant 为true 的菜单根据用户角色过滤
      */
     enabledMenus(state) {
-      const menus = toRaw(state.menus)
-      const enabledMenuList = menus.filter(item => item.enabled === true && ['page', 'menu'].includes(item.type))
+      const menus = toRaw(state.menus);
+      const enabledMenuList = menus.filter(
+        (item) =>
+          item.isEnabled === true &&
+          ["page", "menu"].includes(item.type) &&
+          useUserStore().isAuth(item.permissions)
+      );
       enabledMenuList.sort((prev, next) => {
-        return prev.sort - next.sort
-      })
-      return enabledMenuList
+        return prev.sort - next.sort;
+      });
+      return enabledMenuList;
     },
 
     /**
@@ -41,8 +46,8 @@ export const useMenuStore = defineStore({
      * @todo toRaw
      */
     menuTree() {
-      const tree: IMenu[] = listToTree(this.enabledMenus)
-      return tree
+      const tree: IMenu[] = listToTree(this.enabledMenus);
+      return tree;
     },
 
     /**
@@ -51,40 +56,45 @@ export const useMenuStore = defineStore({
      */
     getMenuTree() {
       return (menuName?: string) => {
-        const tree: IMenu[] = listToTree(this.enabledMenus.filter(item => item.showMenu))
-        let foTree: IMenu[]
+        const tree: IMenu[] = listToTree(
+          this.enabledMenus.filter((item) => item.isShow)
+        );
+        let foTree: IMenu[];
 
         if (menuName) {
-          const subItem = treeFind(tree, node => {
-            return node.name === menuName
-          })
-          foTree = (subItem ? subItem.children : []) as IMenu[]
+          const subItem = treeFind(tree, (node) => {
+            return node.name === menuName;
+          });
+          foTree = (subItem ? subItem.children : []) as IMenu[];
         } else {
-          foTree = tree
+          foTree = tree;
         }
 
-        return foTree.filter(item => item.type == 'page' || (item.children && item.children.length))
-      }
+        return foTree.filter(
+          (item) =>
+            item.type == "page" || (item.children && item.children.length)
+        );
+      };
     },
 
     /**
      * 当前路由路径下的菜单栈 currentMemuStack
      */
     menuStack() {
-      const currentRouteName = router.currentRoute.value.name
-      const stack: IMenu[] = []
+      const currentRouteName = router.currentRoute.value.name;
+      const stack: IMenu[] = [];
 
       treeFindPath(
         this.menuTree,
-        node => {
+        (node) => {
           if (node.name === currentRouteName) {
-            return true
+            return true;
           }
-          return false
+          return false;
         },
-        stack,
-      )
-      return stack
+        stack
+      );
+      return stack;
     },
 
     /**
@@ -92,9 +102,9 @@ export const useMenuStore = defineStore({
      */
     currentMenu(state) {
       return (routeName: RouteRecordName) => {
-        const menu = state.menus.find(item => item.name === routeName)
-        return menu
-      }
+        const menu = state.menus.find((item) => item.name === routeName);
+        return menu;
+      };
     },
   },
   actions: {
@@ -103,11 +113,11 @@ export const useMenuStore = defineStore({
      * @todo _self _blank http
      */
     handlerNav(menu: IMenu) {
-      if (menu.type === 'page') {
-        if (menu.path?.startsWith('http')) {
-          window.open(menu.path, menu.target)
+      if (menu.type === "page") {
+        if (menu.path?.startsWith("http")) {
+          window.open(menu.path, menu.target);
         } else {
-          router.push({ name: menu.name })
+          router.push({ name: menu.name });
         }
       }
     },
@@ -118,22 +128,22 @@ export const useMenuStore = defineStore({
      * @todo enabledIndexPage, 首页需要添加到分组菜单里
      */
     navTo(routeName: string) {
-      const menu = this.currentMenu(routeName)
+      const menu = this.currentMenu(routeName);
 
       if (menu) {
-        if (menu.type === 'page') {
-          this.handlerNav(menu)
-        } else if (menu.type === 'menu') {
+        if (menu.type === "page") {
+          this.handlerNav(menu);
+        } else if (menu.type === "menu") {
           // if(useRouteStore().enabledIndexPage) {
           //   router.push({path: useRouteStore().indexPagePath})
           // } else  {
 
           // }
-          const pageMenu = treeFind([menu], node => {
-            return node.type == 'page'
-          })
+          const pageMenu = treeFind([menu], (node) => {
+            return node.type == "page";
+          });
           if (pageMenu) {
-            this.handlerNav(pageMenu)
+            this.handlerNav(pageMenu);
           }
         }
       }
@@ -145,19 +155,22 @@ export const useMenuStore = defineStore({
      */
     async fetchMenus() {
       // await fetchPermission().then(res => {
-      //   this.menus = [...localMenuList, ...res]
+      //   this.menus = [...staticMenuList, ...res]
       // })
     },
 
     /**
      * 有动态路由并且未加载
      */
-    async inithandler() {
-      if (useRouteStore().dynamicRoute && this.menus.length <= localMenuList.length) {
-        await this.fetchMenus()
+    async initHandler() {
+      if (
+        useRouteStore().dynamicRoute &&
+        this.menus.length <= staticMenuList.length
+      ) {
+        await this.fetchMenus();
       }
 
-      useRouteStore().setRoutes(this.menus)
+      useRouteStore().setRoutes(this.menus);
     },
   },
-})
+});

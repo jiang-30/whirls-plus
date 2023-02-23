@@ -1,16 +1,16 @@
 <route lang="yaml">
-  meta:
-    enabled: true
-    constant: true
-    name: Error
-    requireAuth: false
+meta:
+  isEnabled: true
+  isStatic: true
+  name: Error
+  isAuth: false
 </route>
 
 <template>
   <div class="b-notpermission">
-    <el-result  sub-title="您没有权限访问当前资源">
+    <el-result sub-title="您没有权限访问当前资源">
       <template #icon>
-        <img class="b-notpermission-img" src="/static/images/404.png" alt="">
+        <img class="b-notpermission-img" src="/static/images/404.png" alt="" />
       </template>
 
       <template #extra>
@@ -21,11 +21,11 @@
 </template>
 
 <script setup lang="ts">
-const router = useRouter()
+const router = useRouter();
 
 const onBack = () => {
   router.back();
-}
+};
 </script>
 
 <style scoped>

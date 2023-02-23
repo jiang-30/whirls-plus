@@ -1,35 +1,32 @@
-import { request } from "@/utils/request"
+import { request } from "@/plugin/request";
 
-
-export function fetchPage(params: { current: number, size: number}){
-    return request({
-        method: 'get',
-        url: '/admin/client/page',
-        params: params
-    })
-}
-
-export function fetchCreate(params: any){
+export function fetchPage(params: { current: number; size: number }) {
   return request({
-      method: 'post',
-      url: '/admin/client',
-      data: params
-  })
+    method: "get",
+    url: "/admin/client/page",
+    params: params,
+  });
 }
 
-export function fetchUpdate(params: any){
+export function fetchCreate(params: any) {
   return request({
-      method: 'put',
-      url: '/admin/client',
-      data: params
-  })
+    method: "post",
+    url: "/admin/client",
+    data: params,
+  });
 }
 
-export function fetchDelete(id: string){
+export function fetchUpdate(params: any) {
   return request({
-      method: 'delete',
-      url: `/admin/client/${id}`,
-  })
+    method: "put",
+    url: "/admin/client",
+    data: params,
+  });
 }
 
-
+export function fetchDelete(id: string) {
+  return request({
+    method: "delete",
+    url: `/admin/client/${id}`,
+  });
+}

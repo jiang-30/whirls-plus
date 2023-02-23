@@ -1,33 +1,31 @@
-import { request } from "@/utils/request"
+import { request } from "@/plugin/request";
 
-export function fetchTree(){
-    return request({
-        method: 'get',
-        url: '/admin/menu/tree',
-    })
-}
-
-export function fetchCreate(params: any){
+export function fetchTree() {
   return request({
-      method: 'post',
-      url: '/admin/menu',
-      data: params
-  })
+    method: "get",
+    url: "/admin/menu/tree",
+  });
 }
 
-export function fetchUpdate(params: any){
+export function fetchCreate(params: any) {
   return request({
-      method: 'put',
-      url: '/admin/menu',
-      data: params
-  })
+    method: "post",
+    url: "/admin/menu",
+    data: params,
+  });
 }
 
-export function fetchDelete(id: string){
+export function fetchUpdate(params: any) {
   return request({
-      method: 'delete',
-      url: `/admin/menu/${id}`,
-  })
+    method: "put",
+    url: "/admin/menu",
+    data: params,
+  });
 }
 
-
+export function fetchDelete(id: string) {
+  return request({
+    method: "delete",
+    url: `/admin/menu/${id}`,
+  });
+}
