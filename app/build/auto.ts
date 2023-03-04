@@ -2,7 +2,7 @@ import AutoImport from "unplugin-auto-import/vite";
 import AutoComponents from "unplugin-vue-components/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import Icons from "unplugin-icons/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+// import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 // import
 // components
@@ -11,15 +11,12 @@ export default function createAuto() {
   return [
     AutoImport({
       dts: "./auto-import.d.ts",
-
       // 自动导入 vue vue-router pinia
       imports: ["vue", "vue-router", "pinia"],
-
       resolvers: [
         // 导入 element-plus 中的依赖如: ElMessage
-        ElementPlusResolver(),
+        // ElementPlusResolver(),
       ],
-
       eslintrc: {
         enabled: true,
         filepath: "./.eslintrc-auto-import.json",
@@ -36,18 +33,14 @@ export default function createAuto() {
     AutoComponents({
       // 自动生成声明文件的位置
       dts: "./auto-components.d.ts",
-
       // 自动引入自定义组件
       dirs: ["src/components"],
       include: [/\.vue$/],
-
       // 导入 vue 和 vue-router 中的组件
       extensions: ["vue", "vue-router"],
-
       resolvers: [
         // 按需导入时, 自动导入ElementPlus组件,
-        ElementPlusResolver(),
-
+        // ElementPlusResolver(),
         // 配合 unplugin-icons,直接使用 iconify
         // {prefix}-{collection}-{icon}
         IconsResolver({

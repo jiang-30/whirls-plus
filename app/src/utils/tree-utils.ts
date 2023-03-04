@@ -1,8 +1,8 @@
 interface ITreeItem<T> {
-  id: string
-  parentId: string
-  children?: T[]
-  [key: string]: any
+  id: string;
+  parentId: string;
+  children?: T[];
+  [key: string]: any;
 }
 
 // interface ITree {
@@ -10,37 +10,43 @@ interface ITreeItem<T> {
 // }
 
 interface ITreeProps {
-  id: string
-  parentId: string
-  children: string
+  id: string;
+  parentId: string;
+  children: string;
 }
 const defaultProps = {
-  id: 'id',
-  parentId: 'parentId',
-  children: 'children',
-}
+  id: "id",
+  parentId: "parentId",
+  children: "children",
+};
 
 /**
  * 广度优先遍历
  */
-export function treeForEach<T extends ITreeItem<T>>(tree: T[], func: (node: T) => void) {
-  const list = [...tree]
-  let node = list.shift()
+export function treeForEach<T extends ITreeItem<T>>(
+  tree: T[],
+  func: (node: T) => void
+) {
+  const list = [...tree];
+  let node = list.shift();
   while (node) {
-    func(node)
-    node.children && list.push(...node.children)
-    node = list.shift()
+    func(node);
+    node.children && list.push(...node.children);
+    node = list.shift();
   }
 }
 
 /**
  * 深度优先遍历 先序遍历
  */
-export function treeDeepForEach<T extends ITreeItem<T>>(tree: T[], func: (node: T) => void) {
-  tree.forEach(node => {
-    func(node)
-    node.children && treeDeepForEach(node.children, func)
-  })
+export function treeDeepForEach<T extends ITreeItem<T>>(
+  tree: T[],
+  func: (node: T) => void
+) {
+  tree.forEach((node) => {
+    func(node);
+    node.children && treeDeepForEach(node.children, func);
+  });
 }
 
 /**
@@ -73,17 +79,18 @@ export function listToTree(list: any[], treeProps?: ITreeProps): any[] {
   const props: ITreeProps = {
     ...defaultProps,
     ...treeProps,
-  }
+  };
   const info = list.reduce((map, node) => {
-    map[node[props.id]] = node
-    node[props.children] = []
-    return map
-  }, <any>{})
+    map[node[props.id]] = node;
+    node[props.children] = [];
+    return map;
+  }, <any>{});
 
-  return list.filter(node => {
-    info[node[props.parentId]] && info[node[props.parentId]][props.children].push(node)
-    return !node[props.parentId]
-  })
+  return list.filter((node) => {
+    info[node[props.parentId]] &&
+      info[node[props.parentId]][props.children].push(node);
+    return !node[props.parentId];
+  });
 }
 
 /**
@@ -122,35 +129,49 @@ export function listToTree(list: any[], treeProps?: ITreeProps): any[] {
 /**
  * 树结构查找
  */
-export function treeFind<T extends ITreeItem<T>>(tree: T[], func: (node: T) => boolean, props = { children: 'children' }): T | null {
+export function treeFind<T extends ITreeItem<T>>(
+  tree: T[],
+  func: (node: T) => boolean,
+  props = { children: "children" }
+): T | null {
   for (const node of tree) {
-    if (func(node)) return node
+    if (func(node)) return node;
     if (node[props.children]) {
-      const res = treeFind(node[props.children], func, props)
-      if (res) return res
+      const res = treeFind(node[props.children], func, props);
+      if (res) return res;
     }
   }
-  return null
+  return null;
 }
 
 /**
  * 查找路径
  */
-export function treeFindPath<T extends ITreeItem<T>>(tree: T[], func: (node: T) => boolean, path: any[] = [], treeProps?: ITreeProps): any {
+export function treeFindPath<T extends ITreeItem<T>>(
+  tree: T[],
+  func: (node: T) => boolean,
+  path: any[] = [],
+  treeProps?: ITreeProps
+): any {
   const props: ITreeProps = {
     ...defaultProps,
     ...treeProps,
-  }
-  if (!tree) return []
+  };
+  if (!tree) return [];
 
   for (const node of tree) {
-    path.push(node)
-    if (func(node)) return path
+    path.push(node);
+    if (func(node)) return path;
     if (node[props.children]) {
-      const findChildren = treeFindPath(node[props.children], func, path, props)
-      if (findChildren.length) return findChildren
+      const findChildren = treeFindPath(
+        node[props.children],
+        func,
+        path,
+        props
+      );
+      if (findChildren.length) return findChildren;
     }
-    path.pop()
+    path.pop();
   }
-  return []
+  return [];
 }

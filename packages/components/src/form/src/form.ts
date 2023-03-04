@@ -1,50 +1,36 @@
 import type { PropType } from "vue";
-import type { formModel, IFormAttrs, IFormFieldAttrs } from "./type";
-
-export const formSearchProps = {
-  formModel: {
-    type: Object as PropType<formModel>,
-    required: true,
-  },
-  option: {
-    type: Object as PropType<IFormAttrs & { fields: IFormFieldAttrs[] }>,
-    required: true,
-  },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-};
-
-export const formSearchEmits = {
-  search: null,
-  reset: null,
-  show: null,
-};
+import type { IFormModel, IFormType, IFormAttrs, IFormItemAttrs } from "./type";
 
 // 属性
 export const formProps = {
+  // 数据模型
   formModel: {
-    type: Object as PropType<formModel>,
-    required: true,
+    type: Object as PropType<IFormModel>,
+    required: true as true,
   },
+  // 配置
   option: {
-    type: Object as PropType<IFormAttrs & { fields: IFormFieldAttrs[] }>,
-    required: true,
+    type: Object as PropType<IFormAttrs & { fields: IFormItemAttrs[] }>,
+    required: true as true,
   },
+  // 表单类型 create | update
   type: {
-    type: String,
+    type: String as PropType<IFormType>,
   },
+  // 确认事件
   onConfirm: {
     type: Function,
     required: true,
   },
+  // 重置事件
   onReset: {
     type: Function,
   },
+  // 取消事件
   onCancel: {
     type: Function,
   },
+  // 确认成功事件
   onSuccess: {
     type: Function,
   },

@@ -1,17 +1,17 @@
-import AES from 'crypto-js/aes';
-import Encoder from 'crypto-js/enc-utf8'
-import ECB from 'crypto-js/mode-ecb'
-import PAD from 'crypto-js/pad-pkcs7'
+import AES from "crypto-js/aes";
+import Encoder from "crypto-js/enc-utf8";
+import ECB from "crypto-js/mode-ecb";
+import PAD from "crypto-js/pad-pkcs7";
 
 export function encrypt(content: string) {
-  const key = Encoder.parse('uBdUx82vPHkDKb284d7NkjFoNcKWBuka')
-  const message = Encoder.parse(content)
+  const key = Encoder.parse("uBdUx82vPHkDKb284d7NkjFoNcKWBuka");
+  const message = Encoder.parse(content);
   const result = AES.encrypt(message, key, {
     mode: ECB,
     padding: PAD,
-  }).toString()
+  }).toString();
 
-  return result
+  return result;
 }
 
 // key 是密钥，可以是接口返回的

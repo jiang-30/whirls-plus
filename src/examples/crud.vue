@@ -87,7 +87,7 @@ const option = ref<ICrudOption>({
       label: "类型",
       type: "radioButton",
       dictKey: "SYS_MENU_TYPE",
-      default: "menu",
+      default: "page",
       width: 100,
       align: "center",
       span: 12,

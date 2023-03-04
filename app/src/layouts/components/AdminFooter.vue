@@ -3,6 +3,6 @@
 </template>
 <script lang="ts" setup>
 const isShow = computed(() => {
-  return false
-})
+  return false;
+});
 </script>

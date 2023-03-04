@@ -1,66 +1,374 @@
 import type { ExtractPropTypes } from "vue";
-import type { FormItemRule } from "element-plus";
+import type { FormProps, FormItemProps } from "element-plus";
+import type { formProps, formEmits } from "./form";
+import type { searchFormProps, searchFormEmits } from "./search-form";
 import type Form from "./form.vue";
-import type { formProps } from "./form";
+import type SearchForm from "./search-form.vue";
+import type { IFieldType, IDict } from "../../utils";
 
-export type formModel = Record<string, any>;
+export type IFormModel = Record<string, any>;
 
-// Form 属性
-export interface IFormAttrs {
-  inline?: boolean;
-  labelPosition?: "left" | "right" | "top";
-  labelWidth?: string | number;
-  labelSuffix?: string;
-  hideRequiredAsterisk?: boolean;
-  showMessage?: boolean;
-  inlineMessage?: boolean;
-  statusIcon?: boolean;
-  validateOnRuleChange?: boolean;
-  size?: "large" | "default" | "small";
-  scrollToError?: boolean;
+// 表单类型
+export type IFormType = undefined | "create" | "update";
+
+// 传递给 ElForm 组件的属性
+export interface IElFormAttrs {
+  inline?: FormProps["inline"];
+  labelPosition?: FormProps["labelPosition"];
+  labelWidth?: FormProps["labelWidth"];
+  labelSuffix?: FormProps["labelSuffix"];
+  hideRequiredAsterisk?: FormProps["hideRequiredAsterisk"];
+  showMessage?: FormProps["showMessage"];
+  inlineMessage?: FormProps["inlineMessage"];
+  statusIcon?: FormProps["statusIcon"];
+  validateOnRuleChange?: FormProps["validateOnRuleChange"];
+  size?: FormProps["size"];
+  scrollToError?: FormProps["scrollToError"];
+}
+
+// 传递给 ElFormItem 组件的属性
+export interface IElFormItemAttrs {
+  labelWidth?: FormItemProps["labelWidth"];
+  required?: FormItemProps["required"];
+  rules?: FormItemProps["rules"];
+  error?: FormItemProps["error"];
+  showMessage?: FormItemProps["showMessage"];
+  inlineMessage?: FormItemProps["inlineMessage"];
+  size?: FormItemProps["size"];
+}
+
+// Form 属性 ElFormAttrs
+export interface IFormAttrs extends IElFormAttrs {
+  // 配置默认formItem span
+  span?: number;
 }
 
 // Form Field 属性
-export interface IFormFieldAttrs {
+export interface IFormItemAttrs extends IElFormItemAttrs {
   prop: string;
   label: string;
-  type:
-    | "input"
-    | "inputNumber"
-    | "textarea"
-    | "select"
-    | "radio"
-    | "radioButton"
-    | "tree";
-  span?: number;
-
+  type: IFieldType;
+  // 默认值
   default?: any;
-  searchDefault?: any;
-  isSearch?: boolean;
-  dictKey?: string;
-  hint?: string;
+  isForm?: boolean;
+  // 插槽
   formSlot?: boolean;
+  // 动态响应
   listen?: any;
-
-  labelWidth?: string | number;
-  required?: boolean;
-  rules?: FormItemRule | FormItemRule[];
-  error?: string;
-  showMessage?: boolean;
-  inlineMessage?: boolean;
-  size?: "large" | "default" | "small";
+  // 布局
+  span?: number;
+  // 提示信息
+  hint?: string;
+  // 字典Key
+  dictKey?: string;
+  // 字典数据
+  dictData?: IDict[];
 }
 
-export interface ISearchFormFieldAttrs {
-  searchDefault?: any;
+// Search Form
+export interface ISearchFormAttrs extends IFormAttrs {
+  searchLabelWidth?: string;
+  searchLabelPosition?: string;
+}
+
+export interface ISearchFormItemAttrs extends IFormItemAttrs {
+  prop: string;
+  label: string;
+  type: IFieldType;
   isSearch?: boolean;
+  searchDefault?: any;
+  searchRules?: string;
+  searchSlot?: boolean;
 }
 
-// Form 属性
+// Form
+export type IForm = InstanceType<typeof Form>;
+
+export type IFormEmits = typeof formEmits;
+
 export type IFormProps = ExtractPropTypes<typeof formProps>;
 
-// Form option 属性
 export type IFormOption = IFormProps["option"];
 
-// Form 组件实例
-export type IForm = InstanceType<typeof Form>;
+// Search Form
+export type ISearchForm = InstanceType<typeof SearchForm>;
+
+export type ISearchFormEmits = typeof searchFormEmits;
+
+export type ISearchFormProps = ExtractPropTypes<typeof searchFormProps>;
+
+export type ISearchFormOption = ISearchFormProps["option"];
+
+// ==========================================  form control  ==========================================
+const inputNumberAttrsKey = [
+  "min",
+  "max",
+  "step",
+  "step-strictly",
+  "precision",
+  "size",
+  "disabled",
+  "controls",
+  "controls-position",
+  "name",
+  "label",
+  "placeholder",
+  "value-on-clear",
+  "validate-event",
+];
+
+const inputAttrsKey = [
+  "maxlength",
+  "minlength",
+  "showWordLimit",
+  "placeholder",
+  "clearable",
+  "formatter",
+  "parser",
+  "show-password",
+  "disabled",
+  "size",
+  "prefix-icon",
+  "suffix-icon",
+  "rows",
+  "autosize",
+  "autocomplete",
+  "name",
+  "readonly",
+  "max",
+  "min",
+  "step",
+  "resize",
+  "autofocus",
+  "form",
+  "label",
+  "tabindex",
+  "validate-event",
+  "input-style",
+];
+const inputSlotsKey = ["prefix", "suffix", "prepend", "append"];
+
+const radioGroupAttrsKey = [
+  "size",
+  "disabled",
+  "text-color",
+  "fill",
+  "validate-event",
+];
+const radioAttrsKey = ["label", "disabled", "border", "size", "name"];
+const radioButtonAttrsKey = ["label", "disabled", "name"];
+
+const checkboxGroupAttrsKey = [
+  "disabled",
+  "size",
+  "min",
+  "max",
+  "label",
+  "text-color",
+  "fill",
+  "validate-event",
+];
+const checkboxAttrsKey = [
+  "true-label",
+  "false-label",
+  "disabled",
+  "border",
+  "size",
+  "name",
+  "checked",
+  "indeterminate",
+  "validate-event",
+];
+const checkboxButtonAttrsKey = [
+  "true-label",
+  "false-label",
+  "disabled",
+  "name",
+  "checked",
+];
+
+const selectAttrsKey = [
+  "multiple",
+  "disabled",
+  "value-key",
+  "size",
+  "clearable",
+  "collapse-tags",
+  "collapse-tags-tooltip",
+  "multiple-limit",
+  "name",
+  "effect",
+  "autocomplete",
+  "placeholder",
+  "filterable",
+  "allow-create",
+  "filter-method",
+  "remote",
+  "remote-method",
+  "loading",
+  "loading-text",
+  "no-match-text",
+  "no-data-text",
+  "popper-class",
+  "reserve-keyword",
+  "default-first-option",
+  "teleported",
+  "persistent",
+  "automatic-dropdown",
+  "clear-icon",
+  "fit-input-width",
+  "suffix-icon",
+  "tag-type",
+  "validate-event",
+];
+const selectSlotsKey = ["prefix", "empty"];
+
+const csacaderAttrsKey = [
+  "props",
+  "size",
+  "placeholder",
+  "disabled",
+  "clearable",
+  "show-all-levels",
+  "collapse-tags",
+  "collapse-tags-tooltip",
+  "separator",
+  "filterable",
+  "filter-method",
+  "debounce",
+  "before-filter",
+  "popper-class",
+  "teleported",
+  "tag-type",
+  "validate-event",
+];
+
+const treeAttrsKey = [
+  "empty-text",
+  "node-key",
+  "props",
+  "render-after-expand",
+  "load",
+  "render-content",
+  "highlight-current",
+  "default-expand-all",
+  "expand-on-click-node",
+  "check-on-click-node",
+  "auto-expand-parent",
+  "default-expanded-keys",
+  "show-checkbox",
+  "check-strictly",
+  "default-checked-keys",
+  "current-node-key",
+  "filter-node-method",
+  "accordion",
+  "indent",
+  "icon",
+  "lazy",
+  "draggable",
+  "allow-drag",
+  "allow-drop",
+];
+
+const treeSelectAttrsKey = [...selectAttrsKey, ...treeAttrsKey];
+
+const switchAttrsKey = [
+  "disabled",
+  "loading",
+  "size",
+  "width",
+  "inline-prompt",
+  "active-icon",
+  "inactive-icon",
+  "active-text",
+  "inactive-text",
+  "active-value",
+  "inactive-value",
+  "active-color",
+  "inactive-color",
+  "border-color",
+  "name",
+  "validate-event",
+  "before-change",
+];
+
+const timePickerAttrsKey = [
+  "readonly",
+  "disabled",
+  "editable",
+  "clearable",
+  "size",
+  "placeholder",
+  "start-placeholder",
+  "end-placeholder",
+  "is-range",
+  "arrow-control",
+  "popper-class",
+  "range-separator",
+  "format",
+  "default-value",
+  "id",
+  "name",
+  "prefix-icon",
+  "clear-icon",
+  "disabled-hours",
+  "disabled-minutes",
+  "disabled-seconds",
+  "teleported",
+];
+
+const datePickerAttrsKey = [
+  "readonly",
+  "disabled",
+  "size",
+  "editable",
+  "clearable",
+  "placeholder",
+  "start-placeholder",
+  "end-placeholder",
+  "type",
+  "format",
+  "popper-class",
+  "range-separator",
+  "default-value",
+  "default-time",
+  "value-format",
+  "id",
+  "name",
+  "unlink-panels",
+  "prefix-icon",
+  "clear-icon",
+  "validate-event",
+  "disabled-date",
+  "shortcuts",
+  "cell-class-name",
+  "teleported",
+];
+
+const timeDatePickerAttrsKey = [
+  "readonly",
+  "disabled",
+  "editable",
+  "clearable",
+  "size",
+  "placeholder",
+  "start-placeholder",
+  "end-placeholder",
+  "time-arrow-control",
+  "type",
+  "format",
+  "popper-class",
+  "range-separator",
+  "default-value",
+  "default-time",
+  "value-format",
+  "id",
+  "name",
+  "unlink-panels",
+  "prefix-icon",
+  "clear-icon",
+  "disabled-date",
+  "shortcuts",
+  "cell-class-name",
+  "teleported",
+];

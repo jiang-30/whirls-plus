@@ -2,9 +2,12 @@
   <header class="app-header shadow-light">
     <AppLogo :text-color="headerTextColor" />
     <div class="app-header-nav">
-      <AdminHeaderMenu :bg-color="headerBgColor" :text-color="headerTextColor"></AdminHeaderMenu>
+      <AdminHeaderMenu
+        :bg-color="headerBgColor"
+        :text-color="headerTextColor"
+      ></AdminHeaderMenu>
     </div>
-    <div class="app-header-divider"> </div>
+    <div class="app-header-divider"></div>
     <div class="app-header-btns">
       <AdminHeaderButton :text-color="headerTextColor" />
       <AdminHeaderMessage :text-color="headerTextColor" />
@@ -15,15 +18,15 @@
 </template>
 
 <script lang="ts" setup>
-import AppLogo from './AppLogo.vue'
-import AdminHeaderMenu from './AdminHeaderMenu.vue'
-import AdminHeaderButton from './AdminHeaderButton.vue'
-import AdminHeaderSetting from './AdminHeaderSetting.vue'
-import AdminHeaderMessage from './AdminHeaderMessage.vue'
-import AdminHeaderUser from './AdminHeaderUser.vue'
-import { useSettingStore } from '@/stores'
+import AppLogo from "./AppLogo.vue";
+import AdminHeaderMenu from "./AdminHeaderMenu.vue";
+import AdminHeaderButton from "./AdminHeaderButton.vue";
+import AdminHeaderSetting from "./AdminHeaderSetting.vue";
+import AdminHeaderMessage from "./AdminHeaderMessage.vue";
+import AdminHeaderUser from "./AdminHeaderUser.vue";
+import { useSettingStore } from "@/stores";
 
-const { headerBgColor, headerTextColor } = storeToRefs(useSettingStore())
+const { headerBgColor, headerTextColor } = storeToRefs(useSettingStore());
 </script>
 
 <style scoped>

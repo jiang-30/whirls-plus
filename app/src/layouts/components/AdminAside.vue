@@ -17,8 +17,15 @@
       </el-scrollbar>
     </main>
     <footer class="app-aside__footer">
-      <div class="app-aside-collapse" @click="settingStore.asideCollapse = !asideCollapse">
-        <el-icon class="app-aside-collapse__icon" :size="24" :color="asideTextColor">
+      <div
+        class="app-aside-collapse"
+        @click="settingStore.asideCollapse = !asideCollapse"
+      >
+        <el-icon
+          class="app-aside-collapse__icon"
+          :size="24"
+          :color="asideTextColor"
+        >
           <Expand v-if="asideCollapse" />
           <Fold v-else />
         </el-icon>
@@ -28,25 +35,28 @@
 </template>
 
 <script lang="ts" setup>
-import { Expand, Fold } from '@element-plus/icons-vue'
-import { useMenuStore, useSettingStore } from '@/stores'
-import { storeToRefs } from 'pinia'
-import AppMenu from './AppMenu.vue'
+import { Expand, Fold } from "@element-plus/icons-vue";
+import { useMenuStore, useSettingStore } from "@/stores";
+import { storeToRefs } from "pinia";
+import AppMenu from "./AppMenu.vue";
 
-const settingStore = useSettingStore()
-const menuStore = useMenuStore()
-const { asideBgColor, asideTextColor, asideCollapse } = storeToRefs(settingStore)
+const settingStore = useSettingStore();
+const menuStore = useMenuStore();
+const { asideBgColor, asideTextColor, asideCollapse } =
+  storeToRefs(settingStore);
 
 // 菜单数据
 const menuList = computed(() => {
-  const menuName = useSettingStore().showTopMenuNav ? menuStore.menuStack[0]?.name : undefined
-  return menuStore.getMenuTree(menuName)
-})
+  const menuName = useSettingStore().showTopMenuNav
+    ? menuStore.menuStack[0]?.name
+    : undefined;
+  return menuStore.getMenuTree(menuName);
+});
 
 // 是否展示菜单栏
 const showAside = computed(() => {
-  return settingStore.showAside && menuList.value.length
-})
+  return settingStore.showAside && menuList.value.length;
+});
 </script>
 
 <style scoped>

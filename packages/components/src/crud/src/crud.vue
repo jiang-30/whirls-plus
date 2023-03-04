@@ -1,106 +1,124 @@
 <template>
-  <section>
+  <section class="w-crud">
     <!-- 搜索区域 -->
     <el-collapse-transition>
-      <WFormSearch
+      <WSearchForm
         v-show="searchVisible"
         :option="option!"
-        :form-model="searchModel"
-        :loading="tableLoading"
+        :search-model="searchModel"
+        :loading="tableLoading ?? _tableLoading"
         @show="searchShow = $event"
+        @init="_onSearchInit"
         @search="_onSearch"
         @reset="_onSearchReset"
-      ></WFormSearch>
+      ></WSearchForm>
     </el-collapse-transition>
 
-    <section v-loading="tableLoading">
+    <section v-loading="tableLoading ?? _tableLoading">
       <!-- 操作区域 -->
       <section class="w-crud-action">
-        <el-button type="primary" :icon="CirclePlus" @click="_onCreateOpen">
+        <el-button type="primary" :icon="CirclePlus" @click="_onOpenCreate">
           新增
         </el-button>
+        <slot name="action"></slot>
+
         <span class="w-crud-action-split"></span>
-        <el-button circle :icon="Refresh" @click="_onRefresh"></el-button>
-        <el-popover
-          placement="bottom-end"
-          title="表格数据项"
-          :width="600"
-          trigger="click"
-          :hide-after="0"
-        >
-          <template #default>
-            <section>
-              <el-checkbox :indeterminate="true"> 全选 </el-checkbox>
-              <el-checkbox-group
-                v-model="checkedFields"
-                @change="onCheckedFieldsChange"
-              >
-                <el-checkbox
-                  v-for="item in _tableFields"
-                  :key="item.prop"
-                  :label="item.prop"
-                >
-                  {{ item.label }}
-                </el-checkbox>
-              </el-checkbox-group>
-            </section>
-          </template>
-          <template #reference>
-            <el-button circle :icon="Operation"></el-button>
-          </template>
-        </el-popover>
+
+        <!-- 刷新 -->
+        <el-button circle :icon="Refresh" @click="_onRefresh" />
+        <!-- 过滤数据项 -->
+        <ColumnFilter v-model="checkedFields" :fields="__tableFields" />
+        <!-- 根据搜索区域确定显示隐藏 -->
         <el-button
           v-if="searchShow"
           circle
           :icon="Search"
           @click="searchVisible = !searchVisible"
-        ></el-button>
+        />
       </section>
 
       <!-- 表格区域 -->
-      <el-table :data="tableData" v-bind="_tableAttrs">
-        <!--       
-        selection / index / expand
-      -->
-        <!-- <el-table-column type="expand" /> -->
-        <!-- <el-table-column type="selection" /> -->
+      <el-table :data="tableData ?? _tableData" v-bind="__tableAttrs">
+        <!-- expandColumn 展开 -->
+        <el-table-column v-if="option.expandColumn === true" type="expand">
+          <template #default="scopeProps">
+            <slot name="expand" v-bind="scopeProps"></slot>
+          </template>
+        </el-table-column>
 
-        <!-- :index="pageModel!.size * (pageModel!.current -1) + 1" -->
-        <el-table-column type="index" label="序号" width="60" align="center" />
+        <!-- selectionColumn 选择 -->
+        <el-table-column
+          v-if="option.selectionColumn === true"
+          type="selection"
+        />
+
+        <!-- indexColumn 序号 -->
+        <el-table-column
+          v-if="option.indexColumn !== false"
+          type="index"
+          label="序号"
+          width="60"
+          align="center"
+        />
 
         <!-- 动态列 -->
         <el-table-column
-          v-for="column in _tableFields"
+          v-for="column in tableFilterFields"
           :key="column.prop"
           :prop="column.prop"
           :label="column.label"
-          v-bind="column.__tableColumnAttrs"
+          v-bind="column.__elTableColumnAttrs"
         >
+          <template #default="scopeProps">
+            <template v-if="column._tableSlot">
+              <slot :name="column.prop" v-bind="scopeProps"></slot>
+            </template>
+            <template v-else>
+              {{
+                formatValue(
+                  column,
+                  scopeProps.row,
+                  scopeProps.column,
+                  scopeProps.$index
+                )
+              }}
+            </template>
+          </template>
         </el-table-column>
 
-        <el-table-column v-bind="_tableColumnActionAttrs" width="180">
+        <el-table-column v-bind="__tableColumnActionAttrs">
           <template #default="{ row }">
-            <!-- <el-button text type="info" size="small" @click="_onInfoOpen(row)">
-            详情
-          </el-button> -->
-            <el-button
-              text
-              type="primary"
-              size="small"
-              :icon="Edit"
-              @click="_onUpdateOpen(row)"
-            >
-              修改
-            </el-button>
-            <el-button
-              text
-              type="danger"
-              size="small"
-              :icon="Delete"
-              @click="_onDelete(row)"
-            >
-              删除
-            </el-button>
+            <div class="w-crud-column-action">
+              <el-button
+                v-if="option.isInfoBtn"
+                text
+                type="info"
+                size="small"
+                :icon="View"
+                @click="_onOpenInfo(row)"
+              >
+                详情
+              </el-button>
+              <el-button
+                text
+                type="primary"
+                size="small"
+                :icon="Edit"
+                @click="_onOpenUpdate(row)"
+              >
+                修改
+              </el-button>
+              <el-button
+                text
+                type="danger"
+                size="small"
+                :icon="Delete"
+                @click="_onDelete(row)"
+              >
+                删除
+              </el-button>
+              <slot name="row-action" :row="row" />
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -112,7 +130,7 @@
           v-model:current-page="pageModel.current"
           v-model:page-size="pageModel.size"
           :total="pageModel.total"
-          v-bind="_pageAttrs"
+          v-bind="__pageAttrs"
           @current-change="_onPageCurrentChange"
           @size-change="_onPageSizeChange"
         >
@@ -122,226 +140,345 @@
 
     <!-- 新增 弹窗区域 -->
     <el-dialog
-      v-if="type === 'create'"
       v-model="dialogVisible"
-      title="新增"
-      width="900px"
+      v-bind="__dialogAttrs"
+      :title="typeMap[currentType]"
+      destroy-on-close
     >
       <WForm
+        v-if="currentType === 'create'"
         :option="option"
-        :form-model="_rowModel"
-        @confirm="_onCreateSave"
-        @success="_onSaveSuccess"
+        :form-model="_currentModelValue"
+        @confirm="_onCreateConfirm"
+        @success="onCloseHandler"
       ></WForm>
-    </el-dialog>
 
-    <!-- 修改 弹窗区域 -->
-    <el-dialog
-      v-if="type === 'update'"
-      v-model="dialogVisible"
-      title="修改"
-      width="900px"
-    >
       <WForm
+        v-else-if="currentType === 'update'"
         :option="option"
-        :form-model="_rowModel"
-        @confirm="_onUpdateSave"
-        @success="_onSaveSuccess"
+        :form-model="_currentModelValue"
+        @confirm="_onUpdateConfirm"
+        @success="onCloseHandler"
       ></WForm>
-    </el-dialog>
 
-    <!-- 详情 弹窗区域 -->
-    <el-dialog
-      v-if="type === 'info'"
-      v-model="dialogVisible"
-      title="详情"
-      width="900px"
-    >
-      详情
+      <WInfo
+        v-else-if="currentType === 'info'"
+        :option="option"
+        :info-model="_currentModelValue"
+      ></WInfo>
     </el-dialog>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, useSlots } from "vue";
 import {
+  View,
   CirclePlus,
   Search,
   Refresh,
   Edit,
-  Operation,
   Delete,
 } from "@element-plus/icons-vue";
-import { WFormSearch, WForm } from "../../index";
+import ColumnFilter from "./column-filter.vue";
+import { WSearchForm, WForm, WInfo } from "../../index";
 import { crudProps, crudEmits } from "./crud";
-import { useTableOption } from "./utils";
-import { tools } from "../../index";
+import { useCrudOption } from "./utils";
+import { ElMessageBox, ElNotification, type Action } from "element-plus";
+import { tools } from "../../utils";
 
+console.log("slots: ", useSlots());
+
+defineOptions({ name: "WCrud" });
 const props = defineProps(crudProps);
 const emits = defineEmits(crudEmits);
 
-// console.log(props, tools);
+// 根据搜索栏控制搜索显示按钮的显示
 const searchShow = ref(true);
+// 搜索栏显示隐藏
 const searchVisible = ref(true);
-const loading = ref(false);
-const type = ref("create");
+// 弹窗的显示隐藏
 const dialogVisible = ref(false);
-const _formModel = ref({});
-const checkedFields = ref([]);
+// 当前状态
+const typeMap: Record<string, string> = {
+  info: "详情",
+  create: "新增",
+  update: "修改",
+};
+const currentType = ref("normal");
+// 选中要显示的列
+const checkedFields = ref<string[]>([]);
+// 当前数据
+const _tableLoading = ref(false);
+const _tableData = ref([]);
 
 // 格式化配置数据
-const { _tableFields, _tableColumnActionAttrs, _tableAttrs, _pageAttrs } =
-  useTableOption(props.option!);
+const {
+  __tableFields,
+  __tableColumnActionAttrs,
+  __tableAttrs,
+  __pageAttrs,
+  __dialogAttrs,
+} = useCrudOption(props.option);
 
-// 数据
-const _rowModel = computed({
+// 初始值
+__tableFields.value.forEach((item) => {
+  if (item.isShow) {
+    checkedFields.value.push(item.prop);
+  }
+});
+
+// 当前显示的表格项
+const tableFilterFields = computed(() => {
+  return __tableFields.value.filter((item) => {
+    return checkedFields.value.includes(item.prop);
+  });
+});
+
+// v-model 数据
+const _formModel = ref({});
+const _currentModelValue = computed({
   get: () => {
-    return props.formModel ?? _formModel.value;
+    return props.modelValue ?? _formModel.value;
   },
   set: (val) => {
-    emits("update:formModel", val);
+    emits("update:modelValue", val);
     _formModel.value = val;
-    console.log(3333);
+    console.log(`set ${currentType.value} modelValue`);
   },
 });
 
-// 动态显示列表项
-const onCheckedFieldsChange = (val: any) => {
-  console.log(val);
+// 表格结果数据格式化
+const formatValue = (field: any, row: any, column: any, index: any) => {
+  if (field._formatter) {
+    // row, column, cellValue, index
+    return field._formatter(row, column, row[field.prop], index);
+  } else if (field.type === "select") {
+    const value = row[field.prop];
+    const dict = field._dictData.find((item: any) => item.value === value);
+
+    return dict.label ?? value;
+  } else {
+    return row[field.prop];
+  }
+};
+
+// 关闭弹窗
+const onCloseHandler = () => {
+  // 1. 设置状态
+  currentType.value = "normal";
+  // 2. 设置值 双向绑定
+  _currentModelValue.value = {};
+  // 3. 关闭弹窗
+  dialogVisible.value = false;
 };
 
 // 打开弹窗
 const openHandler = () => {
-  dialogVisible.value = true;
-};
+  const openDone = () => {
+    dialogVisible.value = true;
+  };
 
-const _onSaveSuccess = () => {
-  // 1. 设置状态
-  type.value = "table";
-
-  // 2. 数据拷贝
-  const _row = {};
-
-  // 3. 设置值 双向绑定
-  _rowModel.value = _row;
-
-  // 4. 关闭弹窗
-  dialogVisible.value = false;
+  if (props.onBeforeOpen) {
+    props.onBeforeOpen(currentType.value, _currentModelValue.value, openDone);
+  } else {
+    openDone();
+  }
 };
 
 // ========== 搜索 ==========
 const searchHandler = () => {
-  emits("query");
+  if (props.onQuery) {
+    props.onQuery();
+  } else if (props.api?.list && tools.axios) {
+    _tableLoading.value = true;
+    tools
+      .axios({
+        method: "get",
+        url: props.api.list,
+        params: {
+          ...props.searchModel,
+        },
+      })
+      .then(({ data }) => {
+        _tableData.value = data;
+      })
+      .finally(() => {
+        _tableLoading.value = false;
+      });
+  } else if (props.api?.page && tools.axios) {
+    _tableLoading.value = true;
+    tools
+      .axios({
+        method: "get",
+        url: props.api.page,
+        params: {
+          current: props.pageModel.current,
+          size: props.pageModel.size,
+          ...props.searchModel,
+        },
+      })
+      .then(({ data }) => {
+        _tableData.value = data.records;
+        props.pageModel.total = data.total;
+      })
+      .finally(() => {
+        _tableLoading.value = false;
+      });
+  }
 };
+
 const _onRefresh = () => {
+  emits("refresh");
   searchHandler();
 };
 
-const _onSearch = (model: any) => {
+const _onSearchInit = () => {
+  emits("init");
   searchHandler();
 };
 
-const _onSearchReset = (model: any) => {
+const _onSearch = () => {
+  props.pageModel.current = 1;
+  emits("search");
+  searchHandler();
+};
+
+const _onSearchReset = () => {
+  props.pageModel.current = 1;
+  emits("searchReset");
   searchHandler();
 };
 
 const _onPageCurrentChange = (current: number) => {
-  const _page = { current: current, size: props.pageModel?.size };
-  // emits("pageSizeChange", _page);
-  // emits("pageChange", _page);
+  emits("pageCurrentChange");
   searchHandler();
 };
 
 const _onPageSizeChange = (size: number) => {
-  const _page = { current: props.pageModel?.current, size: size };
-  // emits("pageSizeChange", _page);
-  // emits("pageChange", _page);
+  emits("pageSizeChange");
   searchHandler();
 };
 
-// ========== 新增 ==========
-const _onCreateOpen = () => {
+const _onOpenCreate = () => {
   // 1. 设置状态
-  type.value = "create";
-
-  // 2. 数据拷贝
-  const _row = {};
-
-  // 3. 设置值 双向绑定
-  _rowModel.value = _row;
-
+  currentType.value = "create";
+  // 3. 设置当前 model 值 双向绑定
+  _currentModelValue.value = {};
   // 4. 打开弹窗
-  if (props.onCreateOpen) {
-    props.onCreateOpen(_rowModel.value, openHandler);
-  } else {
-    openHandler();
-  }
+  openHandler();
 };
 
-const _onCreateSave = (record: any, done: any) => {
-  if (props.onCreateSave) {
-    props.onCreateSave(record, done);
-  }
-};
-
-// ========== 修改 ==========
-const _onUpdateOpen = (row: any) => {
+const _onOpenUpdate = (row: any) => {
   // 1. 设置状态
-  type.value = "update";
-
-  // 2. 数据拷贝
-  const _row = { ...row };
-
-  // 3. 设置值 双向绑定
-  _rowModel.value = _row;
-
-  // 打开弹窗
-  if (props.onUpdateOpen) {
-    props.onUpdateOpen(_rowModel.value, openHandler);
-  } else {
-    openHandler();
-  }
+  currentType.value = "update";
+  // 2. 设置值 双向绑定
+  _currentModelValue.value = { ...row };
+  // 3. 打开弹窗
+  openHandler();
 };
 
-const _onUpdateSave = (record: any, done: any) => {
-  if (props.onUpdateSave) {
-    props.onUpdateSave(record, done);
-  }
-};
-
-// ========== 详情 ==========
-const _onInfoOpen = (row: any) => {
+const _onOpenInfo = (row: any) => {
   // 1. 设置状态
-  type.value = "info";
-
-  // 2. 数据拷贝
-  const _row = { ...row };
-
-  // 3. 设置值 双向绑定
-  _rowModel.value = _row;
-
-  // 打开弹窗
-  if (props.onInfoOpen) {
-    props.onInfoOpen(_rowModel.value, openHandler);
+  currentType.value = "info";
+  // 2. 设置值 双向绑定
+  _currentModelValue.value = { ...row };
+  // 3. 请求数据，打开弹窗
+  if (props.api?.info && tools.axios) {
+    tools
+      .axios({
+        method: "get",
+        url: props.api.info,
+      })
+      .then(({ data }) => {
+        _currentModelValue.value = data;
+        openHandler();
+      });
   } else {
     openHandler();
   }
 };
 
-// ========== 删除 ==========
 const _onDelete = (row: any) => {
   // 1. 设置状态
-  type.value = "delete";
+  currentType.value = "delete";
+  // 2. 设置值 双向绑定 数据拷贝
+  _currentModelValue.value = { ...row };
+  // 3. 删除操作
+  if (props.onDelete) {
+    props.onDelete(_currentModelValue.value);
+  } else if (props.api?.delete && tools.axios) {
+    ElMessageBox.confirm("确定执行删除操作吗", {
+      title: "提示",
+      type: "warning",
+      callback: (action: Action) => {
+        if (action === "confirm" && props.api?.delete && tools.axios) {
+          tools
+            .axios({
+              method: "delete",
+              url: props.api.delete + _currentModelValue.value.id,
+            })
+            .then(() => {
+              ElNotification({
+                title: "提示",
+                message: "删除成功！",
+                type: "success",
+              });
+              _onSearch();
+            });
+        }
+      },
+    });
+  }
+};
 
-  // 2. 数据拷贝
-  const _row = { ...row };
+const _onCreateConfirm = (record: any, done: any) => {
+  if (props.onCreate) {
+    props.onCreate(record, done);
+  } else if (props.api?.create && tools.axios) {
+    tools
+      .axios({
+        method: "post",
+        url: props.api.create,
+        data: record,
+      })
+      .then(() => {
+        ElNotification({
+          title: "提示",
+          message: "新增成功！",
+          type: "success",
+        });
+        _onSearch();
+        done(true);
+      })
+      .catch(() => {
+        done();
+      });
+  }
+};
 
-  // 3. 设置值 双向绑定
-  _rowModel.value = _row;
-
-  // 删除操作
-  if (props.onDeleteSave) {
-    props.onDeleteSave(_rowModel.value);
+const _onUpdateConfirm = (record: any, done: any) => {
+  if (props.onUpdate) {
+    props.onUpdate(record, done);
+  } else if (props.api?.update && tools.axios) {
+    tools
+      .axios({
+        method: "put",
+        url: props.api.update,
+        data: record,
+      })
+      .then((res: any) => {
+        ElNotification({
+          title: "提示",
+          message: "修改成功！",
+          type: "success",
+        });
+        _onRefresh();
+        done(true);
+      })
+      .catch(() => {
+        done();
+      });
   }
 };
 </script>
@@ -354,8 +491,20 @@ const _onDelete = (row: any) => {
 .w-crud-action-split {
   margin-left: auto;
 }
-
 .w-crud-pagination {
   margin-top: 15px;
+}
+.w-crud .el-table :deep(th) {
+  /* background-color: #eee; */
+  font-weight: 700;
+  color: var(--el-text-color-regular);
+  background: var(--el-border-color-lighter);
+}
+.w-crud .w-crud-column-action {
+  display: flex;
+  justify-content: center;
+}
+.w-crud .w-crud-column-action :deep(.el-button) {
+  margin-left: 0;
 }
 </style>

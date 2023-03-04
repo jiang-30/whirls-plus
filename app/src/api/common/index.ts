@@ -1,6 +1,6 @@
 import { request } from "@/plugin/request";
 import type { AxiosProgressEvent } from "axios";
-import type { ITest, ITestQuery } from "./types";
+// import type { ITest, ITestQuery } from "./types";
 
 // 查询字典列表
 export function fetchDict() {

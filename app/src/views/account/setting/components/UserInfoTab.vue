@@ -10,13 +10,26 @@
             <el-input v-model="userInfo.username" disabled></el-input>
           </el-form-item>
           <el-form-item label="昵称">
-            <el-input v-model="userInfo.nickname" placeholder="请输入用户昵称"></el-input>
+            <el-input
+              v-model="userInfo.nickname"
+              placeholder="请输入用户昵称"
+            ></el-input>
           </el-form-item>
           <el-form-item label="简介">
-            <el-input v-model="userInfo.description" type="textarea" placeholder="请输入用户简介"></el-input>
+            <el-input
+              v-model="userInfo.description"
+              type="textarea"
+              placeholder="请输入用户简介"
+            ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button class="w-full" type="primary" @click="onConfirm" :loading="loading">保存</el-button>
+            <el-button
+              class="w-full"
+              type="primary"
+              @click="onConfirm"
+              :loading="loading"
+              >保存</el-button
+            >
           </el-form-item>
         </el-form>
       </section>
@@ -25,28 +38,29 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/stores'
-import { fetchUpdateInfo } from '@/api/account'
+import { useUserStore } from "@/stores";
+import { fetchUpdateInfo } from "@/api/account";
+import { ElMessage } from "element-plus";
 
-const userStore = useUserStore()
-const loading = ref(false)
+const userStore = useUserStore();
+const loading = ref(false);
 const userInfo = ref({
   username: userStore.userInfo.username,
   avatar: userStore.userInfo.avatar,
   nickname: userStore.userInfo.nickname,
   description: userStore.userInfo.description,
   email: userStore.userInfo.email,
-})
+});
 
 const onConfirm = () => {
-  loading.value = true
+  loading.value = true;
   fetchUpdateInfo(userInfo.value)
     .then(() => {
-      ElMessage.success("保存成功")
-      userStore.fetchUserInfo()
+      ElMessage.success("保存成功");
+      userStore.fetchUserInfo();
     })
     .finally(() => {
-      loading.value = false
-    })
-}
+      loading.value = false;
+    });
+};
 </script>

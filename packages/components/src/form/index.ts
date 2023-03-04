@@ -1,12 +1,9 @@
 import { withInstall } from "@whirls/utils";
 import Form from "./src/form.vue";
-import FormSearch from "./src/form-search.vue";
-
-Form.name = "WForm";
-FormSearch.name = "WFormSearch";
-
+import SearchForm from "./src/search-form.vue";
 export * from "./src/type";
-export const WForm = withInstall(Form);
-export const WFormSearch = withInstall(FormSearch);
 
-export default WForm;
+const WForm = withInstall(Form);
+const WSearchForm = withInstall(SearchForm);
+
+export { WForm, WForm as default, WSearchForm };

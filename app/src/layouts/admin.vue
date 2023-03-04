@@ -25,19 +25,19 @@
 </template>
 
 <script lang="ts" setup>
-import AdminiAside from './components/AdminAside.vue'
-import AdminHeader from './components/AdminHeader.vue'
-import AdminBreadcrumb from './components/AdminBreadcrumb.vue'
-import AdminTab from './components/AdminTab.vue'
-import AdminFooter from './components/AdminFooter.vue'
-import { useMenuStore, useRouteStore, useSettingStore } from '@/stores'
-import { useEventBus, useResizeObserver } from '@vueuse/core'
+import AdminiAside from "./components/AdminAside.vue";
+import AdminHeader from "./components/AdminHeader.vue";
+import AdminBreadcrumb from "./components/AdminBreadcrumb.vue";
+import AdminTab from "./components/AdminTab.vue";
+import AdminFooter from "./components/AdminFooter.vue";
+import { useMenuStore, useRouteStore, useSettingStore } from "@/stores";
+import { useEventBus, useResizeObserver } from "@vueuse/core";
 
-const menuStore = useMenuStore()
-const routeStore = useRouteStore()
-const settingStore = useSettingStore()
-const mainRef = ref()
-const eventBus = useEventBus('container-resize')
+const menuStore = useMenuStore();
+const routeStore = useRouteStore();
+const settingStore = useSettingStore();
+const mainRef = ref();
+const eventBus = useEventBus("container-resize");
 // const viewStyle = computed(() => {
 //   return {
 //     // 'width': settingStore.containerWidth + 'px',
@@ -48,27 +48,27 @@ const eventBus = useEventBus('container-resize')
 // })
 
 watch(menuStore.menus, () => {
-  console.log('useMenuStore menus change')
-})
+  console.log("useMenuStore menus change");
+});
 
 // 监听 main 区域的 resize
-useResizeObserver(mainRef, event => {
-  const { width, height } = event[0].contentRect
-  settingStore.containerWidth = width
-  settingStore.containerHeight = height
-  eventBus.emit('container-resize')
-})
+useResizeObserver(mainRef, (event) => {
+  const { width, height } = event[0].contentRect;
+  settingStore.containerWidth = width;
+  settingStore.containerHeight = height;
+  eventBus.emit("container-resize");
+});
 // 监听 body 区域的 resize
-useResizeObserver(document.body, event => {
-  const { width } = event[0].contentRect
+useResizeObserver(document.body, (event) => {
+  const { width } = event[0].contentRect;
   if (width <= settingStore.minWidth && !settingStore.asideCollapse) {
-    settingStore.asideCollapse = true
+    settingStore.asideCollapse = true;
   }
-})
+});
 
 onBeforeUnmount(() => {
-  eventBus.reset()
-})
+  eventBus.reset();
+});
 </script>
 
 <style scoped>
@@ -77,10 +77,10 @@ onBeforeUnmount(() => {
   width: 100vw;
   height: 100vh;
   grid-template:
-    'header header' auto
-    'aside nav' auto
-    'aside main' 1fr
-    'aside footer' auto / auto 1fr;
+    "header header" auto
+    "aside nav" auto
+    "aside main" 1fr
+    "aside footer" auto / auto 1fr;
   overflow: hidden;
 }
 

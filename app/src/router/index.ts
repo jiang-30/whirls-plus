@@ -33,7 +33,7 @@ const router = createRouter({
 //    跳转登录页重新跳转到首页
 //    404页面需要判断是动态加载重新跳转
 // 2. 未登录: 忽略路径则继续, 其他跳转到登录页面
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to) => {
   const routeStore = useRouteStore();
   const userStore = useUserStore();
   const settingStore = useSettingStore();
@@ -103,9 +103,9 @@ export function generateRoutes(dynamicRouteMenus: IMenu[]) {
 
   // 格式化路由数据
   dynamicRouteMenus.forEach((menu) => {
-    // 只匹配一级路由, 嵌套路由需要反向查找
+    // 只匹配一级路由, 嵌套路由需要反向查找 || route.name === menu.name
     const component = allRoutes.find((route) => {
-      return route.path === menu.component || route.name === menu.name;
+      return route.path === menu.component;
     });
 
     if (component && component.meta && component.component) {
@@ -124,8 +124,21 @@ export function generateRoutes(dynamicRouteMenus: IMenu[]) {
       // permissions
 
       if (typeof routeMeta.permissions == "string") {
-        // @ts-ignore
-        routeMeta.permissions = (routeMeta.permissions ?? "").split("");
+        routeMeta.permissions = ((routeMeta.permissions as string) ?? "").split(
+          ""
+        );
+      }
+      // path
+      if (menu.path == "") {
+        routeMeta.path = component.meta.path;
+      }
+      // name
+      if (menu.name == "") {
+        routeMeta.name = component.meta.name;
+      }
+      // redirect
+      if (menu.redirect == "") {
+        routeMeta.redirect = component.meta.redirect;
       }
 
       // 路由

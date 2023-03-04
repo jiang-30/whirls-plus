@@ -1,7 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
-    "src/env.d.ts",
     "auto-components.d.ts",
     "auto-import.d.ts",
     "src/**/*.vue",
@@ -20,7 +19,9 @@
       "string-template",
       "nprogress",
       "crypto-js",
-      "pinia-plugin-persist"
+      "pinia-plugin-persist",
+      "element-plus/global",
+      "@whirls/components/global"
     ]
   }
 }

@@ -1,10 +1,25 @@
 <template>
   <div class="app-tab border-light border-b bg-block" v-if="showTab">
     <div class="app-tab-tabs">
-      <el-tabs v-model="activeTab" type="card" @tab-remove="onTabRemove" @tab-click="onTabClick">
-        <el-tab-pane v-for="tab in tabStore.tabs" :key="tab.name" :name="tab.name" closable>
+      <el-tabs
+        v-model="activeTab"
+        type="card"
+        @tab-remove="onTabRemove"
+        @tab-click="onTabClick"
+      >
+        <el-tab-pane
+          v-for="tab in tabStore.tabs"
+          :key="tab.name"
+          :name="tab.name"
+          closable
+        >
           <template #label>
-            <AppIcon style="margin-right: 5px" v-if="tab.icon" :size="16" :icon="tab.icon" />
+            <AppIcon
+              style="margin-right: 5px"
+              v-if="tab.icon"
+              :size="16"
+              :icon="tab.icon"
+            />
             <span>{{ tab.title }}</span>
           </template>
         </el-tab-pane>
@@ -30,33 +45,33 @@
 </template>
 
 <script lang="ts" setup>
-import { ArrowDown } from '@element-plus/icons-vue'
-import { useTabStore, useSettingStore } from '@/stores'
-import type { TabsPaneContext } from 'element-plus'
+import { ArrowDown } from "@element-plus/icons-vue";
+import { useTabStore, useSettingStore } from "@/stores";
+import type { TabsPaneContext } from "element-plus";
 
-const router = useRouter()
-const tabStore = useTabStore()
-const activeTab = ref('')
+const router = useRouter();
+const tabStore = useTabStore();
+const activeTab = ref("");
 
 // 路由变化时修改选中项
 watch(
   () => router.currentRoute.value.name,
-  val => (activeTab.value = val as unknown as string),
-  { immediate: true },
-)
+  (val) => (activeTab.value = val as unknown as string),
+  { immediate: true }
+);
 
 const showTab = computed(() => {
-  return useSettingStore().showTab && tabStore.tabs && tabStore.tabs.length
-})
+  return useSettingStore().showTab && tabStore.tabs && tabStore.tabs.length;
+});
 
 function onTabClick(tab: TabsPaneContext) {
-  router.push({ name: tab.paneName as string })
+  router.push({ name: tab.paneName as string });
 }
 function onTabRemove(RouteName: string) {
-  tabStore.closeTab(RouteName)
+  tabStore.closeTab(RouteName);
 }
 function onCommand(command: string) {
-  tabStore.operationTab(command)
+  tabStore.operationTab(command);
 }
 </script>
 

@@ -1,16 +1,22 @@
-import { createApp } from 'vue'
-import pinia from './stores'
-import router from './router/index'
-import './plugin/icons'
-import 'element-plus/theme-chalk/dark/css-vars.css'
-import './styles/element-reset.css'
-import './styles/index.css'
+import { createApp } from "vue";
+import ElementPlus from "element-plus";
+import pinia from "./stores";
+import router from "./router/index";
+import "element-plus/dist/index.css";
+import "element-plus/theme-chalk/dark/css-vars.css";
+import WComponents from "@whirls/components";
+import "@whirls/components/dist/style.css";
+import "./plugin/icons";
+import "./styles/element-reset.css";
+import "./styles/index.css";
+import App from "./App.vue";
+import { request } from "@/plugin/request";
 
-import App from './App.vue'
+const app = createApp(App);
 
-const app = createApp(App)
+app.use(ElementPlus);
+app.use(pinia);
+app.use(router);
+app.use(WComponents, { axios: request });
 
-app.use(pinia)
-app.use(router)
-
-app.mount('#app')
+app.mount("#app");

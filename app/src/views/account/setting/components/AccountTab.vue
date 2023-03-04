@@ -16,28 +16,29 @@
   </el-tabs>
 </template>
 <script lang="ts" setup>
-import { encrypt } from '@/utils/crypto-utils'
+import { encrypt } from "@/utils/crypto-utils";
+import { ElMessage } from "element-plus";
 
 const formModel = ref({
-  password: '',
-  newPassword: '',
-  rePassword: '',
-})
+  password: "",
+  newPassword: "",
+  rePassword: "",
+});
 
 const formRules = {
   oldPassword: [],
   newPassword: [],
   confirmPassword: [],
-}
+};
 
 function onSubmit() {
   if (formModel.value.newPassword != formModel.value.rePassword) {
-    ElMessage.warning('俩次密码输入不一致')
-    return
+    ElMessage.warning("俩次密码输入不一致");
+    return;
   }
   const args = {
     oldPassword: encrypt(formModel.value.rePassword),
     newPassword: encrypt(formModel.value.newPassword),
-  }
+  };
 }
 </script>

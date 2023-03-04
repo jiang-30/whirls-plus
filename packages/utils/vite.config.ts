@@ -21,7 +21,7 @@ export default defineConfig({
       output: [
         {
           format: "es",
-          entryFileNames: "[name].js",
+          entryFileNames: "[name].mjs",
           preserveModules: true,
           dir: "es",
           preserveModulesRoot: "src",

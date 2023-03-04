@@ -1,11 +1,11 @@
-import type { App, Plugin, Component } from "vue"
+import type { Plugin, Component } from "vue";
 
-export type SFCWithInstall<T> = T&Plugin
+export type WWithInstall<T> = T & Plugin;
 
-export const withInstall = <T extends Component>(comp:T) => {
-  (comp as SFCWithInstall<T>).install = (app:App)=>{
-      //注册组件
-      app.component((comp as any).name,comp)
-  }
-  return comp as SFCWithInstall<T>
-}
+export const withInstall = <T extends Component>(comp: T) => {
+  (comp as WWithInstall<T>).install = (app): void => {
+    app.component(comp.name!, comp);
+  };
+
+  return comp as WWithInstall<T>;
+};

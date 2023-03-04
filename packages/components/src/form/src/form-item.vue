@@ -28,6 +28,7 @@
       <el-select
         v-else-if="field.type === 'select'"
         v-model="formModel[field.prop]"
+        style="width: 100%"
         :placeholder="'请选择' + field.label"
       >
         <el-option
@@ -67,8 +68,9 @@
 
       <!-- tree 树型选择 -->
       <el-tree-select
-        v-else-if="field.type === 'treeSelect'"
+        v-else-if="field.type === 'tree'"
         v-model="formModel[field.prop]"
+        style="width: 100%"
         :data="field.__dictData"
         v-bind="field.__formControlAttrs"
       />

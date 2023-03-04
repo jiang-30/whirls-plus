@@ -8,19 +8,19 @@
  * evn环境变量
  */
 interface ImportMetaEnv {
-  readonly VITE_APP_TITLE: string
+  readonly VITE_APP_TITLE: string;
 
   /**
    * http 请求地址 http://ip:port
    */
-  readonly VITE_APP_HTTP_URL: string
+  readonly VITE_APP_HTTP_URL: string;
 }
 
 /**
- * import.meta 
+ * import.meta
  */
 interface ImportMeta {
-  readonly env: ImportMetaEnv
+  readonly env: ImportMetaEnv;
 }
 
 /**
@@ -28,6 +28,6 @@ interface ImportMeta {
  */
 interface Window {
   _AMapSecurityConfig: {
-    readonly securityJsCode: string
-  }
+    readonly securityJsCode: string;
+  };
 }

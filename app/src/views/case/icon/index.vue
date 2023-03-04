@@ -30,6 +30,7 @@ meta:
 <script lang="ts" setup>
 import { listIcons } from "@iconify/vue";
 import { useClipboard } from "@vueuse/core";
+import { ElMessage } from "element-plus";
 
 const icons = listIcons(undefined, "w");
 const { copy } = useClipboard();

@@ -1,7 +1,7 @@
 import { withInstall } from "@whirls/utils";
-export * from "./src/type";
 import Crud from "./src/crud.vue";
+export * from "./src/type";
 
-Crud.name = "WCrud";
+const WCrud = withInstall(Crud);
 
-export const WCrud = withInstall(Crud);
+export { WCrud, WCrud as default };

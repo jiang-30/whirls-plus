@@ -1,39 +1,55 @@
 <template>
-  <el-descriptions v-bind="infoAttrs">
-    <template v-for="item in infoFields" :key="item.prop">
-      <el-descriptions-item v-bind="item.__infoItemAttrs">
+  <section>
+    <el-descriptions v-bind="__infoAttrs" :column="24">
+      <el-descriptions-item
+        v-for="item in __infoFields"
+        :key="item.prop"
+        v-bind="item.__itemAttrs"
+        :span="item.span"
+      >
         <template #label>
           <span>{{ item.label }}</span>
         </template>
         <template #default>
-          <span>{{ model[item.prop] }}</span>
+          <span>{{ infoModel[item.prop] }}</span>
         </template>
       </el-descriptions-item>
-    </template>
-  </el-descriptions>
+    </el-descriptions>
+
+    <footer class="w-info-footer">
+      <el-button
+        v-if="onCancel"
+        type="default"
+        :icon="CircleClose"
+        @click="_onCancel"
+      >
+        关闭
+      </el-button>
+    </footer>
+  </section>
 </template>
 <script lang="ts" setup>
-import { computed } from "vue";
-import {
-  useInfoAttrsFormatter,
-  useInfoFieldsFormatter,
-} from "../../formatter/info";
+import { CircleClose } from "@element-plus/icons-vue";
+import { infoProps, infoEmits } from "./info";
+import { useInfoOption } from "./utils";
 
-const props = withDefaults(
-  defineProps<{
-    option: any;
-    model: any;
-  }>(),
-  {}
-);
+defineOptions({ name: "WInfo" });
+const props = defineProps(infoProps);
+const emits = defineEmits(infoEmits);
 
-console.log("22343423423", props.model);
+const { __infoAttrs, __infoFields } = useInfoOption(props.option);
 
-const infoAttrs = computed(() => {
-  return useInfoAttrsFormatter(props.option);
-});
-
-const infoFields = computed(() => {
-  return useInfoFieldsFormatter(props.option);
-});
+const _onCancel = () => {
+  if (props.onCancel) {
+    props.onCancel();
+  }
+};
 </script>
+
+<style scoped>
+.w-info-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+</style>

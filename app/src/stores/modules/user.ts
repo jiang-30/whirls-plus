@@ -11,7 +11,7 @@ import {
 } from "@/stores";
 
 const storeKey = "user-store";
-let isInit = false;
+// const isInit = false;
 
 export const useUserStore = defineStore({
   id: storeKey,

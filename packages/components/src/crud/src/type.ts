@@ -1,16 +1,35 @@
 import type { ExtractPropTypes } from "vue";
-import type {} from "element-plus";
+import type { TableProps, TableColumnCtx, DialogProps } from "element-plus";
 import type { crudProps, crudEmits } from "./crud";
 import type Crud from "./crud.vue";
+import type { IFieldType, IDict } from "../../utils";
 
-// Crud 扩展属性
-export interface ICrudAttrs {
-  // 表格操作栏
-  // 操作栏
+// 表格数据类型
+export type ITableData = Record<string, any>;
+
+// Pagination model 数据
+export type IPageModel = {
+  current: number;
+  size: number;
+  total: number;
+};
+
+// {
+//   method: "get";
+//   url: "/admin/dict";
+//   data: ''
+// };
+export interface ICrudApi {
+  list?: string;
+  page?: string;
+  info?: string;
+  create?: string;
+  update?: string;
+  delete?: string;
 }
 
 // Table 属性
-export interface ITableAttrs {
+export interface IElTableAttrs {
   height?: string | number;
   maxHeight?: string | number;
   stripe?: boolean;
@@ -19,7 +38,7 @@ export interface ITableAttrs {
   fit?: boolean;
   showHeader?: boolean;
   highlightCurrentRow?: boolean;
-  // current-row-key?: string | number
+  currentRowKey?: TableProps<ITableData>["currentRowKey"];
   // row-class-name?: function({ row, rowIndex }) / string
   // row-style?: function({ row, rowIndex }) / object
   // cell-class-name?: function({ row, column, rowIndex, columnIndex }) / string
@@ -48,14 +67,7 @@ export interface ITableAttrs {
 }
 
 // Table Field 属性
-export interface ITableFieldAttrs {
-  prop: string;
-  label: string;
-
-  dictKey?: string;
-  isTable?: boolean;
-  tableSlot?: boolean;
-
+export interface IElTableColumnAttrs {
   // type?: "selection" | "index" | "expand"; // form 冲突
   index?: number | ((index: number) => number);
   columnKey?: string;
@@ -68,7 +80,7 @@ export interface ITableFieldAttrs {
   // sortBy?: function(row, index) / string / array
   // sort-orders?: array
   resizable?: boolean;
-  // formatter?: function(row, column, cellValue, index)
+  formatter?: TableColumnCtx<any>["formatter"];
   showOverflowTooltip?: boolean;
   align?: string;
   headerAlign?: string;
@@ -81,36 +93,98 @@ export interface ITableFieldAttrs {
   // filtered-value
 }
 
-// Dialog 属性
-export interface IDialogAttrs {
-  title?: string;
-  width?: string | number;
-  fullscreen?: boolean;
-  top?: string;
-  modal?: boolean;
-  appendToBody?: boolean;
-  lockScroll?: boolean;
-  customClass?: string;
-  openDelay?: number;
-  closeDelay?: number;
-  closeOnClickModal?: boolean;
-  closeOnPressEscape?: boolean;
-  showClose?: boolean;
-  beforeClose?: (done: () => {}) => void;
-  draggable?: boolean;
-  center?: boolean;
-  destroyOnClose?: boolean;
+// Pagination 属性
+export interface IElPaginationAttrs {
+  // pageSizes: [10, 20, 50, 100],
+  // background: true,
+  // layout: ' ->, total, sizes, prev, pager, next, jumper',
 }
 
-// Pagination model 数据
-export type IPageModel = {
-  current: number;
-  size: number;
-  total: number;
-};
+// Dialog 属性
+export interface IElDialogAttrs {
+  // dialogTitle?: string;
+  dialogWidth?: DialogProps["width"];
+  dialogFullscreen?: boolean;
+  dialogTop?: string;
+  dialogModal?: boolean;
+  dialogAppendToBody?: boolean;
+  dialogLockScroll?: boolean;
+  dialogCustomClass?: string;
+  dialogOpenDelay?: number;
+  dialogCloseDelay?: number;
+  dialogCloseOnClickModal?: boolean;
+  dialogCloseOnPressEscape?: boolean;
+  dialogShowClose?: boolean;
+  dialogBeforeClose?: DialogProps["beforeClose"];
+  dialogDraggable?: boolean;
+  dialogCenter?: boolean;
+  dialogAlignCenter?: boolean;
+  dialogDestroyOnClose?: boolean;
+}
 
-// 表格数据类型
-export type ITableData = Record<string, any>;
+// Crud 扩展属性
+export interface ICrudAttrs
+  extends IElTableAttrs,
+    IElPaginationAttrs,
+    IElDialogAttrs {
+  // 序号 列
+  indexColumn?: boolean;
+  indexColumnWidth?: boolean;
+  indexColumnFixed?: boolean;
+
+  // 展开 列
+  expandColumn?: boolean;
+
+  // 选择 列
+  selectionColumn?: boolean;
+
+  // 操作栏
+  // printBtn
+  // excelBtn
+  // refreshBtn
+  // columnBtn
+  // searchShowBtn
+
+  // 表格操作栏
+  rowAction?: boolean;
+  rowActionWidth?: string | number;
+  rowActionTitle?: string;
+  rowActionFixed?: string;
+  rowActionType?: string;
+  rowActionHeaderAlign?: string;
+  rowActionAlign?: string;
+  // 显示新增按钮
+  isCreateBtn?: boolean;
+  createBtnPermission?: boolean;
+
+  // 显示详情按钮 default false
+  isInfoBtn?: boolean;
+  infoBtnDisabled?: boolean;
+  // 显示修改按钮
+  isUpdateBtn?: boolean;
+  updateBtnDisabled?: boolean;
+  updateBtnPermission?: boolean;
+  // 显示删除按钮
+  isDeleteBtn?: boolean;
+  deleteBtnDisabled: boolean;
+  deleteBtnPermission?: boolean;
+
+  // 共用属性
+  align?: TableColumnCtx<any>["align"];
+
+  headerAlign?: TableColumnCtx<any>["headerAlign"];
+}
+
+export interface ICrudColumnAttrs extends IElTableColumnAttrs {
+  prop: string;
+  label: string;
+  type: IFieldType;
+  dictKey?: string;
+  dictData?: IDict[];
+  isTable?: boolean;
+  isTableVisible?: boolean;
+  tableSlot?: boolean;
+}
 
 // CRUD 属性
 export type ICrudProps = ExtractPropTypes<typeof crudProps>;

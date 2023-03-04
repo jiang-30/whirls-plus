@@ -7,12 +7,12 @@
   "license": "ISC",
   "type": "module",
   "main": "lib/index.js",
-  "module": "es/index.js",
+  "module": "es/index.mjs",
   "types": "es/index.d.ts",
   "exports": {
     ".": {
-      "import": "./es/index.js",
       "require": "./lib/index.js",
+      "import": "./es/index.mjs",
       "types": "./es/index.d.ts"
     },
     "./*": "./*"
@@ -28,10 +28,8 @@
   "scripts": {
     "build": "vite build"
   },
-  "devDependencies": {
-    "vue": "^3.2.45"
-  },
+  "devDependencies": {},
   "peerDependencies": {
-    "vue": "^3.2.45"
+    "vue": "^3.2.47"
   }
 }

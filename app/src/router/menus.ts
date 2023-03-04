@@ -7,7 +7,7 @@ type IMenu = RouteMeta;
 const menusList: Partial<IMenu>[] = [
   {
     type: "menu",
-    name: "Authority",
+    name: "Permission",
     title: "权限管理",
     icon: "mdi:security-close",
     isEnabled: true,
@@ -41,11 +41,12 @@ const menusList: Partial<IMenu>[] = [
     sort: 10,
   },
   {
+    isEnabled: true,
     type: "page",
     name: "data-home",
+    // component: "/data/home",
     title: "可视化",
     icon: "ic:sharp-bar-chart",
-    isEnabled: true,
     isShow: true,
     sort: 20,
     layout: "data",

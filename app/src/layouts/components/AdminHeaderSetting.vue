@@ -1,13 +1,25 @@
 <template>
-  <el-tooltip content="系统设置" placement="bottom-end">
-    <el-button v-if="settingStore.showSettingBtn" class="app-setting-btn" link @click="onOpen">
+  <el-tooltip content="系统设置">
+    <el-button
+      v-if="settingStore.showSettingBtn"
+      class="app-setting-btn"
+      link
+      @click="onOpen"
+    >
       <el-icon :color="textColor" :size="22">
         <Tools />
       </el-icon>
     </el-button>
   </el-tooltip>
 
-  <el-drawer v-model="visible" class="app-setting-drawer" title="风格设置" direction="rtl" append-to-body size="420px">
+  <el-drawer
+    v-model="visible"
+    class="app-setting-drawer"
+    title="风格设置"
+    direction="rtl"
+    append-to-body
+    size="420px"
+  >
     <section class="h-full flex flex-col">
       <el-scrollbar class="grow" view-style="padding: 20px;">
         <ul>
@@ -29,7 +41,10 @@
               v-for="item in layoutList"
               :key="item"
               class="app-setting-mode-item"
-              :class="{ ['app-setting-mode-item-' + item]: true, active: settingStore.adminLayout == item }"
+              :class="{
+                ['app-setting-mode-item-' + item]: true,
+                active: settingStore.adminLayout == item,
+              }"
               @click="settingStore.adminLayout = item"
             ></div>
           </li>
@@ -49,16 +64,19 @@
         </ul>
       </el-scrollbar>
       <footer class="p-2">
-        <el-button class="w-full" plain @click="onClear">清空缓存并退出</el-button>
+        <el-button class="w-full" plain @click="onClear"
+          >清空缓存并退出</el-button
+        >
       </footer>
     </section>
   </el-drawer>
 </template>
 
 <script lang="ts" setup>
-import type { IAdminLayout } from '@/typings'
-import { useSettingStore, useUserStore } from '@/stores'
-import { Tools } from '@element-plus/icons-vue'
+import type { IAdminLayout } from "@/typings";
+import { useSettingStore, useUserStore } from "@/stores";
+import { Tools } from "@element-plus/icons-vue";
+import { ElMessageBox } from "element-plus";
 
 // 清空缓存
 // 页脚
@@ -69,26 +87,26 @@ import { Tools } from '@element-plus/icons-vue'
 // 屏幕适配
 
 defineProps<{
-  textColor: string
-}>()
+  textColor: string;
+}>();
 
-const settingStore = useSettingStore()
-const visible = ref(false)
-const layoutList: IAdminLayout[] = ['aside', 'top', 'topAside']
+const settingStore = useSettingStore();
+const visible = ref(false);
+const layoutList: IAdminLayout[] = ["aside", "top", "topAside"];
 
 // 打开
 const onOpen = () => {
-  visible.value = true
-}
+  visible.value = true;
+};
 
 // 清除缓存并退出
 const onClear = () => {
-  ElMessageBox.confirm('确定清空缓存并退出系统吗', { type: 'warning' })
+  ElMessageBox.confirm("确定清空缓存并退出系统吗", { type: "warning" })
     .then(() => {
-      useUserStore().logoutHandler(true)
+      useUserStore().logoutHandler(true);
     })
-    .catch(() => {})
-}
+    .catch(() => {});
+};
 </script>
 
 <style scoped>
@@ -142,7 +160,7 @@ const onClear = () => {
 }
 
 .app-setting-drawer .app-setting-mode-item::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -153,7 +171,7 @@ const onClear = () => {
 }
 
 .app-setting-drawer .app-setting-mode-item::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;

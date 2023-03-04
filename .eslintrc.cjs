@@ -11,7 +11,7 @@ module.exports = {
   ],
   // 后面的会覆盖前面的
   extends: [
-    "./.eslintrc-auto-import.json",
+    "./app/.eslintrc-auto-import.json",
     "plugin:vue/vue3-essential",
     "eslint:recommended",
     "@vue/eslint-config-typescript/recommended",
@@ -27,6 +27,7 @@ module.exports = {
     "vue/multi-word-component-names": 0,
     "@typescript-eslint/no-empty-function": 0,
     "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/no-non-null-assertion": 2,
+    "@typescript-eslint/no-non-null-assertion": ["warn"], // ts 使用 ! 表示非空
+    "@typescript-eslint/no-unused-vars": ["warn"], // 变量定义未使用
   },
 };

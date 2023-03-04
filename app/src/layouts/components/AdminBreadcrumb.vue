@@ -1,6 +1,15 @@
 <template>
-  <el-breadcrumb v-if="showBreadcrumb && isShow" style="padding: 10px 10px 0" separator="/">
-    <el-breadcrumb-item class="app-breadcrumb-item" v-for="item in menuStore.menuStack" :key="item.name" :to="getTo(item)">
+  <el-breadcrumb
+    v-if="showBreadcrumb && isShow"
+    style="padding: 10px 10px 0"
+    separator="/"
+  >
+    <el-breadcrumb-item
+      class="app-breadcrumb-item"
+      v-for="item in menuStore.menuStack"
+      :key="item.name"
+      :to="getTo(item)"
+    >
       <AppIcon v-if="item.icon" :icon="item.icon"></AppIcon>
       <span>{{ item.title }}</span>
     </el-breadcrumb-item>
@@ -8,22 +17,22 @@
 </template>
 
 <script lang="ts" setup>
-import { useMenuStore, useSettingStore } from '@/stores'
-const menuStore = useMenuStore()
+import { useMenuStore, useSettingStore } from "@/stores";
+const menuStore = useMenuStore();
 
 const showBreadcrumb = computed(() => {
-  return useSettingStore().showBreadcrumb
-})
+  return useSettingStore().showBreadcrumb;
+});
 
 const isShow = computed(() => {
-  return menuStore.menuStack.length && menuStore.menuStack.length > 1
-})
+  return menuStore.menuStack.length && menuStore.menuStack.length > 1;
+});
 
 function getTo(item: any) {
-  if (item.type == 'page') {
-    return { name: item.name }
+  if (item.type == "page") {
+    return { name: item.name };
   } else {
-    return {}
+    return {};
   }
 }
 </script>

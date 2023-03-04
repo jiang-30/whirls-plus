@@ -1,7 +1,7 @@
 <route lang="yaml">
 meta:
   isEnabled: true
-  isStatic: true
+  isStatic: false
   title: 可视化分析
   icon: ic:round-analytics
   layout: data

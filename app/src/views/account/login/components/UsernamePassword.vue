@@ -3,6 +3,7 @@
     ref="formRef"
     :model="formData"
     :rules="formRules"
+    :disabled="loading"
     @keyup.enter="onSubmit(formRef)"
   >
     <el-form-item prop="username">
@@ -82,12 +83,12 @@ const onSubmit = (form: FormInstance | undefined) => {
         password: encrypt(formData.value.password),
       };
       fetchLogin(params)
-        .then((res) => {
+        .then(({ data }) => {
           emit("success", {
-            accessToken: res.accessToken,
-            expires: res.expires,
-            refreshToken: res.refreshToken,
-            userInfo: res.userInfo,
+            accessToken: data.accessToken,
+            expires: data.expires,
+            refreshToken: data.refreshToken,
+            userInfo: data.userInfo,
           });
         })
         .finally(() => {

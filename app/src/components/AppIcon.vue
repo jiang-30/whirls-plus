@@ -5,11 +5,11 @@
 </template>
 
 <script lang="ts" setup>
-import { Icon } from '@iconify/vue'
+import { Icon } from "@iconify/vue";
 
 defineProps<{
-  size?: number
-  color?: string
-  icon: string
-}>()
+  size?: number;
+  color?: string;
+  icon: string;
+}>();
 </script>

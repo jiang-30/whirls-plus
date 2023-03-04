@@ -12,7 +12,13 @@ meta:
 </route>
 
 <template>
-  <div>文件管理</div>
+  <PageContainer>
+    <WCrud :option="option" :api="api"> </WCrud>
+  </PageContainer>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useModel } from "./model";
+
+const { option, api } = useModel();
+</script>

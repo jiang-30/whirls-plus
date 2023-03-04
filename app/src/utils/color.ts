@@ -1,88 +1,115 @@
 // 'element-plus/theme-chalk/dark/css-vars.css'
 
 export function setThemePrimaryColor(primaryColor: string, mode: string) {
-  const el = document.documentElement
-  const primaryTheme = generateThemeScheme(primaryColor, mode)
+  const el = document.documentElement;
+  const primaryTheme = generateThemeScheme(primaryColor, mode);
 
-  Object.keys(primaryTheme).forEach(key => {
-    el.style.setProperty(key, primaryTheme[key])
-  })
+  Object.keys(primaryTheme).forEach((key) => {
+    el.style.setProperty(key, primaryTheme[key]);
+  });
 }
 
 // 生成主题色
 export function generateThemeScheme(primaryColor: string, mode: string) {
-  const prefixKey = '--el-color-primary'
+  const prefixKey = "--el-color-primary";
   let scheme: Record<string, string> = {
     // '--el-color-black': '#000000',
     // '--el-color-white': '#FFFFFF',
     // '--el-color-blank': 'transparent',
     // ...extraScheme[mode]
-  }
-  if (mode == 'dark') {
-    const primaryTheme = generateDarkColor(primaryColor, prefixKey)
+  };
+  if (mode == "dark") {
+    const primaryTheme = generateDarkColor(primaryColor, prefixKey);
     scheme = {
       ...primaryTheme,
       [`${prefixKey}-rgb`]: colorH(primaryTheme[prefixKey]),
-    }
+    };
   } else {
-    const primaryTheme = generateLightColor(primaryColor, prefixKey)
+    const primaryTheme = generateLightColor(primaryColor, prefixKey);
     scheme = {
       ...primaryTheme,
       [`${prefixKey}-rgb`]: colorH(primaryTheme[prefixKey]),
-    }
+    };
   }
 
-  return scheme
+  return scheme;
 }
 
 /** 颜色混合 */
 function colorMix(color1: string, color2: string, weight: number) {
-  weight = Math.max(Math.min(Number(weight), 1), 0)
-  const r1 = parseInt(color1.substring(1, 3), 16)
-  const g1 = parseInt(color1.substring(3, 5), 16)
-  const b1 = parseInt(color1.substring(5, 7), 16)
-  const r2 = parseInt(color2.substring(1, 3), 16)
-  const g2 = parseInt(color2.substring(3, 5), 16)
-  const b2 = parseInt(color2.substring(5, 7), 16)
-  const r = Math.round(r1 * (1 - weight) + r2 * weight)
-  const g = Math.round(g1 * (1 - weight) + g2 * weight)
-  const b = Math.round(b1 * (1 - weight) + b2 * weight)
+  weight = Math.max(Math.min(Number(weight), 1), 0);
+  const r1 = parseInt(color1.substring(1, 3), 16);
+  const g1 = parseInt(color1.substring(3, 5), 16);
+  const b1 = parseInt(color1.substring(5, 7), 16);
+  const r2 = parseInt(color2.substring(1, 3), 16);
+  const g2 = parseInt(color2.substring(3, 5), 16);
+  const b2 = parseInt(color2.substring(5, 7), 16);
+  const r = Math.round(r1 * (1 - weight) + r2 * weight);
+  const g = Math.round(g1 * (1 - weight) + g2 * weight);
+  const b = Math.round(b1 * (1 - weight) + b2 * weight);
 
-  return '#' + ('0' + (r || 0).toString(16)).slice(-2) + ('0' + (g || 0).toString(16)).slice(-2) + ('0' + (b || 0).toString(16)).slice(-2)
+  return (
+    "#" +
+    ("0" + (r || 0).toString(16)).slice(-2) +
+    ("0" + (g || 0).toString(16)).slice(-2) +
+    ("0" + (b || 0).toString(16)).slice(-2)
+  );
 }
 
 /** 颜色格式转换 */
 function colorH(color: string) {
-  const r = parseInt(color.substring(1, 3), 16)
-  const g = parseInt(color.substring(3, 5), 16)
-  const b = parseInt(color.substring(5, 7), 16)
+  const r = parseInt(color.substring(1, 3), 16);
+  const g = parseInt(color.substring(3, 5), 16);
+  const b = parseInt(color.substring(5, 7), 16);
 
-  return `${r},${g},${b}`
+  return `${r},${g},${b}`;
 }
 
-function generateLightColor(primaryColor: string, prefix = '--el-color-primary') {
-  const themeObj: Record<string, string> = {}
-  themeObj[prefix] = primaryColor
+function generateLightColor(
+  primaryColor: string,
+  prefix = "--el-color-primary"
+) {
+  const themeObj: Record<string, string> = {};
+  themeObj[prefix] = primaryColor;
   for (let i = 1; i < 10; i += 1) {
     if (i == 2) {
-      themeObj[`${prefix}-dark-${i}`] = colorMix('#000000', primaryColor, 1 - i * 0.1)
+      themeObj[`${prefix}-dark-${i}`] = colorMix(
+        "#000000",
+        primaryColor,
+        1 - i * 0.1
+      );
     } else {
-      themeObj[`${prefix}-light-${i}`] = colorMix('#ffffff', primaryColor, 1 - i * 0.1)
+      themeObj[`${prefix}-light-${i}`] = colorMix(
+        "#ffffff",
+        primaryColor,
+        1 - i * 0.1
+      );
     }
   }
-  return themeObj
+  return themeObj;
 }
 
-function generateDarkColor(primaryColor: string, prefix = '--el-color-primary') {
-  const themeObj: Record<string, string> = {}
-  themeObj[prefix] = primaryColor
+function generateDarkColor(
+  primaryColor: string,
+  prefix = "--el-color-primary"
+) {
+  const themeObj: Record<string, string> = {};
+  themeObj[prefix] = primaryColor;
   for (let i = 1; i < 10; i += 1) {
     if (i == 2) {
-      themeObj[`${prefix}-dark-${i}`] = colorMix('#ffffff', primaryColor, 1 - i * 0.1)
+      themeObj[`${prefix}-dark-${i}`] = colorMix(
+        "#ffffff",
+        primaryColor,
+        1 - i * 0.1
+      );
     }
-    themeObj[`${prefix}-light-${i}`] = colorMix('#141414', primaryColor, 1 - i * 0.1)
+    themeObj[`${prefix}-light-${i}`] = colorMix(
+      "#141414",
+      primaryColor,
+      1 - i * 0.1
+    );
   }
-  return themeObj
+  return themeObj;
 }
 
 // const extraScheme = {

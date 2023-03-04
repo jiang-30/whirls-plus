@@ -5,14 +5,15 @@
     :disabled="loading"
     v-bind="_formAttrs"
   >
+    <!-- 分区域、分步骤、分TAB -->
     <section>
       <el-row :gutter="10">
         <el-col
-          v-for="field in _formFields"
+          v-for="field in __formFields"
           :key="field.prop"
           :span="field.span"
         >
-          <FormItem :field="field" :form-model="formModel!" />
+          <FormItem :field="field" :form-model="formModel" />
         </el-col>
       </el-row>
     </section>
@@ -48,19 +49,59 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
+import type { FormInstance } from "element-plus";
 import { RefreshLeft, CircleClose, CircleCheck } from "@element-plus/icons-vue";
 import FormItem from "./form-item.vue";
 import { formProps, formEmits } from "./form";
 import { useFormOption } from "./utils";
-import type { FormInstance } from "element-plus";
 
+defineOptions({ name: "WForm" });
 const props = defineProps(formProps);
 const emits = defineEmits(formEmits);
 
+// 组件数据
 const loading = ref(false);
 const formRef = ref<FormInstance>();
-const { _formFields, _formAttrs } = useFormOption(props.option!);
+const { _formFields, _formAttrs } = useFormOption(props.option);
+
+// 设置默认值 --- 初始化还是监听
+watch(
+  _formFields,
+  (fields) => {
+    fields.forEach((field) => {
+      if (props.formModel) {
+        props.formModel[field.prop] =
+          props.formModel[field.prop] ?? field.default;
+      }
+    });
+    console.log("watch form option change");
+  },
+  {
+    deep: true,
+    immediate: true,
+  }
+);
+// 动态条件过滤
+const __formFields = computed(() => {
+  return _formFields.value.filter((field) => {
+    if (field.listen) {
+      if (field.listen.show) {
+        return Object.keys(field.listen.show).every(
+          (key) => field.listen.show[key] === props.formModel[key]
+        );
+      }
+
+      if (field.listen.hide) {
+        return !Object.keys(field.listen.hide).every((key) => {
+          return field.listen.hide[key] == props.formModel[key];
+        });
+      }
+    }
+
+    return true;
+  });
+});
 
 // watch(_formFields.value.length, () => {})
 // 结束loading
@@ -99,24 +140,4 @@ const _onConfirm = () => {
     }
   });
 };
-
-function itemVisibleHandler(field: any, formData: any) {
-  if (field.listen) {
-    if (field.listen.show) {
-      const keys = Object.keys(field.listen.show);
-      return keys.every((key) => {
-        return field.listen.show[key] == formData[key];
-      });
-    }
-
-    if (field.listen.hide) {
-      const keys = Object.keys(field.listen.hide);
-      return !keys.every((key) => {
-        return field.listen.hide[key] == formData[key];
-      });
-    }
-  }
-
-  return true;
-}
 </script>

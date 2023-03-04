@@ -1,11 +1,13 @@
 <template>
-  <ElContainer class="w-layout-data w-screen h-screen bg-[url('/static/images/ny.jpg')] bg-center bg-cover bg-no-repeat">
+  <ElContainer
+    class="w-layout-data w-screen h-screen bg-[url('/static/images/ny.jpg')] bg-center bg-cover bg-no-repeat"
+  >
     <!-- 头部 -->
     <ElHeader
       class="bg-[url('/static/images/title-bg.png')] bg-center bg-cover bg-no-repeat flex justify-center items-center"
       height="70px"
     >
-      <div class="text-white text-xl font-bold"> title </div>
+      <div class="text-white text-xl font-bold">title</div>
     </ElHeader>
 
     <!-- 内容 -->
@@ -26,7 +28,12 @@
   >
     <template #default>
       <ElScrollbar class="h-[80vh]">
-        <el-menu active-text-color="#ffd04b" background-color="#545c64" default-active="2" text-color="#fff">
+        <el-menu
+          active-text-color="#ffd04b"
+          background-color="#545c64"
+          default-active="2"
+          text-color="#fff"
+        >
           <el-sub-menu index="1">
             <template #title>
               <span>Navigator One</span>
@@ -57,13 +64,17 @@
     </template>
 
     <template #reference>
-      <ElButton class="fixed left-px top-1/2 px-2 py-6" type="primary" :icon="DArrowRight"></ElButton>
+      <ElButton
+        class="fixed left-px top-1/2 px-2 py-6"
+        type="primary"
+        :icon="DArrowRight"
+      ></ElButton>
     </template>
   </el-popover>
 </template>
 
 <script lang="ts" setup>
-import { DArrowRight } from '@element-plus/icons-vue'
+import { DArrowRight } from "@element-plus/icons-vue";
 </script>
 
 <style>
@@ -79,6 +90,7 @@ import { DArrowRight } from '@element-plus/icons-vue'
   border: none !important;
   background-color: #545c64 !important;
 }
+
 .w-layout-data-menu .el-menu {
   border-right: none;
 }

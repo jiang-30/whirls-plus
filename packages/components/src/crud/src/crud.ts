@@ -1,78 +1,97 @@
-import { ref, reactive } from "vue";
+import { reactive } from "vue";
 import type { PropType } from "vue";
 import type {
   ITableData,
-  IDialogAttrs,
-  ITableAttrs,
-  ITableFieldAttrs,
+  ICrudApi,
   IPageModel,
+  ICrudAttrs,
+  ICrudColumnAttrs,
 } from "./type";
-import type { IFormAttrs, IFormFieldAttrs } from "../../index";
+import type {
+  IFormAttrs,
+  IFormItemAttrs,
+  ISearchFormAttrs,
+  ISearchFormItemAttrs,
+  IInfoAttrs,
+  IInfoItemAttrs,
+} from "../../index";
 
 // CRUD PROPS 属性
 export const crudProps = {
   option: {
     type: Object as PropType<
-      ITableAttrs &
-        IDialogAttrs &
-        IFormAttrs & { fields: (ITableFieldAttrs & IFormFieldAttrs)[] }
+      ICrudAttrs &
+        IFormAttrs &
+        ISearchFormAttrs &
+        IInfoAttrs & {
+          fields: (ICrudColumnAttrs &
+            IFormItemAttrs &
+            ISearchFormItemAttrs &
+            IInfoItemAttrs)[];
+        }
     >,
-    required: true,
+    required: true as true,
+  },
+  api: {
+    type: Object as PropType<ICrudApi>,
   },
   tableLoading: {
     type: Boolean,
-    default: false,
+    default: undefined,
   },
   tableData: {
     type: Array as PropType<ITableData[]>,
-    required: true,
+    default: undefined,
+  },
+  modelValue: {
+    type: Object,
   },
   pageModel: {
     type: Object as PropType<IPageModel>,
-  },
-  // valueModel
-  formModel: {
-    type: Object,
+    default: () =>
+      reactive({
+        current: 1,
+        size: 10,
+        total: 0,
+      }),
   },
   searchModel: {
     type: Object,
     default: () => reactive({}),
   },
-  onRowCreate: {
+  onQuery: {
     type: Function,
   },
-  // 新增 弹窗打开前
-  onCreateOpen: {
+  // 新增、详情、修改 弹窗打开前
+  onBeforeOpen: {
     type: Function,
   },
+  onBeforeClose: {
+    type: Function as PropType<(done: () => void, type: string) => void>,
+  },
+  // onBeforeCreate: {
+  //   type: Function,
+  // },
   // 新增 保存
-  onCreateSave: {
-    type: Function,
-  },
-  // 修改 弹窗打开前
-  onUpdateOpen: {
-    type: Function,
-  },
-  // 修改 保存前
-  onUpdateSaveBefore: {
+  onCreate: {
     type: Function,
   },
   // 修改 保存
-  onUpdateSave: {
+  onUpdate: {
     type: Function,
   },
-  // 详情 弹窗打开前
-  onInfoOpen: {
-    type: Function,
-  },
-  // 删除 保存前
-  onDeleteSave: {
+  // 删除 保存
+  onDelete: {
     type: Function,
   },
 };
 
 export const crudEmits = {
-  rowCreate: null,
-  "update:formModel": null,
-  query: null,
+  "update:modelValue": null,
+  init: null,
+  search: null,
+  searchReset: null,
+  pageCurrentChange: null,
+  pageSizeChange: null,
+  refresh: null,
 };
