@@ -21,12 +21,10 @@ export const useModel = () => {
         rules: [
           {
             required: true,
-            type: "string",
-            max: 20,
             message: "请输入平台名称",
             trigger: "blur",
           },
-          { type: "string", max: 20, message: "20个字符以内", trigger: "blur" },
+          { type: "string", max: 30, message: "30个字符以内", trigger: "blur" },
         ],
         isSearch: true,
       },
@@ -36,7 +34,7 @@ export const useModel = () => {
         type: "input",
         rules: [
           { required: true, message: "请输入平台名称", trigger: "blur" },
-          { type: "string", max: 20, message: "20个字符以内", trigger: "blur" },
+          { type: "string", max: 30, message: "30个字符以内", trigger: "blur" },
         ],
       },
       {
@@ -46,6 +44,7 @@ export const useModel = () => {
         width: 290,
         align: "center",
       },
+      // 登录方式
       {
         prop: "note",
         label: "备注",
@@ -60,7 +59,7 @@ export const useModel = () => {
         ],
       },
       {
-        prop: "enabled",
+        prop: "isEnabled",
         label: "状态",
         type: "radio",
         dictKey: "SYS_ENABLED",

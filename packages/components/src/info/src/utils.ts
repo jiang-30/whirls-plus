@@ -5,12 +5,12 @@ export const useInfoOption = (option: IInfoOption) => {
   // 属性
   const __infoAttrs = computed(() => {
     return {
-      border: option.border,
+      border: option.infoBorder,
       // column?: number;
-      // direction?: "vertical" | "horizontal";
-      // size?: "large" | "default" | "small";
-      // title?: string;
-      // extra?: string;
+      direction: option.infoDirection,
+      size: option.infoSize,
+      title: option.infoTitle,
+      extra: option.infoExtra,
     };
   });
 
@@ -26,10 +26,10 @@ export const useInfoOption = (option: IInfoOption) => {
           span: field.span ?? option.span ?? 24,
           __itemAttrs: {
             // span?: number;
-            width: option.labelWidth,
+            width: field.infoWidth ?? option.labelWidth,
             // minWidth: 100,
-            // align?: "left" | "center" | "right";
-            labelAlign: field.labelAlign ?? "right",
+            align: field.infoAlign,
+            labelAlign: field.infoLabelAlign ?? option.labelAlign ?? "right",
             // className?: string;
             // labelClassName?: string;
           },

@@ -36,11 +36,12 @@ export const useModel = () => {
         type: "input",
         rules: [
           { required: true, message: "请输入部门名称", trigger: "blur" },
-          { type: "string", max: 20, message: "20个字符以内", trigger: "blur" },
+          { type: "string", max: 30, message: "30个字符以内", trigger: "blur" },
         ],
       },
+      // code 部门标识
       {
-        prop: "note",
+        prop: "remark",
         label: "备注",
         type: "textarea",
         rules: [

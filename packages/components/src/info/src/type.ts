@@ -3,26 +3,27 @@ import type Info from "./info.vue";
 import type { infoProps, infoEmits } from "./info";
 
 export interface IElDescriptionsAttrs {
-  border?: boolean;
-  column?: number;
-  direction?: "vertical" | "horizontal";
-  size?: "large" | "default" | "small";
-  title?: string;
-  extra?: string;
+  infoBorder?: boolean;
+  infoColumn?: number;
+  infoDirection?: "vertical" | "horizontal";
+  infoSize?: "large" | "default" | "small";
+  infoTitle?: string;
+  infoExtra?: string;
 }
 
 export interface IElDescriptionsItemAttrs {
-  width?: string | number;
-  minWidth?: string | number;
-  align?: "left" | "center" | "right";
-  labelAlign?: "left" | "center" | "right";
-  className?: string;
-  labelClassName?: string;
+  infoWidth?: string | number;
+  infoMinWidth?: string | number;
+  infoAlign?: "left" | "center" | "right";
+  infoLabelAlign?: "left" | "center" | "right";
+  infoClassName?: string;
+  infoLabelClassName?: string;
 }
 
 export interface IInfoAttrs extends IElDescriptionsAttrs {
   span?: number;
   labelWidth?: string | number;
+  labelAlign?: "left" | "center" | "right";
 }
 
 export interface IInfoItemAttrs extends IElDescriptionsItemAttrs {

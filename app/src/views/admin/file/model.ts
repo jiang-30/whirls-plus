@@ -24,7 +24,7 @@ export const useModel = () => {
         search: true,
       },
       {
-        prop: "url",
+        prop: "访问地址",
         label: "url",
         type: "input",
       },

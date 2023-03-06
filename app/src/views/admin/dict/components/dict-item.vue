@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
-import { WCrud, type ICrudOption, type IDictData } from "@whirls/components";
+import type { ICrudOption } from "@whirls/components";
 
 const visible = ref(false);
 
@@ -22,20 +22,58 @@ const option = ref<ICrudOption>({
   indexColumn: false,
   rowKey: "id",
   dialogWidth: 600,
-  appendToBody: true,
-  destroyOnClose: true,
-  closeOnClickModal: false,
+  dialogAppendToBody: true,
   fields: [
     {
       label: "上级",
       prop: "parentId",
       type: "tree",
       isTable: false,
-      dictData: tableData as unknown as IDictData[],
+      dictData: [],
     },
-    { label: "名称", prop: "label", type: "input" },
-    { label: "标识", prop: "value", type: "input" },
-    { label: "备注", prop: "remark", type: "input" },
+    {
+      label: "名称",
+      prop: "label",
+      type: "input",
+      rules: [
+        { required: true, message: "请输入名称", trigger: "blur" },
+        {
+          type: "string",
+          max: 30,
+          message: "最多输入30个字符",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "值",
+      prop: "value",
+      type: "input",
+      rules: [
+        { required: true, message: "请输入名称", trigger: "blur" },
+        {
+          type: "string",
+          max: 30,
+          message: "最多输入30个字符",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "备注",
+      prop: "remark",
+      type: "textarea",
+      rules: [
+        {
+          type: "string",
+          max: 255,
+          message: "最多输入255个字符",
+          trigger: "blur",
+        },
+      ],
+    },
+    { label: "排序", prop: "sort", type: "inputNumber" },
+    { label: "状态", prop: "isEnabled", type: "input" },
   ],
 });
 

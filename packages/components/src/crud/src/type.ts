@@ -166,7 +166,7 @@ export interface ICrudAttrs
   updateBtnPermission?: boolean;
   // 显示删除按钮
   isDeleteBtn?: boolean;
-  deleteBtnDisabled: boolean;
+  deleteBtnDisabled?: boolean;
   deleteBtnPermission?: boolean;
 
   // 共用属性

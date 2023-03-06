@@ -18,13 +18,8 @@ export const useModel = () => {
     span: 24,
     fields: [
       {
-        prop: "title",
-        label: "模块",
-        type: "input",
-      },
-      {
-        prop: "description",
-        label: "操作描述",
+        prop: "userId",
+        label: "用户ID",
         type: "input",
       },
       {
@@ -34,11 +29,9 @@ export const useModel = () => {
         isSearch: true,
       },
       {
-        prop: "ip",
-        label: "IP",
+        prop: "clientName",
+        label: "客户端名称",
         type: "input",
-        width: 100,
-        align: "center",
       },
       {
         prop: "method",
@@ -48,6 +41,23 @@ export const useModel = () => {
       {
         prop: "url",
         label: "请求路径",
+        type: "input",
+      },
+      {
+        prop: "ip",
+        label: "IP",
+        type: "input",
+        width: 100,
+        align: "center",
+      },
+      {
+        prop: "title",
+        label: "请求名称",
+        type: "input",
+      },
+      {
+        prop: "description",
+        label: "操作描述",
         type: "input",
       },
       {
