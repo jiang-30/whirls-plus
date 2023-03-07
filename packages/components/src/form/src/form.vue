@@ -3,13 +3,13 @@
     ref="formRef"
     :model="formModel"
     :disabled="loading"
-    v-bind="_formAttrs"
+    v-bind="__formAttrs"
   >
     <!-- 分区域、分步骤、分TAB -->
     <section>
       <el-row :gutter="10">
         <el-col
-          v-for="field in __formFields"
+          v-for="field in _formFields"
           :key="field.prop"
           :span="field.span"
         >
@@ -63,11 +63,11 @@ const emits = defineEmits(formEmits);
 // 组件数据
 const loading = ref(false);
 const formRef = ref<FormInstance>();
-const { _formFields, _formAttrs } = useFormOption(props.option);
+const { __formFields, __formAttrs } = useFormOption(props.option);
 
 // 设置默认值 --- 初始化还是监听
 watch(
-  _formFields,
+  __formFields,
   (fields) => {
     fields.forEach((field) => {
       if (props.formModel) {
@@ -83,8 +83,8 @@ watch(
   }
 );
 // 动态条件过滤
-const __formFields = computed(() => {
-  return _formFields.value.filter((field) => {
+const _formFields = computed(() => {
+  return __formFields.value.filter((field) => {
     if (field.listen) {
       if (field.listen.show) {
         return Object.keys(field.listen.show).every(

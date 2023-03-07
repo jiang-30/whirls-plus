@@ -9,7 +9,7 @@ import type {
 
 // 表单数据(属性和事件) - 用户数据 - 默认数据 - 用户默认数据
 export const useFormOption = (option: IFormOption) => {
-  const _formAttrs = computed<Partial<FormProps>>(() => {
+  const __formAttrs = computed<Partial<FormProps>>(() => {
     return {
       inline: option.inline,
       labelPosition: option.labelPosition,
@@ -25,7 +25,7 @@ export const useFormOption = (option: IFormOption) => {
     };
   });
 
-  const _formFields = computed<
+  const __formFields = computed<
     {
       [key: string]: any;
       _attrs: Partial<FormItemProps>;
@@ -34,33 +34,35 @@ export const useFormOption = (option: IFormOption) => {
     const fields: any[] = [];
 
     option.fields.forEach((field) => {
-      fields.push({
-        prop: field.prop,
-        label: field.label,
-        type: field.type,
-        span: field.span,
-        hint: field.hint,
-        listen: field.listen,
-        default: field.default,
-        __dictData: field.dictData,
-        _attrs: {
-          labelWidth: field.labelWidth,
-          required: field.required,
-          rules: field.rules,
-          error: field.error,
-          showMessage: field.showMessage,
-          inlineMessage: field.inlineMessage,
-          size: field.size,
-        },
-      });
+      if (field.isForm !== false) {
+        fields.push({
+          prop: field.prop,
+          label: field.label,
+          type: field.type,
+          span: field.span,
+          hint: field.hint,
+          listen: field.listen,
+          default: field.default,
+          __dictData: field.dictData,
+          _attrs: {
+            labelWidth: field.labelWidth,
+            required: field.required,
+            rules: field.rules,
+            error: field.error,
+            showMessage: field.showMessage,
+            inlineMessage: field.inlineMessage,
+            size: field.size,
+          },
+        });
+      }
     });
 
     return fields;
   });
 
   return {
-    _formAttrs,
-    _formFields,
+    __formAttrs,
+    __formFields,
   };
 };
 

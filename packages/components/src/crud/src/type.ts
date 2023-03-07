@@ -2,7 +2,7 @@ import type { ExtractPropTypes } from "vue";
 import type { TableProps, TableColumnCtx, DialogProps } from "element-plus";
 import type { crudProps, crudEmits } from "./crud";
 import type Crud from "./crud.vue";
-import type { IFieldType, IDict } from "../../utils";
+import type { IFieldType, IDict } from "../../typings";
 
 // 表格数据类型
 export type ITableData = Record<string, any>;
@@ -125,8 +125,8 @@ export interface IElDialogAttrs {
 // Crud 扩展属性
 export interface ICrudAttrs
   extends IElTableAttrs,
-    IElPaginationAttrs,
-    IElDialogAttrs {
+  IElPaginationAttrs,
+  IElDialogAttrs {
   // 序号 列
   indexColumn?: boolean;
   indexColumnWidth?: boolean;

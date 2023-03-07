@@ -21,14 +21,14 @@ export const crudProps = {
   option: {
     type: Object as PropType<
       ICrudAttrs &
-        IFormAttrs &
-        ISearchFormAttrs &
-        IInfoAttrs & {
-          fields: (ICrudColumnAttrs &
-            IFormItemAttrs &
-            ISearchFormItemAttrs &
-            IInfoItemAttrs)[];
-        }
+      IFormAttrs &
+      ISearchFormAttrs &
+      IInfoAttrs & {
+        fields: (ICrudColumnAttrs &
+          IFormItemAttrs &
+          ISearchFormItemAttrs &
+          IInfoItemAttrs)[];
+      }
     >,
     required: true as true,
   },
@@ -68,6 +68,9 @@ export const crudProps = {
   },
   onBeforeClose: {
     type: Function as PropType<(done: () => void, type: string) => void>,
+  },
+  beforeSave: {
+    type: Function,
   },
   // onBeforeCreate: {
   //   type: Function,

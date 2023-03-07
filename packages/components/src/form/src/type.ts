@@ -1,11 +1,12 @@
 import type { ExtractPropTypes } from "vue";
 import type { FormProps, FormItemProps } from "element-plus";
+import type { IDict, IFieldBaseAttrs } from "../../typings";
 import type { formProps, formEmits } from "./form";
 import type { searchFormProps, searchFormEmits } from "./search-form";
 import type Form from "./form.vue";
 import type SearchForm from "./search-form.vue";
-import type { IFieldType, IDict } from "../../utils";
 
+// 表单数据
 export type IFormModel = Record<string, any>;
 
 // 表单类型
@@ -43,11 +44,9 @@ export interface IFormAttrs extends IElFormAttrs {
   span?: number;
 }
 
+// isCreateForm isUpdateForm disabled createDisabled updateDisabled
 // Form Field 属性
-export interface IFormItemAttrs extends IElFormItemAttrs {
-  prop: string;
-  label: string;
-  type: IFieldType;
+export interface IFormItemAttrs extends IFieldBaseAttrs, IElFormItemAttrs {
   // 默认值
   default?: any;
   isForm?: boolean;
@@ -71,10 +70,7 @@ export interface ISearchFormAttrs extends IFormAttrs {
   searchLabelPosition?: string;
 }
 
-export interface ISearchFormItemAttrs extends IFormItemAttrs {
-  prop: string;
-  label: string;
-  type: IFieldType;
+export interface ISearchFormItemAttrs extends IFieldBaseAttrs, IFormItemAttrs {
   isSearch?: boolean;
   searchDefault?: any;
   searchRules?: string;

@@ -26,15 +26,15 @@ export const useDictStore = defineStore({
       return {};
     },
     items() {
-      return (key: string) => {
-        return this.dictList.find((item) => item.key == key)?.items ?? [];
+      return (code: string) => {
+        return this.dictList.find((item) => item.code == code)?.items ?? [];
       };
     },
     filter() {
-      return (value: string, key: string) => {
+      return (value: string, code: string) => {
         return (
           this.dictList
-            .find((item) => item.key == key)
+            .find((item) => item.code == code)
             ?.items.find((item) => item.value == value)?.label ?? value
         );
       };
@@ -45,8 +45,8 @@ export const useDictStore = defineStore({
     initHandler() {
       if (this.isInit === false) {
         this.isInit = true;
-        return fetchDict().then((res) => {
-          this.dictList = res;
+        return fetchDict().then(({ data }) => {
+          this.dictList = data;
         });
       }
     },

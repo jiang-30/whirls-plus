@@ -31,6 +31,13 @@ export function fetchDelete(id: string) {
   });
 }
 
+export function fetchDictItemAll(id: string) {
+  return request({
+    method: "get",
+    url: `/admin/dict/details/all`,
+  });
+}
+
 export function fetchItemList(dictId: string) {
   return request({
     method: "get",

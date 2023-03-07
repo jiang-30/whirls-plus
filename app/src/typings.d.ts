@@ -4,7 +4,7 @@ import "vue-router";
  * vue router meta
  */
 declare module "vue-router" {
-  interface RouteMeta extends IMeta {}
+  interface RouteMeta extends IMeta { }
 }
 
 // 路由元信息
@@ -119,7 +119,7 @@ export interface IDictItem {
 
 // 字典
 export interface IDict {
-  key: string;
+  code: string;
   items: IDictItem[];
 }
 

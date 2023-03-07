@@ -75,7 +75,7 @@
             </template>
             <template v-else>
               {{
-                formatValue(
+                _formatValue(
                   column,
                   scopeProps.row,
                   scopeProps.column,
@@ -185,7 +185,7 @@ import { WSearchForm, WForm, WInfo } from "../../index";
 import { crudProps, crudEmits } from "./crud";
 import { useCrudOption } from "./utils";
 import { ElMessageBox, ElNotification, type Action } from "element-plus";
-import { tools } from "../../utils";
+import { tools, formatValue } from "../../utils";
 
 console.log("slots: ", useSlots());
 
@@ -249,18 +249,8 @@ const _currentModelValue = computed({
 });
 
 // 表格结果数据格式化
-const formatValue = (field: any, row: any, column: any, index: any) => {
-  if (field._formatter) {
-    // row, column, cellValue, index
-    return field._formatter(row, column, row[field.prop], index);
-  } else if (field.type === "select") {
-    const value = row[field.prop];
-    const dict = field._dictData.find((item: any) => item.value === value);
-
-    return dict.label ?? value;
-  } else {
-    return row[field.prop];
-  }
+const _formatValue = (field: any, row: any, column: any, index: any) => {
+ return formatValue(field, row, column, index)
 };
 
 // 关闭弹窗
@@ -433,6 +423,10 @@ const _onDelete = (row: any) => {
 };
 
 const _onCreateConfirm = (record: any, done: any) => {
+  if(props.beforeSave) {
+    record =  props.beforeSave(record, currentType.value)
+  }
+
   if (props.onCreate) {
     props.onCreate(record, done);
   } else if (props.api?.create && tools.axios) {
