@@ -1,26 +1,35 @@
-import type { ICrudOption } from "@whirls/components";
+import type { ICrudOption, ICrudApi } from "@whirls/components";
+import { useDictStore } from "@/stores";
 
-export const useModel = () => {
-  const api = ref({});
+export const useModel = (tableData: Ref<any[]>) => {
+  const api = ref<ICrudApi>({
+
+  });
+
   const option = ref({
     rowKey: "id",
     border: true,
     stripe: true,
     labelWidth: "100px",
-
-    title: "操作",
-    // width: 700,
-    draggable: true,
-    appendToBody: true,
-    // rowMenuAlign: "center",
-    // column: 2,
-    // rowMenu: true,
-    // rowMenuWidth: 190,
-    // createBtn: true,
-    // infoBtn: false,
-    // span: 24,
-
+    dialogWidth: 700,
     fields: [
+      {
+        prop: "type",
+        label: "类型",
+        type: "radioButton",
+        dictData: useDictStore().items('SYS_MENU_TYPE'),
+        default: "page",
+        width: 100,
+        span: 12,
+      },
+      {
+        prop: "parentId",
+        label: "上级",
+        type: "tree",
+        span: 12,
+        dictData: tableData,
+        isTable: false,
+      },
       {
         prop: "name",
         label: "名称",
@@ -38,24 +47,6 @@ export const useModel = () => {
         isSearch: true,
         default: "dsf",
         searchDefault: "dsf",
-      },
-      {
-        prop: "type",
-        label: "类型",
-        type: "radioButton",
-        dictKey: "SYS_MENU_TYPE",
-        default: "page",
-        width: 100,
-        align: "center",
-        span: 12,
-      },
-      {
-        prop: "parentId",
-        label: "上级",
-        type: "tree",
-        span: 12,
-        isTable: false,
-        formSlot: true,
       },
       {
         prop: "icon",
@@ -118,7 +109,7 @@ export const useModel = () => {
         prop: "target",
         label: "打开位置",
         type: "radio",
-        dictKey: "SYS_MENU_TARGET",
+        dictData: useDictStore().items("SYS_MENU_TARGET"),
         default: "_self",
         isTable: false,
         listen: {
@@ -130,7 +121,7 @@ export const useModel = () => {
         prop: "pageLayout",
         label: "布局方式",
         type: "select",
-        dictKey: "SYS_MENU_LAYOUT",
+        dictData: useDictStore().items("SYS_MENU_LAYOUT"),
         default: "admin",
         isTable: false,
         listen: {
@@ -142,7 +133,7 @@ export const useModel = () => {
         prop: "keepAlive",
         label: "是否缓存",
         type: "radio",
-        dictKey: "SYS_FLAG",
+        dictData: useDictStore().items("SYS_FLAG"),
         default: "0",
         isTable: false,
         listen: {
@@ -154,7 +145,7 @@ export const useModel = () => {
         prop: "showMenu",
         label: "是否展示",
         type: "radio",
-        dictKey: "SYS_FLAG",
+        dictData: useDictStore().items("SYS_FLAG"),
         default: "1",
         listen: {
           show: { type: "page" },
@@ -165,7 +156,7 @@ export const useModel = () => {
         prop: "tabBar",
         label: "是否标签页",
         type: "radio",
-        dictKey: "SYS_FLAG",
+        dictData: useDictStore().items("SYS_FLAG"),
         default: "1",
         isTable: false,
         listen: {
@@ -186,7 +177,7 @@ export const useModel = () => {
         prop: "enabled",
         label: "状态",
         type: "radio",
-        dictKey: "SYS_ENABLED",
+        dictData: useDictStore().items('SYS_ENABLED'),
         default: "1",
         width: 80,
         align: "center",

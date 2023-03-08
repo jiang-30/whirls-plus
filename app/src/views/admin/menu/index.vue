@@ -20,5 +20,7 @@ meta:
 <script setup lang="ts">
 import { useModel } from "./model";
 
-const { option, api } = useModel();
+const tableData = ref([]);
+
+const { option, api } = useModel(tableData);
 </script>
