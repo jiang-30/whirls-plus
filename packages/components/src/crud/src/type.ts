@@ -1,5 +1,10 @@
 import type { ExtractPropTypes } from "vue";
-import type { TableProps, TableColumnCtx, DialogProps } from "element-plus";
+import type {
+  TableProps,
+  TableColumnCtx,
+  DialogProps,
+  PaginationProps,
+} from "element-plus";
 import type { crudProps, crudEmits } from "./crud";
 import type Crud from "./crud.vue";
 import type { IFieldType, IDict } from "../../typings";
@@ -19,6 +24,12 @@ export type IPageModel = {
 //   url: "/admin/dict";
 //   data: ''
 // };
+export interface ICrudApiOption {
+  url: string;
+  before?: Function;
+  after?: Function;
+}
+
 export interface ICrudApi {
   list?: string;
   page?: string;
@@ -95,9 +106,10 @@ export interface IElTableColumnAttrs {
 
 // Pagination 属性
 export interface IElPaginationAttrs {
-  // pageSizes: [10, 20, 50, 100],
-  // background: true,
-  // layout: ' ->, total, sizes, prev, pager, next, jumper',
+  pageSizes?: PaginationProps["pageSize"];
+  background?: PaginationProps["background"];
+  layout?: PaginationProps["layout"];
+  hideOnSinglePage?: PaginationProps["hideOnSinglePage"];
 }
 
 // Dialog 属性
@@ -125,8 +137,8 @@ export interface IElDialogAttrs {
 // Crud 扩展属性
 export interface ICrudAttrs
   extends IElTableAttrs,
-  IElPaginationAttrs,
-  IElDialogAttrs {
+    IElPaginationAttrs,
+    IElDialogAttrs {
   // 序号 列
   indexColumn?: boolean;
   indexColumnWidth?: boolean;

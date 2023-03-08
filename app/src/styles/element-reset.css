@@ -17,3 +17,7 @@ html.dark {
 .el-menu {
   border-right: none;
 }
+
+.el-dialog__header {
+  border-bottom: 1px solid #ddd;
+}

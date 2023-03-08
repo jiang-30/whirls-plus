@@ -4,7 +4,7 @@ import "vue-router";
  * vue router meta
  */
 declare module "vue-router" {
-  interface RouteMeta extends IMeta { }
+  interface RouteMeta extends IMeta {}
 }
 
 // 路由元信息
@@ -111,6 +111,9 @@ export interface ITab extends Pick<IMeta, "name" | "title" | "icon" | "isTab"> {
   fullPath: string;
 }
 
+// 字典数据类型
+export type IDictDataType = "list" | "tree";
+
 // 字典项
 export interface IDictItem {
   label: string;
@@ -120,6 +123,7 @@ export interface IDictItem {
 // 字典
 export interface IDict {
   code: string;
+  dataType: IDictDataType;
   items: IDictItem[];
 }
 

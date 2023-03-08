@@ -28,13 +28,24 @@ export const useFormOption = (option: IFormOption) => {
   const __formFields = computed<
     {
       [key: string]: any;
-      _attrs: Partial<FormItemProps>;
+      __formItemAttrs: Partial<FormItemProps>;
     }[]
   >(() => {
     const fields: any[] = [];
 
     option.fields.forEach((field) => {
       if (field.isForm !== false) {
+        let __formControlAttrs: any = {
+          clearable: field.clearable ?? true,
+        };
+        if (field.type === "tree") {
+          __formControlAttrs = {
+            checkStrictly: field.checkStrictly,
+            nodeKey: field.nodeKey,
+            valueKey: field.valueKey ?? "value",
+            props: field.props,
+          };
+        }
         fields.push({
           prop: field.prop,
           label: field.label,
@@ -44,7 +55,7 @@ export const useFormOption = (option: IFormOption) => {
           listen: field.listen,
           default: field.default,
           __dictData: field.dictData,
-          _attrs: {
+          __formItemAttrs: {
             labelWidth: field.labelWidth,
             required: field.required,
             rules: field.rules,
@@ -53,6 +64,7 @@ export const useFormOption = (option: IFormOption) => {
             inlineMessage: field.inlineMessage,
             size: field.size,
           },
+          __formControlAttrs: __formControlAttrs,
         });
       }
     });
@@ -68,16 +80,18 @@ export const useFormOption = (option: IFormOption) => {
 
 export const useSearchFormOption = (option: ISearchFormOption) => {
   // 搜索表单属性
-  const _searchFormAttrs = computed<Partial<FormProps>>(() => {
+  const __searchFormAttrs = computed<Partial<FormProps>>(() => {
     return {
       inline: true,
     };
   });
 
-  // 搜索表单项
-  const _searchFormFields = computed(() => {
-    const fields: { [key: string]: any; _itemAttrs: Partial<FormItemProps> }[] =
-      [];
+  // 搜索表单项 radio, radioButton 对应到 select
+  const __searchFormFields = computed(() => {
+    const fields: {
+      [key: string]: any;
+      __formItemAttrs: Partial<FormItemProps>;
+    }[] = [];
 
     option.fields.forEach((field) => {
       if (field.isSearch === true) {
@@ -90,11 +104,14 @@ export const useSearchFormOption = (option: ISearchFormOption) => {
           hint: field.hint,
           default: field.searchDefault ?? field.default,
           __dictData: field.dictData,
-          _itemAttrs: {
-            labelWidth: field.labelWidth!,
+          __formItemAttrs: {
+            labelWidth: field.labelWidth,
             required: field.required,
             error: field.error,
             size: field.size,
+          },
+          __formControlAttrs: {
+            clearable: true,
           },
         });
       }
@@ -104,7 +121,7 @@ export const useSearchFormOption = (option: ISearchFormOption) => {
   });
 
   return {
-    _searchFormAttrs,
-    _searchFormFields,
+    __searchFormAttrs,
+    __searchFormFields,
   };
 };

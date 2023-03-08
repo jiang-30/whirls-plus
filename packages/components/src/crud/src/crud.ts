@@ -21,14 +21,14 @@ export const crudProps = {
   option: {
     type: Object as PropType<
       ICrudAttrs &
-      IFormAttrs &
-      ISearchFormAttrs &
-      IInfoAttrs & {
-        fields: (ICrudColumnAttrs &
-          IFormItemAttrs &
-          ISearchFormItemAttrs &
-          IInfoItemAttrs)[];
-      }
+        IFormAttrs &
+        ISearchFormAttrs &
+        IInfoAttrs & {
+          fields: (ICrudColumnAttrs &
+            IFormItemAttrs &
+            ISearchFormItemAttrs &
+            IInfoItemAttrs)[];
+        }
     >,
     required: true as true,
   },
@@ -59,22 +59,19 @@ export const crudProps = {
     type: Object,
     default: () => reactive({}),
   },
-  onQuery: {
-    type: Function,
-  },
   // 新增、详情、修改 弹窗打开前
-  onBeforeOpen: {
+  beforeOpen: {
     type: Function,
   },
-  onBeforeClose: {
-    type: Function as PropType<(done: () => void, type: string) => void>,
-  },
+  // beforeClose: {
+  //   type: Function as PropType<(done: () => void, type: string) => void>,
+  // },
   beforeSave: {
     type: Function,
   },
-  // onBeforeCreate: {
-  //   type: Function,
-  // },
+  onQuery: {
+    type: Function,
+  },
   // 新增 保存
   onCreate: {
     type: Function,
@@ -91,6 +88,7 @@ export const crudProps = {
 
 export const crudEmits = {
   "update:modelValue": null,
+  "update:tableData": null,
   init: null,
   search: null,
   searchReset: null,

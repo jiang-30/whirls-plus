@@ -1,4 +1,4 @@
-import { useDictStore } from '@/stores'
+import { useDictStore } from "@/stores";
 import type {
   ICrudOption,
   ICrudApi,
@@ -68,7 +68,7 @@ export const useModel = (): {
         type: "select",
         default: "biz",
         rules: [{ required: true, message: "请选择字典类型", trigger: "blur" }],
-        dictData: useDictStore().items('SYS_DICT_TYPE'),
+        dictData: useDictStore().items("SYS_DICT_TYPE"),
         isSearch: true,
       },
       {
@@ -77,7 +77,7 @@ export const useModel = (): {
         type: "select",
         default: "list",
         rules: [{ required: true, message: "请选择数据类型", trigger: "blur" }],
-        dictData: useDictStore().items('SYS_DICT_DATA_TYPE'),
+        dictData: useDictStore().items("SYS_DICT_DATA_TYPE"),
       },
       {
         label: "备注",

@@ -1,5 +1,5 @@
 <template>
-  <el-form-item :prop="field.prop" v-bind="field._attrs">
+  <el-form-item :prop="field.prop" v-bind="field.__formItemAttrs">
     <template #label>
       <span>{{ field.label }}</span>
       <template v-if="field.hint">
@@ -16,12 +16,14 @@
         v-model="formModel[field.prop]"
         :type="field.type"
         :placeholder="'请输入' + field.label"
+        v-bind="field.__formControlAttrs"
       ></el-input>
 
       <!-- inputNumber 数字输入框 -->
       <el-input-number
         v-else-if="field.type === 'inputNumber'"
         v-model="formModel[field.prop]"
+        v-bind="field.__formControlAttrs"
       />
 
       <!-- select -->
@@ -30,6 +32,7 @@
         v-model="formModel[field.prop]"
         style="width: 100%"
         :placeholder="'请选择' + field.label"
+        v-bind="field.__formControlAttrs"
       >
         <el-option
           v-for="item in field.__dictData"
@@ -43,6 +46,7 @@
       <el-radio-group
         v-else-if="field.type === 'radio'"
         v-model="formModel[field.prop]"
+        v-bind="field.__formControlAttrs"
       >
         <el-radio v-for="item in field.__dictData" :label="item.value">
           {{ item.label }}
@@ -53,6 +57,7 @@
       <el-radio-group
         v-else-if="field.type === 'radioButton'"
         v-model="formModel[field.prop]"
+        v-bind="field.__formControlAttrs"
       >
         <el-radio-button v-for="item in field.__dictData" :label="item.value">
           {{ item.label }}
@@ -64,6 +69,7 @@
         v-else-if="field.type === 'cascader'"
         v-model="formModel[field.prop]"
         :options="field.__dictData"
+        v-bind="field.__formControlAttrs"
       />
 
       <!-- tree 树型选择 -->

@@ -4,10 +4,8 @@
       <WCrud
         :option="option"
         :api="api"
-        :table-loading="tableLoading"
-        :table-data="tableData"
+        v-model:table-data="tableData"
         :before-save="beforeSaveHandler"
-        @query="onQuery"
       ></WCrud>
     </section>
   </el-dialog>
@@ -15,25 +13,27 @@
 
 <script setup lang="ts">
 import type { ICrudOption } from "@whirls/components";
-import { fetchItemList } from "@/api/admin/dict";
+import type { IDictDataType } from "@/typings";
 import { useDictStore } from "@/stores";
-
-type IDictDataType = "list" | "tree";
 
 const visible = ref(false);
 const dictDataType = ref<IDictDataType>("list");
-let dictId = "";
-const api = ref({
-  create: "/admin/dict-item",
-  update: "/admin/dict-item",
-  delete: "/admin/dict-item/",
-});
-const tableLoading = ref(false);
+const dictId = ref("");
 const tableData = ref<Record<string, any>[]>([]);
+
+const api = computed(() => {
+  return {
+    list: `/admin/dict-item/list/${dictId.value}`,
+    create: "/admin/dict-item",
+    update: "/admin/dict-item",
+    delete: "/admin/dict-item/",
+  };
+});
 const option = computed<ICrudOption>(() => {
   return {
     rowKey: "id",
     border: true,
+    indexColumn: false,
     labelWidth: 80,
     dialogWidth: 600,
     fields: [
@@ -41,7 +41,9 @@ const option = computed<ICrudOption>(() => {
         label: "上级",
         prop: "parentId",
         type: "tree",
-        dictData: tableData.value,
+        dictData: tableData.value as any,
+        valueKey: "id",
+        checkStrictly: true,
         isForm: dictDataType.value === "tree",
         isTable: false,
       },
@@ -106,20 +108,9 @@ const beforeSaveHandler = (record: any, type: any) => {
   return record;
 };
 
-const onQuery = () => {
-  tableLoading.value = true;
-  fetchItemList(dictId)
-    .then(({ data }) => {
-      tableData.value = data;
-    })
-    .finally(() => {
-      tableLoading.value = false;
-    });
-};
-
 // 打开 赋默认值
 const open = (id: string, dictType: IDictDataType = "list") => {
-  dictId = id;
+  dictId.value = id;
   dictDataType.value = dictType;
   visible.value = true;
 };
@@ -128,19 +119,3 @@ defineExpose({
   open,
 });
 </script>
-
-<style>
-.el-dialog__header {
-  border-bottom: 1px solid #ddd;
-}
-/* .el-dialog__body {
-  padding: 0;
-}
-
-.w-dialog-wrapper {
-  padding: 20px;
-  max-height: 60vh;
-  box-sizing: border-box;
-  overflow: hidden auto;
-} */
-</style>

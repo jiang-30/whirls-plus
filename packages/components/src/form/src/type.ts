@@ -96,6 +96,48 @@ export type ISearchFormProps = ExtractPropTypes<typeof searchFormProps>;
 export type ISearchFormOption = ISearchFormProps["option"];
 
 // ==========================================  form control  ==========================================
+
+export interface IFormItemBaseAttrs {
+  clearable?: boolean;
+}
+
+export interface IFormItemTreeAttrs extends IFormItemBaseAttrs {
+  // "empty-text",
+  nodeKey?: string;
+  valueKey?: string;
+  checkStrictly?: boolean;
+  props?: {
+    label?: string;
+    children?: string;
+    disabled?: string;
+    isLeaf?: string;
+    class?: string;
+  };
+  // "render-after-expand",
+  // "load",
+  // "render-content",
+  // "highlight-current",
+  // "default-expand-all",
+  // "expand-on-click-node",
+  // "check-on-click-node",
+  // "auto-expand-parent",
+  // "default-expanded-keys",
+  // "show-checkbox",
+  // "check-strictly",
+  // "default-checked-keys",
+  // "current-node-key",
+  // "filter-node-method",
+  // "accordion",
+  // "indent",
+  // "icon",
+  // "lazy",
+  // "draggable",
+  // "allow-drag",
+  // "allow-drop",
+}
+
+export type IFormItemControlAttrs = IFormItemTreeAttrs;
+
 const inputNumberAttrsKey = [
   "min",
   "max",

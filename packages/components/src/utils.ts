@@ -1,6 +1,6 @@
 import type { AxiosInstance } from "axios";
 import type { ICrudOption } from "./index";
-import type { IDict } from './typings'
+import type { IDict } from "./typings";
 
 export const defaultAttrs = {};
 export const defaultFieldAttrs = {};
@@ -25,7 +25,7 @@ export const formatValue = (field: any, row: any, column: any, index: any) => {
   if (field.__formatter) {
     // row, column, cellValue, index
     return field.__formatter(row, column, row[field.prop], index);
-  } else if (field.type === "select" || field.type === 'radio') {
+  } else if (field.type === "select" || field.type === "radio") {
     const value = row[field.prop];
     const dict = field._dictData.find((item: any) => item.value === value);
 

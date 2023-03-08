@@ -1,5 +1,11 @@
 import type { PropType } from "vue";
-import type { IFormModel, IFormType, IFormAttrs, IFormItemAttrs } from "./type";
+import type {
+  IFormModel,
+  IFormType,
+  IFormAttrs,
+  IFormItemAttrs,
+  IFormItemControlAttrs,
+} from "./type";
 
 // 属性
 export const formProps = {
@@ -10,7 +16,9 @@ export const formProps = {
   },
   // 配置
   option: {
-    type: Object as PropType<IFormAttrs & { fields: IFormItemAttrs[] }>,
+    type: Object as PropType<
+      IFormAttrs & { fields: (IFormItemAttrs & IFormItemControlAttrs)[] }
+    >,
     required: true as true,
   },
   // 表单类型 create | update

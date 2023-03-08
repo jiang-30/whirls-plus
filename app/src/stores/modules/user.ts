@@ -47,9 +47,9 @@ export const useUserStore = defineStore({
     },
     // 获取用户信息
     fetchUserInfo() {
-      return fetchProfile().then((res) => {
+      return fetchProfile().then(({ data }) => {
         // this.permissions = res.permissions
-        this.userInfo = res.userInfo;
+        this.userInfo = data.userInfo;
       });
     },
     // 获取用户权限信息
@@ -87,10 +87,10 @@ export const useUserStore = defineStore({
       this.$reset();
       useTabStore().$reset();
       useMenuStore().$reset();
+      useDictStore().$reset();
 
       if (isClear) {
         useSettingStore().$reset();
-        useDictStore().$reset();
       }
 
       const loginRoute = router

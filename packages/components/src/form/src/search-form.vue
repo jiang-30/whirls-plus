@@ -4,10 +4,10 @@
     ref="formRef"
     :model="searchModel"
     :disabled="loading"
-    v-bind="_searchFormAttrs"
+    v-bind="__searchFormAttrs"
   >
     <FormItem
-      v-for="field in _searchFormFields"
+      v-for="field in __searchFormFields"
       :key="field.prop"
       :field="field"
       :form-model="searchModel"
@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, onBeforeMount } from "vue";
 import { Search, RefreshLeft } from "@element-plus/icons-vue";
 import type { FormInstance } from "element-plus";
 import { searchFormProps, searchFormEmits } from "./search-form";
@@ -43,13 +43,13 @@ const emits = defineEmits(searchFormEmits);
 const isShow = ref(false);
 const formRef = ref<FormInstance>();
 
-const { _searchFormFields, _searchFormAttrs } = useSearchFormOption(
+const { __searchFormFields, __searchFormAttrs } = useSearchFormOption(
   props.option!
 );
 
 // 判断搜索栏是否显示
 watch(
-  _searchFormFields,
+  __searchFormFields,
   (fields) => {
     if (fields.length) {
       isShow.value = true;
@@ -72,7 +72,9 @@ watch(
 );
 
 // 初始化
-emits("init", props.searchModel);
+onBeforeMount(() => {
+  emits("init", props.searchModel);
+});
 
 // 查询
 const _onSearch = () => {

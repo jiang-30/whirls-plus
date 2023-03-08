@@ -38,7 +38,7 @@
       </section>
 
       <!-- 表格区域 -->
-      <el-table :data="tableData ?? _tableData" v-bind="__tableAttrs">
+      <el-table :data="_currentTableData" v-bind="__tableAttrs">
         <!-- expandColumn 展开 -->
         <el-table-column v-if="option.expandColumn === true" type="expand">
           <template #default="scopeProps">
@@ -187,7 +187,7 @@ import { useCrudOption } from "./utils";
 import { ElMessageBox, ElNotification, type Action } from "element-plus";
 import { tools, formatValue } from "../../utils";
 
-console.log("slots: ", useSlots());
+// console.log("slots: ", useSlots());
 
 defineOptions({ name: "WCrud" });
 const props = defineProps(crudProps);
@@ -210,7 +210,6 @@ const currentType = ref("normal");
 const checkedFields = ref<string[]>([]);
 // 当前数据
 const _tableLoading = ref(false);
-const _tableData = ref([]);
 
 // 格式化配置数据
 const {
@@ -248,9 +247,20 @@ const _currentModelValue = computed({
   },
 });
 
+const _tableData = ref<any>([]);
+const _currentTableData = computed({
+  get: () => {
+    return props.tableData ?? _tableData.value;
+  },
+  set: (val) => {
+    emits("update:tableData", val);
+    _tableData.value = val;
+  },
+});
+
 // 表格结果数据格式化
 const _formatValue = (field: any, row: any, column: any, index: any) => {
- return formatValue(field, row, column, index)
+  return formatValue(field, row, column, index);
 };
 
 // 关闭弹窗
@@ -263,14 +273,14 @@ const onCloseHandler = () => {
   dialogVisible.value = false;
 };
 
-// 打开弹窗
+// 打开弹窗 - 操作数据的钩子
 const openHandler = () => {
   const openDone = () => {
     dialogVisible.value = true;
   };
 
-  if (props.onBeforeOpen) {
-    props.onBeforeOpen(currentType.value, _currentModelValue.value, openDone);
+  if (props.beforeOpen) {
+    props.beforeOpen(_currentModelValue.value, openDone, currentType.value);
   } else {
     openDone();
   }
@@ -291,7 +301,7 @@ const searchHandler = () => {
         },
       })
       .then(({ data }) => {
-        _tableData.value = data;
+        _currentTableData.value = data;
       })
       .finally(() => {
         _tableLoading.value = false;
@@ -309,7 +319,7 @@ const searchHandler = () => {
         },
       })
       .then(({ data }) => {
-        _tableData.value = data.records;
+        _currentTableData.value = data.records;
         props.pageModel.total = data.total;
       })
       .finally(() => {
@@ -319,33 +329,39 @@ const searchHandler = () => {
 };
 
 const _onRefresh = () => {
+  console.log("table refresh");
   emits("refresh");
   searchHandler();
 };
 
 const _onSearchInit = () => {
+  console.log("search init");
   emits("init");
   searchHandler();
 };
 
 const _onSearch = () => {
+  console.log("search");
   props.pageModel.current = 1;
   emits("search");
   searchHandler();
 };
 
 const _onSearchReset = () => {
+  console.log("search reset");
   props.pageModel.current = 1;
   emits("searchReset");
   searchHandler();
 };
 
 const _onPageCurrentChange = (current: number) => {
+  console.log("page current change");
   emits("pageCurrentChange");
   searchHandler();
 };
 
 const _onPageSizeChange = (size: number) => {
+  console.log("page size change");
   emits("pageSizeChange");
   searchHandler();
 };
@@ -423,8 +439,8 @@ const _onDelete = (row: any) => {
 };
 
 const _onCreateConfirm = (record: any, done: any) => {
-  if(props.beforeSave) {
-    record =  props.beforeSave(record, currentType.value)
+  if (props.beforeSave) {
+    record = props.beforeSave(record, currentType.value);
   }
 
   if (props.onCreate) {

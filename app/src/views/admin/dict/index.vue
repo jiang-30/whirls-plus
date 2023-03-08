@@ -35,7 +35,6 @@ const itemRef = ref<InstanceType<typeof DictItem>>();
 
 // 打开字典项
 const onOpenItems = (row: any) => {
-  console.log(row);
   itemRef.value?.open(row.id, row.dataType);
 };
 </script>

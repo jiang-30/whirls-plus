@@ -6,7 +6,7 @@ import type { AxiosProgressEvent } from "axios";
 export function fetchDict() {
   return request({
     method: "get",
-    url: "/admin/dict/detail/all",
+    url: "/admin/dict/items/all",
   });
 }
 

@@ -9,6 +9,7 @@ export const useCrudOption = (option: ICrudOption) => {
       pageSizes: [10, 20, 50, 100],
       background: true,
       layout: " ->, total, sizes, prev, pager, next, jumper",
+      hideOnSinglePage: option.hideOnSinglePage ?? true,
     };
   });
 
