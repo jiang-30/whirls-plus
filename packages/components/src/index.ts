@@ -1,5 +1,6 @@
 import type { Plugin } from "vue";
 import type { AxiosInstance } from "axios";
+import type { IDict } from "./typings";
 
 export * from "./button/index";
 export * from "./info/index";
@@ -15,10 +16,13 @@ import { WCrud } from "./crud/index";
 import { WSection } from "./section/index";
 import { WRoll } from "./roll/index";
 
-export default <Plugin<{ axios?: AxiosInstance }>>{
+export default <Plugin<{ axios?: AxiosInstance; dictList?: IDict[] }>>{
   install: (app, option) => {
     if (option.axios) {
       tools.axios = option.axios;
+    }
+    if (option.dictList) {
+      tools.dictList = option.dictList;
     }
 
     app.use(WButton);

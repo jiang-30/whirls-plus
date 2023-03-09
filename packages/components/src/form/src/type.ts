@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from "vue";
 import type { FormProps, FormItemProps } from "element-plus";
-import type { IDict, IFieldBaseAttrs } from "../../typings";
+import type { IDictItem, IFieldBaseAttrs } from "../../typings";
 import type { formProps, formEmits } from "./form";
 import type { searchFormProps, searchFormEmits } from "./search-form";
 import type Form from "./form.vue";
@@ -61,7 +61,7 @@ export interface IFormItemAttrs extends IFieldBaseAttrs, IElFormItemAttrs {
   // 字典Key
   dictKey?: string;
   // 字典数据
-  dictData?: IDict[];
+  dictData?: IDictItem[];
 }
 
 // Search Form

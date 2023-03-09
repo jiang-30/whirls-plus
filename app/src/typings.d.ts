@@ -118,12 +118,13 @@ export type IDictDataType = "list" | "tree";
 export interface IDictItem {
   label: string;
   value: string;
+  disabled?: boolean;
 }
 
 // 字典
 export interface IDict {
   code: string;
-  dataType: IDictDataType;
+  dataType?: IDictDataType;
   items: IDictItem[];
 }
 

@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig } from "axios";
+import type { AxiosRequestConfig, AxiosInstance } from "axios";
 import http from "./request";
 import type { IResult } from "@/typings";
 export { useApi } from "./useApi";

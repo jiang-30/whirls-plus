@@ -8,11 +8,11 @@ export const defaultFieldAttrs = {};
 export const tools: {
   // axios 请求实例
   axios: AxiosInstance | null;
+  dictList: IDict[];
   // crud 默认值
   defaultAttrs: Partial<ICrudOption>;
   // crud 数据项 默认值
   defaultFieldAttrs: Partial<ICrudOption["fields"]["0"]>;
-  dictList: IDict[];
 } = {
   axios: null,
   defaultAttrs: {},

@@ -1,15 +1,11 @@
-import { useDictStore } from "@/stores";
 import type {
   ICrudOption,
   ICrudApi,
   IPageModel,
   ITableData,
 } from "@whirls/components";
-// useController
-// base数据
-// 组件状态及交互逻辑 -- 组件里引入交互逻辑
-// useService
-// 接口请求
+import { useDictStore } from "@/stores";
+
 export const useModel = (): {
   api: Ref<ICrudApi>;
   option: Ref<ICrudOption>;

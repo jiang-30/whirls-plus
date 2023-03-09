@@ -9,7 +9,12 @@ export type IFieldType =
   | "tree";
 
 // 字典数据类型
-export type IDict = { label: string; value: string };
+export type IDictItem = { label: string; value: string; disabled?: boolean };
+export type IDict = { name?: string; code: string; items: IDictItem[] };
+
+export type IDataType = "info" | "create" | "update" | "row" | "table";
+export type IDialogType = "info" | "create" | "update";
+export type IFormType = "create" | "update";
 
 // 字段基础属性
 export interface IFieldBaseAttrs {
@@ -19,6 +24,6 @@ export interface IFieldBaseAttrs {
   // 字典Key
   dictKey?: string;
   // 字典数据
-  dictData?: IDict[];
+  dictData?: IDictItem[];
   // formatter
 }

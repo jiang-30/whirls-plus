@@ -1,13 +1,11 @@
 <template>
   <el-dialog v-model="visible" title="字典项" width="800px" destroy-on-close>
-    <section class="w-dialog-wrapper">
-      <WCrud
-        :option="option"
-        :api="api"
-        v-model:table-data="tableData"
-        :before-save="beforeSaveHandler"
-      ></WCrud>
-    </section>
+    <WCrud
+      v-model:table-data="tableData"
+      :option="option"
+      :api="api"
+      :before-save="beforeSaveHandler"
+    ></WCrud>
   </el-dialog>
 </template>
 
@@ -20,7 +18,6 @@ const visible = ref(false);
 const dictDataType = ref<IDictDataType>("list");
 const dictId = ref("");
 const tableData = ref<Record<string, any>[]>([]);
-
 const api = computed(() => {
   return {
     list: `/admin/dict-item/list/${dictId.value}`,
@@ -109,7 +106,7 @@ const beforeSaveHandler = (record: any, type: any) => {
 };
 
 // 打开 赋默认值
-const open = (id: string, dictType: IDictDataType = "list") => {
+const open = (id: string, dictType: IDictDataType) => {
   dictId.value = id;
   dictDataType.value = dictType;
   visible.value = true;

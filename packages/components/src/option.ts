@@ -1,130 +1,16 @@
 import type { ICrudOption } from "./index";
 
 export const option: ICrudOption = {
-  title: "操作",
-  // width: 600,
-  draggable: true,
-  appendToBody: true,
+  // =========================================== ElTable Props ===========================================
+  // height: ;
+  // maxHeight?: string | number;
+  stripe: true,
   border: true,
-  labelSuffix: "：",
-  labelWidth: 100,
-  span: 24,
-  // rowMenuWidth: 100,
-  // rowMenuVisible: true,
-  isDeleteBtn: true,
-  isUpdateBtn: true, // function
-  isInfoBtn: true, // function
-  // action: true,
-  // dialogTitle
-  // dialogTitleUpdate
-  // dialogTitleCreate
-  // dialogTitleInfo
-  fields: [
-    {
-      label: "数据结构",
-      prop: "dataType",
-      type: "radio",
-      dictData: [
-        { label: "列表", value: "1" },
-        { label: "树", value: "2" },
-      ],
-      // dictKey: "",
-      default: "1",
-      rules: [],
-      span: 12,
-      isSearch: true,
-      isTable: true,
-      isInfo: false,
-      isForm: true,
-
-      listen: {
-        show: { type: "2" },
-      },
-    },
-  ],
-};
-
-function useOptionFormatter(option: any) {}
-
-interface IOptionField {
-  // =========================================== base ===========================================
-  label: string;
-  prop: string;
-  type: "input" | "radio";
-  dictData: any[];
-  dictKey: string;
-  defaultValue: any;
-  rules: any[];
-  span: number;
-  search: boolean;
-  table: boolean;
-  info: boolean;
-  form: boolean;
-  createForm: boolean;
-  updateForm: boolean;
-  disabled: boolean;
-  createDisabled: boolean;
-  updateDisabled: boolean;
-
-  // =========================================== table column ===========================================
-  // type?: 'selection' | 'index' | 'expand'
-  index?: number | ((index: number) => number);
-  columnKey?: string;
-  width?: string | number;
-  minWidth?: string | number;
-  fixed?: string | boolean;
-  // renderHeader?: () function({ column, $index })
-  sortable?: boolean | string;
-  // sortMethod?: function(a, b)
-  // sortBy?: function(row, index) / string / array
-  // sort-orders?: array
-  resizable?: boolean;
-  // formatter?: function(row, column, cellValue, index)
-  showOverflowTooltip?: boolean;
-  align?: string;
-  headerAlign?: string;
-  className?: string;
-  labelClassName?: string;
-  // filters?: array[{ text, value }]
-  // filter-placement
-  // filter-multiple
-  // filter-method
-  // filtered-value
-
-  // ===========================================  info item  ===========================================
-  // label?: string
-  // span?: number
-  // width?: string | number
-  // minWidth?: string | number
-  // align?: 'left' | 'center' | 'right'
-  // labelAlign?: 'left' | 'center' | 'right'
-  // className?: string
-  // labelClassName?: string
-
-  // =========================================== form item ===========================================
-  labelWidth?: string | number;
-  required?: boolean;
-  // rules?: FormItemRule | FormItemRule[]
-  error?: string;
-  showMessage?: boolean;
-  inlineMessage?: boolean;
-  size?: "large" | "default" | "small";
-}
-
-/**
- *
- */
-interface IOption {
-  // ===========================================  table  ===========================================
-  height?: string | number;
-  maxHeight?: string | number;
-  stripe?: boolean;
-  border?: boolean;
-  size?: "large" | "default" | "small";
-  fit?: boolean;
-  showHeader?: boolean;
-  highlightCurrentRow?: boolean;
-  // current-row-key?: string | number
+  size: "default",
+  // fit?: boolean;
+  showHeader: true,
+  // highlightCurrentRow
+  // currentRowKey
   // row-class-name?: function({ row, rowIndex }) / string
   // row-style?: function({ row, rowIndex }) / object
   // cell-class-name?: function({ row, column, rowIndex, columnIndex }) / string
@@ -133,68 +19,130 @@ interface IOption {
   // header-row-style?: function({ row, rowIndex }) / object
   // header-cell-class-name?: function({ row, column, rowIndex, columnIndex }) / string
   // header-cell-style?: function({ row, column, rowIndex, columnIndex }) / object
-  rowKey?: string; //function(row) / string
-  emptyText?: string;
-  defaultExpandAll?: boolean;
+  // rowKey?: string
+  // emptyText?: string;
+  // defaultExpandAll?: boolean;
   // expand-row-keys: array
   // default-sort: object
-  tooltipEffect?: "dark" | "light";
-  showSummary?: boolean;
-  sumText?: string;
+  // tooltipEffect?: "dark" | "light";
+  // showSummary?: boolean;
+  // sumText?: string;
   // summaryMethod?: function({ columns, data })
   // span-method
-  selectOnIndeterminate?: boolean;
-  indent?: number;
-  lazy?: boolean;
+  // selectOnIndeterminate?: boolean;
+  // indent?: number;
+  // lazy?: boolean;
   // load?: function(row, treeNode, resolve)
   // tree-props
-  tableLayout?: "fixed" | "auto";
-  scrollbarAlwaysOn?: boolean;
+  // tableLayout?: "fixed" | "auto";
+  // scrollbarAlwaysOn?: boolean;
 
-  // ===========================================  dialog  ===========================================
-  title?: string;
-  // "width"?: string | number
-  fullscreen?: boolean;
-  top?: string;
-  modal?: boolean;
-  appendToBody?: boolean;
-  lockScroll?: boolean;
-  customClass?: string;
-  openDelay?: number;
-  closeDelay?: number;
-  closeOnClickModal?: boolean;
-  closeOnPressEscape?: boolean;
-  showClose?: boolean;
-  beforeClose?: (done: () => {}) => void;
-  draggable?: boolean;
-  center?: boolean;
-  destroyOnClose?: boolean;
+  // =========================================== ElPagination Props ===========================================
+  // small
+  // background
+  // pagerCount
+  // layout
+  // pageSizes
+  // popperClass
+  // prevText
+  // prevIcon
+  // nextText
+  // nextIcon
+  // disabled
+  // hideOnSinglePage
 
-  // ===========================================  info  ===========================================
-  // border?: boolean
-  column?: number;
-  direction?: "vertical" | "horizontal";
-  // size?: 'large' | 'default' | 'small'
-  // title?: string
-  extra?: string;
+  // =========================================== ElPagination Props ===========================================
+  // dialogTitle?: string;
+  // dialogWidth
+  // dialogFullscreen
+  // dialogTop
+  // dialogModal
+  // dialogAppendToBody
+  // dialogLockScroll
+  // dialogCustomClass
+  // dialogOpenDelay
+  // dialogCloseDelay
+  // dialogCloseOnClickModal
+  // dialogCloseOnPressEscape
+  // dialogShowClose
+  // dialogBeforeClose
+  // dialogDraggable
+  // dialogCenter
+  // dialogAlignCenter
+  // dialogDestroyOnClose
 
-  // ===========================================  form  ===========================================
-  inline?: boolean;
-  labelPosition?: "left" | "right" | "top";
-  labelWidth?: string | number;
-  labelSuffix?: string;
-  hideRequiredAsterisk?: boolean;
-  showMessage?: boolean;
-  inlineMessage?: boolean;
-  statusIcon?: boolean;
-  validateOnRuleChange?: boolean;
-  // size?: 'large' | 'default' | 'small'
-  scrollToError?: boolean;
+  // =========================================== ElInfo Props ===========================================
+  // infoBorder
+  // infoColumn
+  // infoDirection
+  // infoSize
+  // infoTitle
+  // infoExtra
 
-  // ===========================================  search form  ===========================================
-  // ===========================================  create form  ===========================================
-  // ===========================================  update form  ===========================================
+  // =========================================== ElForm Props ===========================================
+  // inline
+  // labelPosition
+  // labelWidth
+  // labelSuffix
+  // hideRequiredAsterisk
+  // showMessage
+  // inlineMessage
+  // statusIcon
+  // validateOnRuleChange
+  // size
+  // scrollToError
 
-  // ===========================================  fields  ===========================================
-  fields: IOptionField[];
-}
+  // =========================================== SearchForm Props ===========================================
+  // searchLabelWidth
+  // searchLabelPosition
+
+  // =========================================== Custom Props ===========================================
+  //  // 序号 列
+  //  indexColumn?: boolean;
+  //  indexColumnWidth?: boolean;
+  //  indexColumnFixed?: boolean;
+
+  //  // 展开 列
+  //  expandColumn?: boolean;
+
+  //  // 选择 列
+  //  selectionColumn?: boolean;
+
+  //  // 操作栏
+  //  // printBtn
+  //  // excelBtn
+  //  // refreshBtn
+  //  // columnBtn
+  //  // searchShowBtn
+
+  //  // 表格操作栏
+  //  rowAction?: boolean;
+  //  rowActionWidth?: string | number;
+  //  rowActionTitle?: string;
+  //  rowActionFixed?: string;
+  //  rowActionType?: string;
+  //  rowActionHeaderAlign?: string;
+  //  rowActionAlign?: string;
+  //  // 显示新增按钮
+  //  isCreateBtn?: boolean;
+  //  createBtnPermission?: boolean;
+
+  //  // 显示详情按钮 default false
+  //  isInfoBtn?: boolean;
+  //  infoBtnDisabled?: boolean;
+  //  // 显示修改按钮
+  //  isUpdateBtn?: boolean;
+  //  updateBtnDisabled?: boolean;
+  //  updateBtnPermission?: boolean;
+  //  // 显示删除按钮
+  //  isDeleteBtn?: boolean;
+  //  deleteBtnDisabled?: boolean;
+  //  deleteBtnPermission?: boolean;
+
+  //  // 共用属性
+  //  align?: TableColumnCtx<any>["align"];
+
+  //  headerAlign?: TableColumnCtx<any>["headerAlign"];
+
+  fields: [],
+};

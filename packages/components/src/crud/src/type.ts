@@ -7,7 +7,7 @@ import type {
 } from "element-plus";
 import type { crudProps, crudEmits } from "./crud";
 import type Crud from "./crud.vue";
-import type { IFieldType, IDict } from "../../typings";
+import type { IFieldType, IDictItem } from "../../typings";
 
 // 表格数据类型
 export type ITableData = Record<string, any>;
@@ -106,9 +106,17 @@ export interface IElTableColumnAttrs {
 
 // Pagination 属性
 export interface IElPaginationAttrs {
-  pageSizes?: PaginationProps["pageSize"];
+  small?: PaginationProps["small"];
   background?: PaginationProps["background"];
+  pagerCount?: PaginationProps["pagerCount"];
   layout?: PaginationProps["layout"];
+  pageSizes?: PaginationProps["pageSize"];
+  popperClass?: PaginationProps["popperClass"];
+  prevText?: PaginationProps["prevText"];
+  prevIcon?: PaginationProps["prevIcon"];
+  nextText?: PaginationProps["nextText"];
+  nextIcon?: PaginationProps["nextIcon"];
+  disabled?: PaginationProps["disabled"];
   hideOnSinglePage?: PaginationProps["hideOnSinglePage"];
 }
 
@@ -192,7 +200,7 @@ export interface ICrudColumnAttrs extends IElTableColumnAttrs {
   label: string;
   type: IFieldType;
   dictKey?: string;
-  dictData?: IDict[];
+  dictData?: IDictItem[];
   isTable?: boolean;
   isTableVisible?: boolean;
   tableSlot?: boolean;
