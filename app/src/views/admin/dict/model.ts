@@ -7,20 +7,20 @@ import type {
 import { useDictStore } from "@/stores";
 
 export const useModel = (): {
-  api: Ref<ICrudApi>;
-  option: Ref<ICrudOption>;
+  api: ICrudApi;
+  option: ICrudOption;
   pageModel: Ref<IPageModel>;
   tableLoading: Ref<boolean>;
   tableData: Ref<ITableData>;
 } => {
-  const api = ref<ICrudApi>({
+  const api = {
     page: "/admin/dict/page",
     create: "/admin/dict",
     update: "/admin/dict",
     delete: "/admin/dict/",
-  });
+  };
 
-  const option = ref<ICrudOption>({
+  const option: ICrudOption = {
     border: true,
     stripe: true,
     dialogWidth: 600,
@@ -66,6 +66,7 @@ export const useModel = (): {
         rules: [{ required: true, message: "请选择字典类型", trigger: "blur" }],
         dictData: useDictStore().items("SYS_DICT_TYPE"),
         isSearch: true,
+        width: 140
       },
       {
         label: "数据类型",
@@ -74,6 +75,7 @@ export const useModel = (): {
         default: "list",
         rules: [{ required: true, message: "请选择数据类型", trigger: "blur" }],
         dictData: useDictStore().items("SYS_DICT_DATA_TYPE"),
+        width: 100
       },
       {
         label: "备注",
@@ -90,7 +92,7 @@ export const useModel = (): {
         isTable: false,
       },
     ],
-  });
+  };
 
   const pageModel = ref<IPageModel>({
     current: 1,

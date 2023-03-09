@@ -95,6 +95,7 @@ export const option: ICrudOption = {
   // =========================================== SearchForm Props ===========================================
   // searchLabelWidth
   // searchLabelPosition
+  // searchLabelSuffix
 
   // =========================================== Custom Props ===========================================
   //  // 序号 列
@@ -123,18 +124,18 @@ export const option: ICrudOption = {
   //  rowActionType?: string;
   //  rowActionHeaderAlign?: string;
   //  rowActionAlign?: string;
-  //  // 显示新增按钮
+  //  // 新增按钮
   //  isCreateBtn?: boolean;
   //  createBtnPermission?: boolean;
 
-  //  // 显示详情按钮 default false
+  //  // 详情按钮
   //  isInfoBtn?: boolean;
   //  infoBtnDisabled?: boolean;
-  //  // 显示修改按钮
+  //  // 修改按钮
   //  isUpdateBtn?: boolean;
   //  updateBtnDisabled?: boolean;
   //  updateBtnPermission?: boolean;
-  //  // 显示删除按钮
+  //  // 删除按钮
   //  isDeleteBtn?: boolean;
   //  deleteBtnDisabled?: boolean;
   //  deleteBtnPermission?: boolean;
@@ -146,3 +147,6 @@ export const option: ICrudOption = {
 
   fields: [],
 };
+
+
+const field = {}

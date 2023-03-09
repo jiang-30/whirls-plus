@@ -1,13 +1,11 @@
 ## TODO
+
 - async-validator 类型为引入问题
-- v-model:table-data
-- v-model:table-loading
+- 角色 ADMIN, 超级管理员 isAdmin
 - api
 - before-open
-- before-close
-- before-save
-- 角色 ADMIN, 超级管理员 isAdmin
-- dict code name items(label value disabled, remark), 通过code查询和全部查询
+- before-fetch
+- after-fetch
 
 ## 思路
 

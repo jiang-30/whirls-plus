@@ -19,18 +19,8 @@ export type IPageModel = {
   total: number;
 };
 
-// {
-//   method: "get";
-//   url: "/admin/dict";
-//   data: ''
-// };
-export interface ICrudApiOption {
-  url: string;
-  before?: Function;
-  after?: Function;
-}
-
 export interface ICrudApi {
+  restful?: string
   list?: string;
   page?: string;
   info?: string;
@@ -145,8 +135,8 @@ export interface IElDialogAttrs {
 // Crud 扩展属性
 export interface ICrudAttrs
   extends IElTableAttrs,
-    IElPaginationAttrs,
-    IElDialogAttrs {
+  IElPaginationAttrs,
+  IElDialogAttrs {
   // 序号 列
   indexColumn?: boolean;
   indexColumnWidth?: boolean;

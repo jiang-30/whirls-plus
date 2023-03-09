@@ -30,7 +30,7 @@ import { ref } from "vue";
 import DictItem from "./components/dict-item.vue";
 import { useModel } from "./model";
 
-const { api, option, pageModel, tableLoading, tableData } = useModel();
+const { api, option } = useModel();
 const itemRef = ref<InstanceType<typeof DictItem>>();
 
 // 打开字典项
