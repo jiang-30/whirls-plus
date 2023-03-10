@@ -1,83 +1,95 @@
-import { computed } from "vue";
-import type { TableProps, PaginationProps, DialogProps } from "element-plus";
-import type { ICrudOption } from "./type";
+import { computed } from 'vue'
+import type { TableProps, PaginationProps, DialogProps } from 'element-plus'
+import type { ICrudOption } from './type'
+import { omitProperty, tools } from '../../utils'
 
 export const useCrudOption = (option: ICrudOption) => {
+  const defaultAttrs = tools.defaultAttrs
   // 分页组件 属性
   const __pageAttrs = computed<Partial<PaginationProps>>(() => {
-    return {
-      pageSizes: [10, 20, 50, 100],
-      background: true,
-      layout: " ->, total, sizes, prev, pager, next, jumper",
-      hideOnSinglePage: option.hideOnSinglePage ?? true,
-    };
-  });
+    return omitProperty({
+      small: option.small ?? defaultAttrs.small,
+      background: option.background ?? defaultAttrs.background,
+      pagerCount: option.pagerCount ?? defaultAttrs.pagerCount,
+      layout: option.layout ?? defaultAttrs.layout,
+      pageSizes: option.pageSizes ?? defaultAttrs.pageSizes,
+      popperClass: option.popperClass ?? defaultAttrs.popperClass,
+      prevText: option.prevText ?? defaultAttrs.prevText,
+      prevIcon: option.prevIcon ?? defaultAttrs.prevIcon,
+      nextText: option.nextText ?? defaultAttrs.nextText,
+      nextIcon: option.nextIcon ?? defaultAttrs.nextIcon,
+      hideOnSinglePage: option.hideOnSinglePage ?? defaultAttrs.hideOnSinglePage,
+    })
+  })
 
   // dialog 组件 属性
   const __dialogAttrs = computed<Partial<DialogProps>>(() => {
-    return {
-      width: option.dialogWidth,
-      fullscreen: option.dialogFullscreen,
-      top: option.dialogTop,
-      modal: option.dialogModal,
-      appendToBody: option.dialogAppendToBody,
-      lockScroll: option.dialogLockScroll,
-      openDelay: option.dialogOpenDelay,
-      closeDelay: option.dialogCloseDelay,
-      closeOnClickModal: option.dialogCloseOnClickModal,
-      closeOnPressEscape: option.dialogCloseOnPressEscape,
-      showClose: option.dialogShowClose,
-      beforeClose: option.dialogBeforeClose,
-      draggable: option.dialogDraggable,
-      center: option.dialogCenter,
-      alignCenter: option.dialogAlignCenter,
-      destroyOnClose: option.dialogDestroyOnClose,
-    };
-  });
+    return omitProperty({
+      // title
+      width: option.dialogWidth ?? defaultAttrs.dialogWidth,
+      fullscreen: option.dialogFullscreen ?? defaultAttrs.dialogFullscreen,
+      top: option.dialogTop ?? defaultAttrs.dialogTop,
+      modal: option.dialogModal ?? defaultAttrs.dialogModal,
+      appendToBody: option.dialogAppendToBody ?? defaultAttrs.dialogAppendToBody,
+      lockScroll: option.dialogLockScroll ?? defaultAttrs.dialogLockScroll,
+      CustomClass: option.dialogCustomClass ?? defaultAttrs.dialogCustomClass,
+      openDelay: option.dialogOpenDelay ?? defaultAttrs.dialogOpenDelay,
+      closeDelay: option.dialogCloseDelay ?? defaultAttrs.dialogCloseDelay,
+      // closeOnClickModal: option.dialogCloseOnClickModal ?? defaultAttrs.dialogCloseOnClickModal,
+      closeOnPressEscape: option.dialogCloseOnPressEscape ?? defaultAttrs.dialogCloseOnPressEscape,
+      showClose: option.dialogShowClose ?? defaultAttrs.dialogShowClose,
+      beforeClose: option.dialogBeforeClose ?? defaultAttrs.dialogBeforeClose,
+      draggable: option.dialogDraggable ?? defaultAttrs.dialogDraggable,
+      center: option.dialogCenter ?? defaultAttrs.dialogCenter,
+      alignCenter: option.dialogAlignCenter ?? defaultAttrs.dialogAlignCenter,
+      // destroyOnClose: option.dialogDestroyOnClose ?? defaultAttrs.dialogDestroyOnClose,
+    })
+  })
 
   // Table Attrs table props 和 event
-  const __tableAttrs = computed<Omit<TableProps<any>, "data">>(() => {
-    return {
-      height: option.height,
-      maxHeight: option.maxHeight,
-      stripe: option.stripe,
-      border: option.border,
-      size: option.size,
-      fit: option.fit,
-      showHeader: option.showHeader,
-      highlightCurrentRow: option.highlightCurrentRow,
-      // current-row-key?: string | number
-      // row-class-name?: function({ row, rowIndex }) / string
-      // row-style?: function({ row, rowIndex }) / object
-      // cell-class-name?: function({ row, column, rowIndex, columnIndex }) / string
-      // cell-style?: function({ row, column, rowIndex, columnIndex }) / object
-      // header-row-class-name?: function({ row, rowIndex }) / string
-      // header-row-style?: function({ row, rowIndex }) / object
-      // header-cell-class-name?: function({ row, column, rowIndex, columnIndex }) / string
-      // header-cell-style?: function({ row, column, rowIndex, columnIndex }) / object
-      rowKey: option.rowKey,
-      emptyText: option.emptyText,
-      defaultExpandAll: option.defaultExpandAll,
-      // expand-row-keys: array
-      // default-sort: object
-      tooltipEffect: option.tooltipEffect,
-      showSummary: option.showSummary,
-      sumText: option.sumText,
-      // summaryMethod?: function({ columns, data })
-      // span-method
-      selectOnIndeterminate: option.selectOnIndeterminate,
-      indent: option.indent,
-      lazy: option.lazy,
-      // load?: function(row, treeNode, resolve)
-      // tree-props
-      tableLayout: option.tableLayout,
-      scrollbarAlwaysOn: option.scrollbarAlwaysOn,
-    };
-  });
+  const __tableAttrs = computed<Omit<TableProps<any>, 'data'>>(() => {
+    return omitProperty({
+      height: option.height ?? defaultAttrs.height,
+      maxHeight: option.maxHeight ?? defaultAttrs.maxHeight,
+      stripe: option.stripe ?? defaultAttrs.stripe,
+      border: option.border ?? defaultAttrs.border,
+      size: option.size ?? defaultAttrs.size,
+      fit: option.fit ?? defaultAttrs.fit,
+      showHeader: option.showHeader ?? defaultAttrs.showHeader,
+      highlightCurrentRow: option.highlightCurrentRow ?? defaultAttrs.highlightCurrentRow,
+      currentRowKey: option.currentRowKey ?? defaultAttrs.currentRowKey,
+      rowClassName: option.rowClassName ?? defaultAttrs.rowClassName,
+      rowStyle: option.rowStyle ?? defaultAttrs.rowStyle,
+      cellClassName: option.cellClassName ?? defaultAttrs.cellClassName,
+      cellStyle: option.cellStyle ?? defaultAttrs.cellStyle,
+      headerRowClassName: option.headerRowClassName ?? defaultAttrs.headerRowClassName,
+      headerRowStyle: option.headerRowStyle ?? defaultAttrs.headerRowStyle,
+      headerCellClassName: option.headerCellClassName ?? defaultAttrs.headerCellClassName,
+      headerCellStyle: option.headerCellStyle ?? defaultAttrs.headerCellStyle,
+      rowKey: option.rowKey ?? defaultAttrs.rowKey,
+      emptyText: option.emptyText ?? defaultAttrs.emptyText,
+      defaultExpandAll: option.defaultExpandAll ?? defaultAttrs.defaultExpandAll,
+      expandRowKeys: option.expandRowKeys ?? defaultAttrs.expandRowKeys,
+      defaultSort: option.defaultSort ?? defaultAttrs.defaultSort,
+      tooltipEffect: option.tooltipEffect ?? defaultAttrs.tooltipEffect,
+      showSummary: option.showSummary ?? defaultAttrs.showSummary,
+      sumText: option.sumText ?? defaultAttrs.sumText,
+      summaryMethod: option.summaryMethod ?? defaultAttrs.summaryMethod,
+      spanMethod: option.spanMethod ?? defaultAttrs.spanMethod,
+      selectOnIndeterminate: option.selectOnIndeterminate ?? defaultAttrs.selectOnIndeterminate,
+      indent: option.indent ?? defaultAttrs.indent,
+      lazy: option.lazy ?? defaultAttrs.lazy,
+      load: option.load ?? defaultAttrs.load,
+      treeProps: option.treeProps ?? defaultAttrs.treeProps,
+      tableLayout: option.tableLayout ?? defaultAttrs.tableLayout,
+      scrollbarAlwaysOn: option.scrollbarAlwaysOn ?? defaultAttrs.scrollbarAlwaysOn,
+      flexible: option.flexible ?? defaultAttrs.flexible,
+    })
+  })
 
   // table column
   const __tableFields = computed(() => {
-    const tableFields: any[] = [];
+    const tableFields: any[] = []
 
     option.fields.forEach((field: any) => {
       if (field.isTable !== false) {
@@ -87,7 +99,7 @@ export const useCrudOption = (option: ICrudOption) => {
           type: field.type,
           isShow: field.isShow ?? true,
           _formatter: field.formatter,
-          _dictData: field.dictData,
+          __dictData: field.dictData,
           __elTableColumnAttrs: {
             // 'type',
             index: field.index,
@@ -113,21 +125,21 @@ export const useCrudOption = (option: ICrudOption) => {
             filterMethod: field.filterMethod,
             filteredValue: field.filteredValue,
           },
-        });
+        })
       }
-    });
+    })
 
-    return tableFields;
-  });
+    return tableFields
+  })
 
   const __tableColumnActionAttrs = computed(() => {
     return {
-      prop: "_action",
-      label: "操作",
-      align: "center",
+      prop: '_action',
+      label: '操作',
+      align: 'center',
       width: option.rowActionWidth ?? 180,
-    };
-  });
+    }
+  })
 
   return {
     __tableAttrs,
@@ -135,5 +147,5 @@ export const useCrudOption = (option: ICrudOption) => {
     __dialogAttrs,
     __tableFields,
     __tableColumnActionAttrs,
-  };
-};
+  }
+}

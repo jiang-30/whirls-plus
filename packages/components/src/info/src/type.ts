@@ -1,44 +1,44 @@
-import type { ExtractPropTypes } from "vue";
-import type Info from "./info.vue";
-import type { infoProps, infoEmits } from "./info";
+import type { ExtractPropTypes } from 'vue'
+import type Info from './info.vue'
+import type { infoProps, infoEmits } from './info'
 
 export interface IElDescriptionsAttrs {
-  infoBorder?: boolean;
-  infoColumn?: number;
-  infoDirection?: "vertical" | "horizontal";
-  infoSize?: "large" | "default" | "small";
-  infoTitle?: string;
-  infoExtra?: string;
+  infoBorder?: boolean
+  // infoColumn?: number;
+  infoDirection?: 'vertical' | 'horizontal'
+  infoSize?: 'large' | 'default' | 'small'
+  infoTitle?: string
+  infoExtra?: string
 }
 
 export interface IElDescriptionsItemAttrs {
-  infoWidth?: string | number;
-  infoMinWidth?: string | number;
-  infoAlign?: "left" | "center" | "right";
-  infoLabelAlign?: "left" | "center" | "right";
-  infoClassName?: string;
-  infoLabelClassName?: string;
+  infoWidth?: string | number
+  infoMinWidth?: string | number
+  infoAlign?: 'left' | 'center' | 'right'
+  infoLabelAlign?: 'left' | 'center' | 'right'
+  infoClassName?: string
+  infoLabelClassName?: string
 }
 
 export interface IInfoAttrs extends IElDescriptionsAttrs {
-  span?: number;
-  labelWidth?: string | number;
-  labelAlign?: "left" | "center" | "right";
+  span?: number
+  labelWidth?: string | number
+  labelAlign?: 'left' | 'center' | 'right'
 }
 
 export interface IInfoItemAttrs extends IElDescriptionsItemAttrs {
-  label: string;
-  prop: string;
-  type: string;
-  span?: number;
-  isInfo?: boolean;
+  label: string
+  prop: string
+  type: string
+  span?: number
+  isInfo?: boolean
 }
 
 // Info
-export type IInfo = InstanceType<typeof Info>;
+export type IInfo = InstanceType<typeof Info>
 
-export type IInfoEmits = typeof infoEmits;
+export type IInfoEmits = typeof infoEmits
 
-export type IInfoProps = ExtractPropTypes<typeof infoProps>;
+export type IInfoProps = ExtractPropTypes<typeof infoProps>
 
-export type IInfoOption = IInfoProps["option"];
+export type IInfoOption = IInfoProps['option']

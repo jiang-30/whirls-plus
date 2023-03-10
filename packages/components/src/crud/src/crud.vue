@@ -27,7 +27,12 @@
         <!-- 过滤数据项 -->
         <ColumnFilter v-model="checkedFields" :fields="__tableFields" />
         <!-- 根据搜索区域确定显示隐藏 -->
-        <el-button v-if="searchShow" circle :icon="Search" @click="searchVisible = !searchVisible" />
+        <el-button
+          v-if="searchShow"
+          circle
+          :icon="Search"
+          @click="searchVisible = !searchVisible"
+        />
       </section>
 
       <!-- 表格区域 -->
@@ -43,10 +48,22 @@
         <el-table-column v-if="option.selectionColumn === true" type="selection" />
 
         <!-- indexColumn 序号 -->
-        <el-table-column v-if="option.indexColumn !== false" type="index" label="序号" width="60" align="center" />
+        <el-table-column
+          v-if="option.indexColumn !== false"
+          type="index"
+          label="序号"
+          width="60"
+          align="center"
+        />
 
         <!-- 动态列 -->
-        <el-table-column v-for="column in tableFilterFields" :key="column.prop" :prop="column.prop" :label="column.label" v-bind="column.__elTableColumnAttrs">
+        <el-table-column
+          v-for="column in tableFilterFields"
+          :key="column.prop"
+          :prop="column.prop"
+          :label="column.label"
+          v-bind="column.__elTableColumnAttrs"
+        >
           <template #default="scopeProps">
             <template v-if="column._tableSlot">
               <slot :name="column.prop" v-bind="scopeProps"></slot>
@@ -60,9 +77,22 @@
         <el-table-column v-bind="__tableColumnActionAttrs">
           <template #default="{ row }">
             <div class="w-crud-column-action">
-              <el-button v-if="option.isInfoBtn" text type="info" size="small" :icon="View" @click="_onOpenInfo(row)"> 详情 </el-button>
-              <el-button text type="primary" size="small" :icon="Edit" @click="_onOpenUpdate(row)"> 修改 </el-button>
-              <el-button text type="danger" size="small" :icon="Delete" @click="_onDelete(row)"> 删除 </el-button>
+              <el-button
+                v-if="option.isInfoBtn"
+                text
+                type="info"
+                size="small"
+                :icon="View"
+                @click="_onOpenInfo(row)"
+              >
+                详情
+              </el-button>
+              <el-button text type="primary" size="small" :icon="Edit" @click="_onOpenUpdate(row)">
+                修改
+              </el-button>
+              <el-button text type="danger" size="small" :icon="Delete" @click="_onDelete(row)">
+                删除
+              </el-button>
               <slot name="row-action" :row="row" />
             </div>
           </template>
@@ -84,9 +114,21 @@
       </section>
     </section>
 
-    <!-- 新增 弹窗区域 -->
-    <el-dialog v-model="dialogVisible" v-bind="__dialogAttrs" :title="typeMap[currentType]" destroy-on-close>
-      <WForm v-if="currentType === 'create'" :option="option" :form-model="_currentModelValue" @confirm="_onCreateConfirm" @success="onCloseHandler"></WForm>
+    <!-- 弹窗区域 -->
+    <el-dialog
+      v-model="dialogVisible"
+      v-bind="__dialogAttrs"
+      :title="dialogTypeMap[currentType]?.title"
+      :close-on-click-modal="dialogTypeMap[currentType]?.closeOnClickModal"
+      destroy-on-close
+    >
+      <WForm
+        v-if="currentType === 'create'"
+        :option="option"
+        :form-model="_currentModelValue"
+        @confirm="_onCreateConfirm"
+        @success="onCloseHandler"
+      ></WForm>
 
       <WForm
         v-else-if="currentType === 'update'"
@@ -96,7 +138,11 @@
         @success="onCloseHandler"
       ></WForm>
 
-      <WInfo v-else-if="currentType === 'info'" :option="option" :info-model="_currentModelValue"></WInfo>
+      <WInfo
+        v-else-if="currentType === 'info'"
+        :option="option"
+        :info-model="_currentModelValue"
+      ></WInfo>
     </el-dialog>
   </section>
 </template>
@@ -124,10 +170,19 @@ const searchVisible = ref(true)
 // 弹窗的显示隐藏
 const dialogVisible = ref(false)
 // 当前状态
-const typeMap: Record<string, string> = {
-  info: '详情',
-  create: '新增',
-  update: '修改',
+const dialogTypeMap: Record<string, { title: string; closeOnClickModal: boolean }> = {
+  info: {
+    title: '详情',
+    closeOnClickModal: true,
+  },
+  create: {
+    title: '新增',
+    closeOnClickModal: false,
+  },
+  update: {
+    title: '修改',
+    closeOnClickModal: false,
+  },
 }
 const currentType = ref('normal')
 // 选中要显示的列
@@ -136,7 +191,8 @@ const checkedFields = ref<string[]>([])
 const _tableLoading = ref(false)
 
 // 格式化配置数据
-const { __tableFields, __tableColumnActionAttrs, __tableAttrs, __pageAttrs, __dialogAttrs } = useCrudOption(props.option)
+const { __tableFields, __tableColumnActionAttrs, __tableAttrs, __pageAttrs, __dialogAttrs } =
+  useCrudOption(props.option)
 
 // 初始值
 __tableFields.value.forEach(item => {
@@ -210,6 +266,7 @@ const searchHandler = () => {
   if (props.onQuery) {
     props.onQuery()
   } else if (props.api?.list && tools.axios) {
+    // 查询全部列表
     _tableLoading.value = true
     const requestConfig = {
       method: 'get',
@@ -233,6 +290,7 @@ const searchHandler = () => {
         _tableLoading.value = false
       })
   } else if ((props.api?.page || props.api?.restful) && tools.axios) {
+    // 分页查询
     _tableLoading.value = true
     const requestConfig = {
       method: 'get',
@@ -304,11 +362,11 @@ const _onPageSizeChange = (size: number) => {
   searchHandler()
 }
 
-const _onOpenCreate = () => {
+const _onOpenCreate = (row: any = {}) => {
   // 1. 设置状态
   currentType.value = 'create'
   // 3. 设置当前 model 值 双向绑定
-  _currentModelValue.value = {}
+  _currentModelValue.value = { ...row }
   // 4. 打开弹窗
   openHandler()
 }
@@ -328,10 +386,11 @@ const _onOpenInfo = (row: any) => {
   // 2. 设置值 双向绑定
   _currentModelValue.value = { ...row }
   // 3. 请求数据，打开弹窗
-  if ((props.api?.info || props.api?.restful) && tools.axios) {
+  if (props.api?.info && tools.axios) {
+    // 详情请求
     const requestConfig = {
       method: 'get',
-      url: (props.api.info ?? props.api.restful + '/') + row.id,
+      url: props.api.info + row.id,
     }
     if (props.beforeFetch) {
       props.beforeFetch(requestConfig, currentType.value)
@@ -357,12 +416,13 @@ const _onDelete = (row: any) => {
   // 3. 删除操作
   if (props.onDelete) {
     props.onDelete(_currentModelValue.value)
-  } else if (props.api?.delete && tools.axios) {
+  } else if ((props.api?.delete || props.api?.restful) && tools.axios) {
     ElMessageBox.confirm('确定执行删除操作吗', {
       title: '提示',
       type: 'warning',
       callback: (action: Action) => {
         if (action === 'confirm' && (props.api?.delete || props.api?.restful) && tools.axios) {
+          // 删除请求
           const requestConfig = {
             method: 'delete',
             url: (props.api.delete ?? props.api.restful + '/') + row.id,
@@ -385,6 +445,7 @@ const _onCreateConfirm = (record: any, done: any) => {
   if (props.onCreate) {
     props.onCreate(record, done)
   } else if ((props.api?.create || props.api?.restful) && tools.axios) {
+    // 新增请求
     const requestConfig = {
       method: 'post',
       url: props.api.create ?? props.api.restful,
@@ -409,6 +470,7 @@ const _onUpdateConfirm = (record: any, done: any) => {
   if (props.onUpdate) {
     props.onUpdate(record, done)
   } else if ((props.api?.update || props.api?.restful) && tools.axios) {
+    // 更新请求
     const requestConfig = {
       method: 'put',
       url: props.api.update ?? props.api.restful,
@@ -428,6 +490,14 @@ const _onUpdateConfirm = (record: any, done: any) => {
       .catch(() => done())
   }
 }
+
+defineExpose({
+  table: null,
+  form: null,
+  openCreate: _onOpenCreate,
+  openUpdate: _onOpenUpdate,
+  openInfo: _onOpenInfo,
+})
 </script>
 
 <style scoped>
@@ -448,7 +518,7 @@ const _onUpdateConfirm = (record: any, done: any) => {
   /* background-color: #eee; */
   font-weight: 700;
   color: var(--el-text-color-regular);
-  background: var(--el-border-color-lighter);
+  background: var(--el-fill-color-lighter);
 }
 
 .w-crud .w-crud-column-action {

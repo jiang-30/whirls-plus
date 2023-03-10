@@ -1,4 +1,4 @@
-import type { ICrudOption } from "./index";
+import type { ICrudOption } from './index'
 
 export const option: ICrudOption = {
   // =========================================== ElTable Props ===========================================
@@ -6,7 +6,7 @@ export const option: ICrudOption = {
   // maxHeight?: string | number;
   stripe: true,
   border: true,
-  size: "default",
+  size: 'default',
   // fit?: boolean;
   showHeader: true,
   // highlightCurrentRow
@@ -38,64 +38,68 @@ export const option: ICrudOption = {
   // scrollbarAlwaysOn?: boolean;
 
   // =========================================== ElPagination Props ===========================================
-  // small
-  // background
-  // pagerCount
+  // small false
+  // background true
+  // pagerCount 7
   // layout
-  // pageSizes
+  // pageSizes [10, 20, 30, 40, 50, 100]
   // popperClass
   // prevText
   // prevIcon
   // nextText
   // nextIcon
   // disabled
-  // hideOnSinglePage
+  // hideOnSinglePage true
 
-  // =========================================== ElPagination Props ===========================================
-  // dialogTitle?: string;
-  // dialogWidth
-  // dialogFullscreen
-  // dialogTop
-  // dialogModal
-  // dialogAppendToBody
-  // dialogLockScroll
+  // =========================================== ElDialog Props ===========================================
+  // dialogTitle 定制设置
+  // dialogWidth 800
+  // dialogFullscreen 	false
+  // dialogTop 15vh
+  // dialogModal 	true
+  // dialogAppendToBody true
+  // dialogLockScroll true
   // dialogCustomClass
   // dialogOpenDelay
   // dialogCloseDelay
-  // dialogCloseOnClickModal
-  // dialogCloseOnPressEscape
-  // dialogShowClose
+  // dialogCloseOnClickModal 定制设置
+  // dialogCloseOnPressEscape true
+  // dialogShowClose true
   // dialogBeforeClose
-  // dialogDraggable
-  // dialogCenter
-  // dialogAlignCenter
-  // dialogDestroyOnClose
+  // dialogDraggable false
+  // dialogCenter false
+  // dialogAlignCenter false
+  // dialogDestroyOnClose true
 
   // =========================================== ElInfo Props ===========================================
-  // infoBorder
-  // infoColumn
-  // infoDirection
-  // infoSize
+  // infoColumn 固定
+  // infoBorder true
+  // infoDirection horizontal
+  // infoSize default
   // infoTitle
   // infoExtra
 
   // =========================================== ElForm Props ===========================================
+  // rules
   // inline
-  // labelPosition
+  // labelPosition right
   // labelWidth
   // labelSuffix
   // hideRequiredAsterisk
+  // requireAsteriskPosition
   // showMessage
   // inlineMessage
   // statusIcon
   // validateOnRuleChange
-  // size
+  // formSize - size
+  // disabled 定制
   // scrollToError
 
   // =========================================== SearchForm Props ===========================================
   // searchLabelWidth
   // searchLabelPosition
   // searchLabelSuffix
+  // searchFormSize
 
   // =========================================== Custom Props ===========================================
   //  // 序号 列
@@ -146,7 +150,30 @@ export const option: ICrudOption = {
   //  headerAlign?: TableColumnCtx<any>["headerAlign"];
 
   fields: [],
-};
+}
 
-
-const field = {}
+const field = {
+  // // type?: "selection" | "index" | "expand"; // form 冲突
+  // index?: number | ((index: number) => number)
+  // columnKey?: string
+  // width?: string | number
+  // minWidth?: string | number
+  // fixed?: string | boolean
+  // // renderHeader?: () function({ column, $index })
+  // sortable?: boolean | string
+  // // sortMethod?: function(a, b)
+  // // sortBy?: function(row, index) / string / array
+  // // sort-orders?: array
+  // resizable?: boolean
+  // formatter?: TableColumnCtx<any>['formatter']
+  // showOverflowTooltip?: boolean
+  // align?: string
+  // headerAlign?: string
+  // className?: string
+  // labelClassName?: string
+  // // filters?: array[{ text, value }]
+  // // filter-placement
+  // // filter-multiple
+  // // filter-method
+  // // filtered-value
+}
