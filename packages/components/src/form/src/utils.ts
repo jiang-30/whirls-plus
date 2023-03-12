@@ -1,10 +1,10 @@
 import { computed } from 'vue'
 import type { FormProps, FormItemProps } from 'element-plus'
-import type { IFormOption, IFormAttrs, ISearchFormOption, ISearchFormAttrs } from './type'
+import type { IFormType, IFormOption, IFormAttrs, ISearchFormOption, ISearchFormAttrs } from './type'
 import { omitProperty, tools } from '../../utils'
 
 // 表单数据(属性和事件) - 用户数据 - 默认数据 - 用户默认数据
-export const useFormOption = (option: IFormOption) => {
+export const useFormOption = (option: IFormOption, type: IFormType) => {
   const defaultAttrs = tools.defaultAttrs
 
   const __formAttrs = computed<Partial<FormProps>>(() => {
@@ -34,20 +34,26 @@ export const useFormOption = (option: IFormOption) => {
   >(() => {
     const fields: any[] = []
 
+
+
     option.fields.forEach(field => {
-      if (field.isForm !== false) {
+
+      const isForm = type == 'create' ? (field.isCreateForm ?? field.isForm) : (type == 'update' ? (field.isUpdateForm ?? field.isForm) : field.isForm)
+      if (isForm !== false) {
         let __formControlAttrs: any = {
           clearable: field.clearable ?? true,
+          disabled: type == 'create' ? (field.createDisabled ?? field.disabled) : (type == 'update' ? (field.updateDisabled ?? field.disabled) : field.disabled),
         }
         if (field.type === 'tree') {
           __formControlAttrs = {
+            ...__formControlAttrs,
             checkStrictly: field.checkStrictly,
             nodeKey: field.nodeKey,
             valueKey: field.valueKey ?? 'value',
             props: field.props,
           }
         }
-        fields.push({
+        fields.push(omitProperty({
           prop: field.prop,
           label: field.label,
           type: field.type,
@@ -55,6 +61,7 @@ export const useFormOption = (option: IFormOption) => {
           hint: field.hint,
           listen: field.listen,
           default: field.default,
+          disabled: __formControlAttrs.disabled,
           __dictData: field.dictData,
           __formItemAttrs: {
             labelWidth: field.labelWidth,
@@ -66,7 +73,7 @@ export const useFormOption = (option: IFormOption) => {
             size: field.size,
           },
           __formControlAttrs: __formControlAttrs,
-        })
+        }))
       }
     })
 

@@ -21,8 +21,8 @@ export interface IFieldBaseAttrs {
   prop: string;
   label: string;
   type: IFieldType;
-  // 字典Key
-  dictKey?: string;
+  // 字典地址
+  dictUrl?: string;
   // 字典数据
   dictData?: IDictItem[];
   // formatter

@@ -65,17 +65,14 @@
           v-bind="column.__elTableColumnAttrs"
         >
           <template #default="scopeProps">
-            <template v-if="column._tableSlot">
-              <slot :name="column.prop" v-bind="scopeProps"></slot>
-            </template>
-            <template v-else>
-              {{ _formatValue(column, scopeProps.row, scopeProps.column, scopeProps.$index) }}
-            </template>
+            <slot :name="column.prop" v-bind="scopeProps" :field="column">
+              {{ formatValue(column, scopeProps.row, scopeProps.column, scopeProps.$index) }}
+            </slot>
           </template>
         </el-table-column>
 
         <el-table-column v-bind="__tableColumnActionAttrs">
-          <template #default="{ row }">
+          <template #default="scopeProps">
             <div class="w-crud-column-action">
               <el-button
                 v-if="option.isInfoBtn"
@@ -83,39 +80,50 @@
                 type="info"
                 size="small"
                 :icon="View"
-                @click="_onOpenInfo(row)"
+                @click="_onOpenInfo(scopeProps.row)"
               >
                 详情
               </el-button>
-              <el-button text type="primary" size="small" :icon="Edit" @click="_onOpenUpdate(row)">
+              <el-button
+                text
+                type="primary"
+                size="small"
+                :icon="Edit"
+                @click="_onOpenUpdate(scopeProps.row)"
+              >
                 修改
               </el-button>
-              <el-button text type="danger" size="small" :icon="Delete" @click="_onDelete(row)">
+              <el-button
+                text
+                type="danger"
+                size="small"
+                :icon="Delete"
+                @click="_onDelete(scopeProps.row)"
+              >
                 删除
               </el-button>
-              <slot name="row-action" :row="row" />
+              <slot name="row-action" v-bind="scopeProps" />
             </div>
           </template>
         </el-table-column>
       </el-table>
 
       <!-- 分页区域 -->
-      <section class="w-crud-pagination">
+      <section v-if="pageModel" class="w-crud-pagination">
         <el-pagination
-          v-if="pageModel"
           v-model:current-page="pageModel.current"
           v-model:page-size="pageModel.size"
           :total="pageModel.total"
           v-bind="__pageAttrs"
           @current-change="_onPageCurrentChange"
           @size-change="_onPageSizeChange"
-        >
-        </el-pagination>
+        />
       </section>
     </section>
 
     <!-- 弹窗区域 -->
     <el-dialog
+      v-if="['create', 'update', 'info'].includes(currentType)"
       v-model="dialogVisible"
       v-bind="__dialogAttrs"
       :title="dialogTypeMap[currentType]?.title"
@@ -123,26 +131,29 @@
       destroy-on-close
     >
       <WForm
-        v-if="currentType === 'create'"
+        v-if="currentType === 'create' || currentType === 'update'"
+        :type="currentType"
         :option="option"
         :form-model="_currentModelValue"
-        @confirm="_onCreateConfirm"
+        @confirm="_onFormConfirm"
         @success="onCloseHandler"
-      ></WForm>
+      >
+        <template
+          v-for="item in Object.keys($slots).filter(item => item.endsWith('Form'))"
+          v-slot:[item]="scopeProps"
+        >
+          <slot :name="item" v-bind="scopeProps"></slot>
+        </template>
+      </WForm>
 
-      <WForm
-        v-else-if="currentType === 'update'"
-        :option="option"
-        :form-model="_currentModelValue"
-        @confirm="_onUpdateConfirm"
-        @success="onCloseHandler"
-      ></WForm>
-
-      <WInfo
-        v-else-if="currentType === 'info'"
-        :option="option"
-        :info-model="_currentModelValue"
-      ></WInfo>
+      <WInfo v-else-if="currentType === 'info'" :option="option" :info-model="_currentModelValue">
+        <template
+          v-for="item in Object.keys($slots).filter(item => item.endsWith('Info'))"
+          v-slot:[item]="scopeProps"
+        >
+          <slot :name="item" v-bind="scopeProps"></slot>
+        </template>
+      </WInfo>
     </el-dialog>
   </section>
 </template>
@@ -231,11 +242,6 @@ const _currentTableData = computed({
     _tableData.value = val
   },
 })
-
-// 表格结果数据格式化
-const _formatValue = (field: any, row: any, column: any, index: any) => {
-  return formatValue(field, row, column, index)
-}
 
 // 关闭弹窗
 const onCloseHandler = () => {
@@ -488,6 +494,14 @@ const _onUpdateConfirm = (record: any, done: any) => {
         done(true)
       })
       .catch(() => done())
+  }
+}
+
+const _onFormConfirm = (record: any, done: any, type: string) => {
+  if (type === 'create') {
+    _onCreateConfirm(record, done)
+  } else if (type === 'update') {
+    _onUpdateConfirm(record, done)
   }
 }
 

@@ -153,6 +153,7 @@ export const option: ICrudOption = {
 }
 
 const field = {
+  // =========================================== ElTableColumn Props ===========================================
   // // type?: "selection" | "index" | "expand"; // form 冲突
   // index?: number | ((index: number) => number)
   // columnKey?: string
@@ -163,7 +164,7 @@ const field = {
   // sortable?: boolean | string
   // // sortMethod?: function(a, b)
   // // sortBy?: function(row, index) / string / array
-  // // sort-orders?: array
+  // // sortOrders?: array
   // resizable?: boolean
   // formatter?: TableColumnCtx<any>['formatter']
   // showOverflowTooltip?: boolean
@@ -172,8 +173,38 @@ const field = {
   // className?: string
   // labelClassName?: string
   // // filters?: array[{ text, value }]
-  // // filter-placement
-  // // filter-multiple
-  // // filter-method
-  // // filtered-value
+  // // filterPlacement
+  // // filterMultiple
+  // // filterMethod
+  // // filteredValue
+
+  // =========================================== ElInfoItem Props ===========================================
+
+  // =========================================== ElSearchFormItem Props ===========================================
+
+  // =========================================== ElFormItem Props ===========================================
+
+
+  // =========================================== Custom Props ===========================================
+  // prop: string
+  // label: string
+  // type: IFieldType
+
+  // dictUrl
+  // props: { res: string, label: string, value: string}
+  // dictKey?: string
+  // dictData?: IDictItem[]
+
+  // isTable?: boolean
+  // isTableVisible?: boolean
+  // // tableSlot?: boolean
+
+  // isSearch
+  // searchDisabled
+  // isForm
+  // isCreateForm
+  // isUpdateForm
+  // disabled
+  // createDisabled
+  // updateDisabled
 }

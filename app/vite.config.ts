@@ -18,6 +18,11 @@ export default ({ command, mode }: ConfigEnv) => {
     server: {
       port: 5190,
       proxy: {
+        "/api/amap": {
+          target: 'https://restapi.amap.com',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/amap/, ""),
+        },
         "/api": {
           target: env.VITE_APP_HTTP_URL,
           changeOrigin: true,

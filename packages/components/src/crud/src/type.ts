@@ -78,7 +78,7 @@ export interface IElTableColumnAttrs {
   sortable?: boolean | string
   // sortMethod?: function(a, b)
   // sortBy?: function(row, index) / string / array
-  // sort-orders?: array
+  // sortOrders?: array
   resizable?: boolean
   formatter?: TableColumnCtx<any>['formatter']
   showOverflowTooltip?: boolean
@@ -87,10 +87,10 @@ export interface IElTableColumnAttrs {
   className?: string
   labelClassName?: string
   // filters?: array[{ text, value }]
-  // filter-placement
-  // filter-multiple
-  // filter-method
-  // filtered-value
+  // filterPlacement
+  // filterMultiple
+  // filterMethod
+  // filteredValue
 }
 
 // Pagination 属性

@@ -25,7 +25,7 @@ export const useInfoOption = (option: IInfoOption) => {
           prop: field.prop,
           type: field.type,
           span: field.span ?? option.span ?? 24,
-          // __dictData: field.dictData,
+          __dictData: field.dictData,
           __itemAttrs: {
             // span?: number;
             width: field.infoWidth ?? option.labelWidth,

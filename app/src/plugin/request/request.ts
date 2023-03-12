@@ -56,7 +56,8 @@ instance.interceptors.response.use(
 
     if (data.code != 1) {
       // 用户未登录或者异常后退出
-      if (data.code === 42001 || data.code == 42000) {
+      // 41001 未登录
+      if (data.code === 41001 || data.code === 42001 || data.code == 42000) {
         useUserStore().logoutHandler();
       }
 

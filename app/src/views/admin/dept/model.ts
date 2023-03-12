@@ -1,75 +1,61 @@
-export const useModel = () => {
-  const api = ref({});
-  const option = {
-    labelWidth: 100,
+export const useModel = (tableData: Ref<any>) => {
+  const api = ref({
+    restful: '/admin/dept',
+    list: '/admin/dept/tree'
+  });
 
-    border: true,
-    stripe: true,
-    rowKey: "id",
-    defaultExpandAll: true,
-
-    appendToBody: true,
-    draggable: true,
-    title: "操作",
-    width: 600,
-
-    rowMenu: true,
-    createBtn: true,
-    rowMenuWidth: 190,
-    rowMenuAlign: "center",
-    infoBtn: false,
-
-    span: 24,
-
-    fields: [
-      {
-        prop: "parentId",
-        label: "上级",
-        type: "treeSelect",
-        table: false,
-        updateDisabled: true,
-        formSlot: true,
-      },
-      {
-        prop: "name",
-        label: "名称",
-        type: "input",
-        rules: [
-          { required: true, message: "请输入部门名称", trigger: "blur" },
-          { type: "string", max: 30, message: "30个字符以内", trigger: "blur" },
-        ],
-      },
-      // code 部门标识
-      {
-        prop: "remark",
-        label: "备注",
-        type: "textarea",
-        rules: [
-          {
-            type: "string",
-            max: 255,
-            message: "255个字符以内",
-            trigger: "blur",
+  const option = computed(() => {
+    return {
+      labelWidth: 100,
+      fields: [
+        {
+          prop: "parentId",
+          label: "上级",
+          type: "tree",
+          dictData: tableData.value,
+          checkStrictly: true,
+          valueKey: 'id',
+          props: {
+            label: 'name',
           },
-        ],
-      },
-      {
-        prop: "sort",
-        label: "排序",
-        type: "inputNumber",
-        defaultValue: 1,
-        table: false,
-      },
-      {
-        prop: "createdTime",
-        label: "创建时间",
-        type: "input",
-        width: 180,
-        align: "center",
-        form: false,
-      },
-    ],
-  };
+          updateDisabled: true,
+          isTable: false,
+        },
+        {
+          prop: "name",
+          label: "部门名称",
+          type: "input",
+          rules: [
+            { required: true, message: "请输入部门名称", trigger: "blur" },
+            { type: "string", max: 30, message: "30个字符以内", trigger: "blur" },
+          ],
+        },
+        {
+          prop: "code",
+          label: "部门标识",
+          type: "input",
+          rules: [
+            { type: "string", max: 30, message: "30个字符以内", trigger: "blur" },
+          ],
+        },
+        {
+          prop: "remark",
+          label: "备注",
+          type: "textarea",
+          rules: [
+            { type: "string", max: 255, message: "255个字符以内", trigger: "blur" },
+          ],
+          isTable: false
+        },
+        {
+          prop: "sort",
+          label: "排序",
+          type: "inputNumber",
+          default: 1,
+        },
+      ],
+    }
+  });
 
   return {
     api,

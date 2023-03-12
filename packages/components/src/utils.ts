@@ -1,3 +1,4 @@
+import { computed } from 'vue';
 import type { AxiosInstance } from 'axios'
 import type { ICrudOption } from './index'
 import type { IDict } from './typings'
@@ -8,7 +9,11 @@ export const defaultFieldAttrs = {}
 export const tools: {
   // axios 请求实例
   axios: AxiosInstance | null
-  dictList: IDict[]
+  dict: {
+    url: string,
+    status: 'padding' | 'done',
+    items: IDict[]
+  }[],
   // crud 默认值
   defaultAttrs: Partial<ICrudOption>
   // crud 数据项 默认值
@@ -21,6 +26,7 @@ export const tools: {
     pageSizes: [10, 20, 50, 100],
     hideOnSinglePage: true,
 
+    dialogWidth: '700px',
     dialogAppendToBody: true,
 
     border: true,
@@ -34,7 +40,28 @@ export const tools: {
     align: 'center',
   },
   defaultFieldAttrs: {},
-  dictList: [],
+  dict: [],
+}
+
+export const fetchDict = (url: string, props: any) => {
+  if (tools.axios && !tools.dict.find(item => item.url == url)) {
+    tools.axios({
+      method: 'get',
+      url: url,
+    }).then(({ data }) => {
+      tools.dict.push({
+        url: url,
+        status: 'done',
+        items: data
+      })
+    })
+  }
+}
+
+export const dictData = (url: string) => {
+  return computed(() => {
+    return tools.dict.find(item => item.url == url && item.status == 'done') ?? []
+  })
 }
 
 // format Value 对不同的数据域类型格式化显示结果
@@ -44,7 +71,7 @@ export const formatValue = (field: any, row: any, column: any, index: any) => {
     return field.__formatter(row, column, row[field.prop], index)
   } else if (field.type === 'select' || field.type === 'radio' || field.type === 'radioButton') {
     const value = row[field.prop]
-    const dict = field?.__dictData.find((item: any) => item.value === value)
+    const dict = field.__dictData?.find((item: any) => item.value === value)
 
     return dict?.label ?? value
   } else {

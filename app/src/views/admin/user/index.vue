@@ -15,12 +15,24 @@ meta:
 
 <template>
   <PageContainer>
-    <WCrud :option="option" :api="api"> </WCrud>
+    <WCrud :option="option" :api="api">
+      <template #deptId="{ row }">
+        {{ row.dept.name }}
+      </template>
+
+      <template #row-action="{ row }">
+        <el-button text size="small" type="primary">修改密码</el-button>
+      </template>
+    </WCrud>
   </PageContainer>
 </template>
 
 <script setup lang="ts">
-import { useModel } from "./model";
+import { useModel } from './model'
+import { fetchQueryRoleList } from '@/api/admin/role'
 
-const { option, api } = useModel();
+const roleList = ref([])
+fetchQueryRoleList().then(({ data }) => {})
+
+const { option, api } = useModel()
 </script>

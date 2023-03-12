@@ -52,7 +52,7 @@ function queryTree() {
 
       treeForEach(menuTree.data, (item: any) => {
         item.disabled = item.isEnabled !== '1'
-        if (!item.children && checkedIds.data.includes(item.id)) {
+        if (!item.children && item.type !== 'menu' && checkedIds.data.includes(item.id)) {
           checkedMenuIds.push(item.id)
         }
       })

@@ -1,6 +1,7 @@
 import type { ExtractPropTypes } from 'vue'
 import type Info from './info.vue'
 import type { infoProps, infoEmits } from './info'
+import type { IFieldBaseAttrs } from '../../typings'
 
 export interface IElDescriptionsAttrs {
   infoBorder?: boolean
@@ -26,10 +27,7 @@ export interface IInfoAttrs extends IElDescriptionsAttrs {
   labelAlign?: 'left' | 'center' | 'right'
 }
 
-export interface IInfoItemAttrs extends IElDescriptionsItemAttrs {
-  label: string
-  prop: string
-  type: string
+export interface IInfoItemAttrs extends IElDescriptionsItemAttrs, IFieldBaseAttrs {
   span?: number
   isInfo?: boolean
 }

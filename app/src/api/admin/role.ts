@@ -29,7 +29,7 @@ export function fetchUpdateRoleMenus(params: any) {
   })
 }
 
-export function fetchQueryList() {
+export function fetchQueryRoleList() {
   return request({
     method: 'get',
     url: '/admin/role/list',

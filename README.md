@@ -7,6 +7,7 @@ whirls-plus 是一个 monorepo, 多个工程放到一个 git 仓库中;共享一
 - app localStorage 缓存
 - crud v-premission
 - crud row action 按钮排序
+- isAdmin
 - [ ] 事项 1
 
 ## 模块

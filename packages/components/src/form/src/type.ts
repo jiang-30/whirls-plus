@@ -49,21 +49,24 @@ export interface IFormAttrs extends IElFormAttrs {
 // isCreateForm isUpdateForm disabled createDisabled updateDisabled
 // Form Field 属性
 export interface IFormItemAttrs extends IFieldBaseAttrs, IElFormItemAttrs {
+  isForm?: boolean
+  isCreateForm?: boolean
+  isUpdateForm?: boolean
   // 默认值
   default?: any
-  isForm?: boolean
   // 插槽
-  formSlot?: boolean
+  // formSlot?: boolean
   // 动态响应
   listen?: any
   // 布局
   span?: number
   // 提示信息
   hint?: string
-  // 字典Key
-  dictKey?: string
-  // 字典数据
-  dictData?: IDictItem[]
+  // form-control
+  // clearable
+  disabled?: boolean
+  createDisabled?: boolean
+  updateDisabled?: boolean
 }
 
 // Search Form
