@@ -14,6 +14,7 @@ meta:
 <template>
   <PageContainer>
     <el-button @click="onClick">onClick</el-button>
+    <el-button @click="onStop">stop</el-button>
     <div class="map-template">
       <div class="map-container" id="amap-container"></div>
     </div>
@@ -24,35 +25,31 @@ meta:
 import AMapLoader from '@amap/amap-jsapi-loader'
 import axios from 'axios'
 
+/**
+ * 配额查询、费用、qps
+ */
+
 let amap: any = null
 let map: any = null
 
 const points = [
-  // { x: 116.478928, y: 39.997761, sp: 19, ag: 0, tm: 1478031031 },
-  // { x: 116.478907, y: 39.998422, sp: 10, ag: 0, tm: 2 },
-  // { x: 116.479384, y: 39.998546, sp: 10, ag: 110, tm: 3 },
-  // { x: 116.481053, y: 39.998204, sp: 10, ag: 120, tm: 4 },
-  // { x: 116.481793, y: 39.997868, sp: 10, ag: 120, tm: 5 },
-  // { x: 116.482898, y: 39.998217, sp: 10, ag: 30, tm: 6 },
-  // { x: 116.483789, y: 39.999063, sp: 10, ag: 30, tm: 7 },
-  // { x: 116.484674, y: 39.999844, sp: 10, ag: 30, tm: 8 },
-  { x: 116.417371, y: 39.928219, sp: 20, ag: 0, tm: 1 },
-  { x: 116.417357, y: 39.928465, sp: 20, ag: 0, tm: 2 },
-  { x: 116.417447, y: 39.92863, sp: 20, ag: 0, tm: 3 },
-  { x: 116.41733, y: 39.928793, sp: 20, ag: 0, tm: 4 },
-  { x: 116.417249, y: 39.929153, sp: 20, ag: 0, tm: 5 },
-  { x: 116.417326, y: 39.929343, sp: 20, ag: 0, tm: 6 },
-  { x: 116.417317, y: 39.929661, sp: 20, ag: 0, tm: 7 },
-  { x: 116.417209, y: 39.929855, sp: 20, ag: 0, tm: 8 },
-  { x: 116.417321, y: 39.930069, sp: 20, ag: 0, tm: 9 },
-  { x: 116.417308, y: 39.930266, sp: 20, ag: 0, tm: 10 },
-  { x: 116.418008, y: 39.930508, sp: 20, ag: 0, tm: 11 },
-  { x: 116.418669, y: 39.930619, sp: 20, ag: 0, tm: 12 },
-  { x: 116.419509, y: 39.930449, sp: 20, ag: 0, tm: 13 },
-  { x: 116.42042, y: 39.930605, sp: 20, ag: 0, tm: 14 },
-  { x: 116.421099, y: 39.930425, sp: 20, ag: 0, tm: 15 },
-  { x: 116.421422, y: 39.930256, sp: 20, ag: 0, tm: 16 },
-  { x: 116.42201, y: 39.930508, sp: 20, ag: 0, tm: 17 },
+  { x: 116.417371, y: 39.928219, sp: 20, ag: 90, tm: 1678671202 },
+  { x: 116.417357, y: 39.928465, sp: 20, ag: 90, tm: 1 },
+  { x: 116.417447, y: 39.92863, sp: 20, ag: 90, tm: 2 },
+  { x: 116.41733, y: 39.928793, sp: 20, ag: 90, tm: 3 },
+  { x: 116.417249, y: 39.929153, sp: 20, ag: 90, tm: 4 },
+  { x: 116.417326, y: 39.929343, sp: 20, ag: 90, tm: 5 },
+  { x: 116.417317, y: 39.929661, sp: 20, ag: 90, tm: 6 },
+  { x: 116.417209, y: 39.929855, sp: 20, ag: 90, tm: 7 },
+  { x: 116.417321, y: 39.930069, sp: 20, ag: 90, tm: 8 },
+  { x: 116.417308, y: 39.930266, sp: 20, ag: 90, tm: 9 },
+  { x: 116.418008, y: 39.930508, sp: 20, ag: 90, tm: 10 },
+  { x: 116.418669, y: 39.930619, sp: 20, ag: 90, tm: 11 },
+  { x: 116.419509, y: 39.930449, sp: 20, ag: 90, tm: 12 },
+  { x: 116.42042, y: 39.930605, sp: 20, ag: 90, tm: 13 },
+  { x: 116.421099, y: 39.930425, sp: 20, ag: 90, tm: 14 },
+  { x: 116.421422, y: 39.930256, sp: 20, ag: 90, tm: 15 },
+  { x: 116.42201, y: 39.930508, sp: 20, ag: 90, tm: 16 },
 ]
 
 let index = 0
@@ -66,6 +63,10 @@ function onClick() {
     index++
     query()
   }, 200)
+}
+
+function onStop() {
+  clearInterval(timer)
 }
 
 function query() {
@@ -116,7 +117,7 @@ function initMap() {
 }
 
 function handler(pointList: any, color: string = 'red') {
-  console.log(1111, pointList)
+  console.log(index, pointList)
   const path = pointList.map((item: any) => new amap.LngLat(item.x, item.y))
 
   // 创建折线实例

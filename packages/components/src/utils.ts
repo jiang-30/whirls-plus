@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { computed } from 'vue'
 import type { AxiosInstance } from 'axios'
 import type { ICrudOption } from './index'
 import type { IDict } from './typings'
@@ -10,10 +10,10 @@ export const tools: {
   // axios 请求实例
   axios: AxiosInstance | null
   dict: {
-    url: string,
-    status: 'padding' | 'done',
+    url: string
+    status: 'padding' | 'done'
     items: IDict[]
-  }[],
+  }[]
   // crud 默认值
   defaultAttrs: Partial<ICrudOption>
   // crud 数据项 默认值
@@ -45,16 +45,18 @@ export const tools: {
 
 export const fetchDict = (url: string, props: any) => {
   if (tools.axios && !tools.dict.find(item => item.url == url)) {
-    tools.axios({
-      method: 'get',
-      url: url,
-    }).then(({ data }) => {
-      tools.dict.push({
+    tools
+      .axios({
+        method: 'get',
         url: url,
-        status: 'done',
-        items: data
       })
-    })
+      .then(({ data }) => {
+        tools.dict.push({
+          url: url,
+          status: 'done',
+          items: data,
+        })
+      })
   }
 }
 
@@ -69,6 +71,13 @@ export const formatValue = (field: any, row: any, column: any, index: any) => {
   if (field.__formatter) {
     // row, column, cellValue, index
     return field.__formatter(row, column, row[field.prop], index)
+  } else if (field.type === 'select' && field.multiple === true) {
+    const value = row[field.prop]
+    if (Array.isArray(value)) {
+      const dict = field.__dictData?.filter((item: any) => value.includes(item.value))
+      return dict.map((item: any) => item.label).join(',')
+    }
+    return value
   } else if (field.type === 'select' || field.type === 'radio' || field.type === 'radioButton') {
     const value = row[field.prop]
     const dict = field.__dictData?.find((item: any) => item.value === value)

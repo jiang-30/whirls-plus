@@ -177,28 +177,21 @@ const field = {
   // // filterMultiple
   // // filterMethod
   // // filteredValue
-
   // =========================================== ElInfoItem Props ===========================================
-
   // =========================================== ElSearchFormItem Props ===========================================
-
   // =========================================== ElFormItem Props ===========================================
-
-
   // =========================================== Custom Props ===========================================
   // prop: string
   // label: string
   // type: IFieldType
-
   // dictUrl
   // props: { res: string, label: string, value: string}
+  // multiple
   // dictKey?: string
   // dictData?: IDictItem[]
-
   // isTable?: boolean
   // isTableVisible?: boolean
   // // tableSlot?: boolean
-
   // isSearch
   // searchDisabled
   // isForm
