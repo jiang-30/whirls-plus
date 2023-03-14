@@ -99,11 +99,10 @@ const option = computed<ICrudOption>(() => {
 })
 
 // 请求前格式化数据
-const beforeFetchHandler = (record: any, type: string) => {
+const beforeFetchHandler = (config: any, type: string) => {
   if (type == 'create') {
-    record.dictId = dictId
+    config.data.dictId = dictId.value
   }
-  return record
 }
 
 // 打开 赋默认值

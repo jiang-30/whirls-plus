@@ -30,6 +30,7 @@ export const useModel = () => {
           value: 'id',
         },
         rules: [{ required: true, message: '请选择部门', trigger: 'change' }],
+        isSearch: true,
       },
       {
         prop: 'roleIds',
@@ -37,6 +38,7 @@ export const useModel = () => {
         type: 'select',
         dictUrl: '/admin/role/list',
         multiple: true,
+        default: [],
         props: {
           value: 'id',
           label: 'name',
@@ -46,7 +48,7 @@ export const useModel = () => {
       {
         prop: 'password',
         label: '密码',
-        type: 'input',
+        type: 'password',
         rules: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           { type: 'string', min: 6, max: 30, message: '6 - 30个字符', trigger: 'blur' },

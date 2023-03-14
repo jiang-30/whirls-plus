@@ -18,7 +18,10 @@ meta:
 </template>
 
 <script setup lang="ts">
-import { useModel } from "./model";
+import { useModel } from './model'
 
-const { option, api } = useModel();
+const { option, api } = useModel()
+// 默认密码
+// 邮箱
+//
 </script>

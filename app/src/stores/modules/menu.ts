@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import router from "@/router/index";
 import { useRouteStore, useUserStore } from "@/stores";
 import { listToTree, treeFindPath, treeFind } from "@/utils/tree-utils";
-// import { fetchPermission } from "@/api/account";
+import { fetchPermission } from "@/api/account";
 import { staticMenuList } from "@/utils/menu";
 import type { IMenu } from "@/typings";
 import type { RouteRecordName } from "vue-router";
@@ -21,6 +21,7 @@ export const useMenuStore = defineStore({
   },
   state: () => ({
     menus: <IMenu[]>staticMenuList,
+    permissions: <string[]>["ROLE:ADMIN"], // setAuthorities ["ROLE:ADMIN"]
   }),
   getters: {
     /**
@@ -154,9 +155,9 @@ export const useMenuStore = defineStore({
      * @todo 需要一个去重
      */
     async fetchMenus() {
-      // await fetchPermission().then(res => {
-      //   this.menus = [...staticMenuList, ...res]
-      // })
+      return fetchPermission().then(({ data }) => {
+        // this.menus = [...staticMenuList, ...data]
+      })
     },
 
     /**

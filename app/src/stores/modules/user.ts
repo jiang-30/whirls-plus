@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import router from "@/router/index";
-import { fetchProfile } from "@/api/account";
+import { fetchProfile, fetchPermission } from "@/api/account";
 import type { IUserInfo } from "@/typings";
 import {
   useMenuStore,
@@ -54,10 +54,10 @@ export const useUserStore = defineStore({
     },
     // 获取用户权限信息
     fetchUserPermission() {
-      // return fetchProfile().then(res => {
-      //   this.permissions = res.permissions
-      //   this.userInfo = res.userInfo
-      // })
+      return fetchPermission().then(({ data }) => {
+        this.permissions = data.permissions
+        this.userInfo = data.userInfo
+      })
     },
     // 校验用户登录态
     async fetchCheck() {

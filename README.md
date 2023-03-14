@@ -8,6 +8,9 @@ whirls-plus 是一个 monorepo, 多个工程放到一个 git 仓库中;共享一
 - crud v-premission
 - crud row action 按钮排序
 - isAdmin
+- 用户登录返回 token 用户信息+
+- 用户信息 角色、部门、基础信息
+- 菜单 菜单[动态菜单]、权限
 - [ ] 事项 1
 
 ## 模块
