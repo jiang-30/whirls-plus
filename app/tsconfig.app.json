@@ -1,11 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": [
-    "auto-components.d.ts",
-    "auto-import.d.ts",
-    "src/**/*.vue",
-    "src/**/*.ts"
-  ],
+  "include": ["auto-components.d.ts", "auto-import.d.ts", "src/**/*.vue", "src/**/*.ts"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
@@ -21,7 +16,8 @@
       "crypto-js",
       "pinia-plugin-persist",
       "element-plus/global",
-      "@whirls/components/global"
+      "@whirls/components/global",
+      "leaflet"
     ]
   }
 }

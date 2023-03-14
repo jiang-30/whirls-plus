@@ -21,6 +21,14 @@ export const useModel = () => {
       {
         prop: 'deptId',
         label: '所属部门',
+        type: 'tree',
+        dictUrl: '/admin/dept/tree',
+        checkStrictly: true,
+        valueKey: 'id',
+        props: {
+          label: 'name',
+          value: 'id',
+        },
         rules: [{ required: true, message: '请选择部门', trigger: 'change' }],
       },
       {
@@ -28,6 +36,11 @@ export const useModel = () => {
         label: '角色',
         type: 'select',
         dictUrl: '/admin/role/list',
+        multiple: true,
+        props: {
+          value: 'id',
+          label: 'name',
+        },
         rules: [{ required: true, message: '请选择用户角色', trigger: 'change' }],
       },
       {

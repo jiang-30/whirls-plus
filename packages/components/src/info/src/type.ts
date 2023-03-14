@@ -30,6 +30,7 @@ export interface IInfoAttrs extends IElDescriptionsAttrs {
 export interface IInfoItemAttrs extends IElDescriptionsItemAttrs, IFieldBaseAttrs {
   span?: number
   isInfo?: boolean
+  props?: any
 }
 
 // Info

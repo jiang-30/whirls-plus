@@ -1,10 +1,11 @@
 import { computed } from 'vue'
 import type { TableProps, PaginationProps, DialogProps } from 'element-plus'
 import type { ICrudOption } from './type'
-import { omitProperty, tools } from '../../utils'
+import { omitProperty, tools, fetchDict, dictData } from '../../utils'
 
 export const useCrudOption = (option: ICrudOption) => {
   const defaultAttrs = tools.defaultAttrs
+  const defaultFieldAttrs = tools.defaultFieldAttrs
   // 分页组件 属性
   const __pageAttrs = computed<Partial<PaginationProps>>(() => {
     return omitProperty({
@@ -89,17 +90,30 @@ export const useCrudOption = (option: ICrudOption) => {
 
   // table column
   const __tableFields = computed(() => {
+    console.log('generate table fields')
+
     const tableFields: any[] = []
 
     option.fields.forEach((field: any) => {
       if (field.isTable !== false) {
+        let _dictData = field.dictData
+        if (field.dictUrl) {
+          fetchDict(field.dictUrl, defaultFieldAttrs.props ?? field.props)
+          _dictData = field.dictData ?? dictData(field.dictUrl).value
+        }
+
         tableFields.push({
           prop: field.prop,
           label: field.label,
           type: field.type,
+          multiple: field.multiple,
           isShow: field.isShow ?? true,
-          _formatter: field.formatter,
-          __dictData: field.dictData,
+          __props: {
+            ...(defaultFieldAttrs.props ?? {}),
+            ...(field.props ?? {}),
+          },
+          __formatter: field.formatter,
+          __dictData: _dictData,
           __elTableColumnAttrs: {
             // 'type',
             index: field.index,

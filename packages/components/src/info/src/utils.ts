@@ -1,9 +1,11 @@
 import { computed } from 'vue'
 import type { IInfoOption } from './type'
-import { omitProperty, tools } from '../../utils'
+import { omitProperty, tools, fetchDict, dictData } from '../../utils'
 
 export const useInfoOption = (option: IInfoOption) => {
   const defaultAttrs = tools.defaultAttrs
+  const defaultFieldAttrs = tools.defaultFieldAttrs
+
   // 属性
   const __infoAttrs = computed(() => {
     return omitProperty({
@@ -17,15 +19,27 @@ export const useInfoOption = (option: IInfoOption) => {
 
   // 数据项
   const __infoFields = computed(() => {
+    console.log('generate info fields')
     const fields: any[] = []
     option.fields.forEach(field => {
       if (field.isInfo !== false) {
+        let _dictData = field.dictData
+        if (field.dictUrl) {
+          fetchDict(field.dictUrl, defaultFieldAttrs.props ?? field.props)
+          _dictData = field.dictData ?? dictData(field.dictUrl).value
+        }
+
         fields.push({
           label: field.label,
           prop: field.prop,
           type: field.type,
           span: field.span ?? option.span ?? 24,
-          __dictData: field.dictData,
+          multiple: field.multiple,
+          __props: {
+            ...(defaultFieldAttrs.props ?? {}),
+            ...(field.props ?? {}),
+          },
+          __dictData: _dictData,
           __itemAttrs: {
             // span?: number;
             width: field.infoWidth ?? option.labelWidth,

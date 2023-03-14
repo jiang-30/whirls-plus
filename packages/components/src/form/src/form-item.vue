@@ -37,9 +37,9 @@
         >
           <el-option
             v-for="item in field.__dictData"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            :key="item[field.__props.value]"
+            :label="item[field.__props.label]"
+            :value="item[field.__props.value]"
           />
         </el-select>
 
@@ -49,8 +49,8 @@
           v-model="formModel[field.prop]"
           v-bind="field.__formControlAttrs"
         >
-          <el-radio v-for="item in field.__dictData" :label="item.value">
-            {{ item.label }}
+          <el-radio v-for="item in field.__dictData" :label="item[field.__props.value]">
+            {{ item[field.__props.label] }}
           </el-radio>
         </el-radio-group>
 
@@ -60,8 +60,8 @@
           v-model="formModel[field.prop]"
           v-bind="field.__formControlAttrs"
         >
-          <el-radio-button v-for="item in field.__dictData" :label="item.value">
-            {{ item.label }}
+          <el-radio-button v-for="item in field.__dictData" :label="item[field.__props.value]">
+            {{ item[field.__props.label] }}
           </el-radio-button>
         </el-radio-group>
 

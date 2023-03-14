@@ -188,7 +188,7 @@ export interface ICrudColumnAttrs extends IElTableColumnAttrs {
   dictKey?: string
   dictData?: IDictItem[]
   isTable?: boolean
-  isTableVisible?: boolean
+  isShow?: boolean // isVisible
   tableSlot?: boolean
 }
 

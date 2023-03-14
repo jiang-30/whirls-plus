@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue'
 import type { FormProps, FormItemProps } from 'element-plus'
-import type { IDictItem, IFieldBaseAttrs } from '../../typings'
+import type { IFieldBaseAttrs } from '../../typings'
 import type { formProps, formEmits } from './form'
 import type { searchFormProps, searchFormEmits } from './search-form'
 import type Form from './form.vue'
@@ -108,7 +108,44 @@ export interface IFormItemBaseAttrs {
   clearable?: boolean
 }
 
-export interface IFormItemTreeAttrs extends IFormItemBaseAttrs {
+export interface IControlSelectAttrs {
+  multiple?: boolean
+  valueKey?: string
+  // 'multiple',
+  // 'disabled',
+  // 'value-key',
+  // 'size',
+  // 'clearable',
+  // 'collapse-tags',
+  // 'collapse-tags-tooltip',
+  // 'multiple-limit',
+  // 'name',
+  // 'effect',
+  // 'autocomplete',
+  // 'placeholder',
+  // 'filterable',
+  // 'allow-create',
+  // 'filter-method',
+  // 'remote',
+  // 'remote-method',
+  // 'loading',
+  // 'loading-text',
+  // 'no-match-text',
+  // 'no-data-text',
+  // 'popper-class',
+  // 'reserve-keyword',
+  // 'default-first-option',
+  // 'teleported',
+  // 'persistent',
+  // 'automatic-dropdown',
+  // 'clear-icon',
+  // 'fit-input-width',
+  // 'suffix-icon',
+  // 'tag-type',
+  // 'validate-event',
+}
+
+export interface IFormItemTreeAttrs {
   // "empty-text",
   nodeKey?: string
   valueKey?: string
@@ -143,7 +180,10 @@ export interface IFormItemTreeAttrs extends IFormItemBaseAttrs {
   // "allow-drop",
 }
 
-export type IFormItemControlAttrs = IFormItemTreeAttrs
+export interface IFormItemControlAttrs
+  extends IFormItemBaseAttrs,
+    IControlSelectAttrs,
+    IFormItemTreeAttrs {}
 
 const inputNumberAttrsKey = [
   'min',

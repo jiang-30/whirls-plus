@@ -16,10 +16,6 @@ meta:
 <template>
   <PageContainer>
     <WCrud :option="option" :api="api">
-      <template #deptId="{ row }">
-        {{ row.dept.name }}
-      </template>
-
       <template #row-action="{ row }">
         <el-button text size="small" type="primary" @click="onResetPassword(row)">
           重置密码
@@ -36,7 +32,6 @@ import { fetchUpdatePassword } from '@/api/admin/user'
 import { ElMessageBox, ElNotification } from 'element-plus'
 
 const roleList = ref([])
-fetchQueryRoleList().then(({ data }) => {})
 
 const { option, api } = useModel()
 
